@@ -1,9 +1,6 @@
-#include "Game.hpp"
+#include <iostream>
 
-int main()
+int main ()
 {
-	Game game;
-	game.MainLoop();
 
-	return 0;
 }
