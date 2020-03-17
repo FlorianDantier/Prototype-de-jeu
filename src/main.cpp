@@ -1,8 +1,8 @@
-#include "Game.hpp"
+#include "Image.h"
 
 int main()
 {
-	Game game;
-	game.MainLoop();
+
+
 	return 0;
 }
