@@ -115,9 +115,7 @@ void Image::rotate(SDL_RendererFlip flip, float angle, const Vec2<int> & centre,
 
 void Image::display(SDL_Renderer* rendu) // N'éfface pas tout ?
 {
-    SDL_RenderClear(rendu);
     SDL_RenderCopy(rendu, m_ptexture, &m_source.rectangle, &m_destination.rectangle);
-    SDL_RenderPresent(rendu);
 }
 
 Image::~Image()
