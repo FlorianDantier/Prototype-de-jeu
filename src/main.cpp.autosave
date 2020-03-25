@@ -28,7 +28,7 @@ public:
 
 int main()
 {
-    Menu m;
+   
 
     void (A::*ptr)();
     ptr = &A::doSomething;
