@@ -15,21 +15,26 @@ Menu::Menu(int nbButton, const Rectangle &position, const std::string & pathImag
     assert(nbButton > 0);
     m_nbChoices = nbButton;
     m_choices = new Button[m_nbChoices];
-    m_choices[0] = Button(Rectangle(100, 100, 400, 200), "/home/florian/Cours/LIFAP4/projet_lifap4/data/button.png", renderer);
 }
 
 void Menu::display(SDL_Renderer *renderer)
 {
     m_background.display(renderer);
-    //m_choices[0].display(renderer);
+    for(unsigned int i = 0; i < m_nbChoices; i++)
+        m_choices[i].display(renderer);
 }
 
 void Menu::setChoice(const Button &btn, unsigned int indice)
 {
-    assert(indice >= 0);
+    assert(indice >= 0 && indice < m_nbChoices);
     m_choices[indice] = btn;
 }
 
+Button &Menu::getChoice(const unsigned int indice)
+{
+    assert(indice >= 0 && indice < m_nbChoices);
+    return m_choices[indice];
+}
 
 Menu::~Menu()
 {

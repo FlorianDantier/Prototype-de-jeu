@@ -3,20 +3,19 @@
 
 #include <SDL2/SDL.h>
 #include <string>
-#include <memory>
 #include "Rectangle.h"
 
 class Image
 {
 private:
     void testInOut(const Vec2 <unsigned int> & dimFenetre);
-    void loadImage(const std::string & cheminImage, SDL_Renderer* rendu);
+    void loadImage(SDL_Renderer* rendu);
 
-    std::string image;
     SDL_Surface* m_psurface;
     SDL_Texture* m_ptexture;
     Rectangle m_source;
     Rectangle m_destination;
+    std::string m_image;
 
 public:
     /*------CONSTRUCTEUR-------*/
@@ -36,7 +35,6 @@ public:
 
     /*------ " DRAW " -------*/
     void display(SDL_Renderer* rendu);
-
 
     ~Image();
 };

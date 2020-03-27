@@ -1,4 +1,3 @@
 obj/
 bin/
-src/Button.*
-src/Menu.*
+src/main.cpp

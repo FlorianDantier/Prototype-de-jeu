@@ -22,7 +22,9 @@ public:
     Menu();
     Menu(int nbButton, const Rectangle &position, const std::string &pathImageBackground, SDL_Renderer *renderer, bool isOpen = false);
     void display(SDL_Renderer* renderer);
-    void setChoice(const Button & btn, unsigned int indice);
+    void setChoice(const Button & btn, const unsigned int indice);
+    Button& getChoice(const unsigned int indice);
+
     ~Menu();
 };
 

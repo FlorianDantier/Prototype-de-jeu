@@ -21,6 +21,7 @@ Rectangle::Rectangle(const Vec2<int> position, const Vec2<int> &dimension)
     rectangle.h = dimension.y;
 }
 
+
 bool Rectangle::in(const Vec2<int> & point)
 {
     if(point.x > rectangle.x && point.y > rectangle.y
@@ -29,6 +30,17 @@ bool Rectangle::in(const Vec2<int> & point)
         return true;
     else
         return false;
+}
+
+bool Rectangle::in(const Rectangle &rect)
+{
+    if((rectangle.x >= rect.rectangle.x + rect.rectangle.w)      // trop à droite
+        || (rectangle.x + rectangle.w <= rect.rectangle.x) // trop à gauche
+        || (rectangle.y >= rect.rectangle.y + rect.rectangle.h) // trop en bas
+        || (rectangle.y + rectangle.h <= rect.rectangle.y))  // trop en haut
+              return false;
+       else
+              return true;
 }
 
 Vec2<int> Rectangle::centre()
