@@ -45,5 +45,5 @@ bool Rectangle::in(const Rectangle &rect)
 
 Vec2<int> Rectangle::centre()
 {
-    return Vec2(rectangle.x + rectangle.w/2, rectangle.y + rectangle.h/2);
+    return Vec2<int>(rectangle.x + rectangle.w/2, rectangle.y + rectangle.h/2);
 }
