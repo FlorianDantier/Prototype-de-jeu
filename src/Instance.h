@@ -6,49 +6,52 @@
 #include "Image.h"
 
 /**
- * @brief      This class describes an instance (House, Dungeon)
+ * @brief     La classe Instance représente une maison ou un dongeon
  */
 class Instance
 {
 	public:
 		/**
-		 * @brief      Constructs a new instance.
+		 * @brief      Construit une nouvelle instance
+		 *
+		 * @param      renderer  Le rendu
 		 */
 		Instance(SDL_Renderer *renderer);
 
 		/**
-		 * @brief      Constructs a new instance.
+		 * @brief      Construit une nouvelle instance
 		 *
-		 * @param[in]  position  instance location in the screen
-		 * @param[in]  door      door location in the the screen
+		 * @param[in]  position  position sur l'écran
+		 * @param[in]  door      position de la porte sur l'écran
+		 * @param      renderer  Le rendu
 		 */
 		Instance(const Rectangle &position, const Rectangle &door, SDL_Renderer *renderer);
 
 		/**
-		 * @brief      Destroys the object.
+		 * @brief      Détruit l'objet.
 		 * 
-		 * Free the memory allocate for the images
+		 * Désalloue la mémire pour les images
 		 */
 		~Instance();
 
 		/**
-		 * @brief      Gets the door.
+		 * @brief      Accesseur de m_door
 		 *
-		 * @return     The door rectangle
+		 * @return     Le rectangle m_door
 		 */
 		Rectangle getDoor() const { return m_door; }
 
 		/**
-		 * @brief      Gets the position.
+		 * @brief      Accesseur de m_position
 		 *
-		 * @return     The position rectangle
+		 * @return     Le rectangle m_position
 		 */
 		Rectangle getPos() const { return m_position; }
 
 		/**
-		 * @brief      Displays the instance passing the renderer in parameter
+		 * @brief      Affiche l'instance
 		 *
-		 * @param      renderer  The renderer
+		 * @param      renderer  Le rendu
 		 */
 		void display(SDL_Renderer *renderer);
 
