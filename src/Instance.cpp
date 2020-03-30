@@ -23,9 +23,11 @@ Instance::Instance(const Rectangle &position, const Rectangle &door, Vec2<unsign
 	m_doorInInstance = Rectangle(300, 430, 40, 40);
 
 	Image *houseIm = new Image("../data/images/House.png", position, winDim, renderer);
-	Image *doorIm = new Image("../data/images/door.png", m_door, winDim, renderer);
+	Image *doorIm = new Image("../data/images/door.png", m_doorInInstance, winDim, renderer);
+	Image *InDoorIm = new Image("../data/images/door.png", m_door, winDim, renderer);
 	m_instanceMap.push_back(houseIm);
 	m_instanceMap.push_back(doorIm);
+	m_instanceMap.push_back(InDoorIm);
 	m_chargeInterieur = false;
 
 	//ennemi (characters)
@@ -82,7 +84,7 @@ void Instance::display(SDL_Renderer *renderer)
 	{
 		//affiche d'une instance l'extérieur + la porte
 		m_instanceMap[0]->display(renderer);
-		m_instanceMap[1]->display(renderer);
+		m_instanceMap[2]->display(renderer);
 
 		for (long unsigned int i = 0; i< m_ennemis.size(); i++)
 		{
@@ -94,18 +96,57 @@ void Instance::display(SDL_Renderer *renderer)
 void Instance::TestPlayerTakeDoor(Player &p)
 {
 	Rectangle rectPlayer = p.getPos();
-	Rectangle TeleportPosition;
+
+	//Gère en même temps les colisions avec l'instance vue de l'extérieur
+	if (isCollision(p) && !m_chargeInterieur)
+	{
+		//std::cout << "collision entre le joueur et la maison" << std::endl;
+
+		//bord gauche su toit
+		if (rectPlayer.in(Rectangle(m_position.rectangle.x, m_position.rectangle.y, 5, m_position.rectangle.h/2)))
+		{
+			p.moove(2);
+		}
+
+		//bord droit du toit
+		if (rectPlayer.in(Rectangle(m_position.rectangle.x + m_position.rectangle.w - 5, m_position.rectangle.y + 40, 5, m_position.rectangle.h/2)))
+		{
+			std::cout << "collision avec le bord droit du toit" << std::endl;
+			p.moove(3);
+		}
+
+		//haut du toit
+		if (rectPlayer.in(Rectangle(m_position.rectangle.x, m_position.rectangle.y + 30, 150, 10)))
+		{
+			std::cout << "collision avec le haut du toit" << std::endl;
+			p.moove(0);
+		}
+
+		//bas du toit
+		if (rectPlayer.in(Rectangle(m_position.rectangle.x, m_position.rectangle.y + 70, m_position.rectangle.w, 40)))
+		{
+			std::cout << "collision avec le bas du toit" << std::endl;
+			p.moove(1);
+
+		}
+	}
+
+	
+	
+
+	//extérieur -> intérieur
 	if (rectPlayer.in(m_door) && !m_chargeInterieur)
 	{
 		std::cout << "position du joueur : " << rectPlayer.rectangle.x << ", " << rectPlayer.rectangle.y << std::endl;
 		std::cout << "passe la porte de l'extérieur" << std::endl;
 		
-		m_instanceMap[1]->move(m_doorInInstance, {640, 480});
-
-		TeleportPosition = Rectangle(m_doorInInstance.rectangle.x, m_doorInInstance.rectangle.y - 50, rectPlayer.rectangle.w, rectPlayer.rectangle.h);
+		//point d'arret
+		//step into
+		//m_instanceMap[1]->move(m_doorInInstance, {640, 480});
 		//téléportation du joueur vers une position proche de la porte intérieur de l'instance
-		p.setPos(TeleportPosition);
+		//p.setPos(Rectangle(m_doorInInstance.rectangle.x, m_doorInInstance.rectangle.y - 50, rectPlayer.rectangle.w, rectPlayer.rectangle.h));
 		m_chargeInterieur = true;
+		p.setPos(Rectangle(m_doorInInstance.rectangle.x, m_doorInInstance.rectangle.y - 50, rectPlayer.rectangle.w, rectPlayer.rectangle.h));
 	}
 
 	//si le joueur quitte sort par la porte de l'instance
@@ -115,14 +156,31 @@ void Instance::TestPlayerTakeDoor(Player &p)
 		std::cout << "position du joueur : " << rectPlayer.rectangle.x << ", " << rectPlayer.rectangle.y << std::endl;
 		std::cout << "passe la porte de l'intérieur" << std::endl;
 
-		m_instanceMap[1]->move(m_door, {640, 480});
-		
-		
-		TeleportPosition = Rectangle(m_door.rectangle.x, m_door.rectangle.y - 45, rectPlayer.rectangle.w, rectPlayer.rectangle.h);
+		//m_instanceMap[1]->move(m_door, {640, 480});
 		std::cout << "le personnage a été téléloporté de l'intérieur vers l'extérieur" << std::endl;
-		p.setPos(TeleportPosition);
 
+		p.setPos(Rectangle(m_door.rectangle.x, m_door.rectangle.y - 45, rectPlayer.rectangle.w, rectPlayer.rectangle.h));
 		m_chargeInterieur = false;
+		//p.setPos(Rectangle(m_door.rectangle.x, m_door.rectangle.y - 45, rectPlayer.rectangle.w, rectPlayer.rectangle.h));
 	}
 }
 
+bool Instance::isCollision(Player &p)
+{
+	//rectangle du joueur
+	SDL_Rect rectPlayer = p.getPos().rectangle;
+
+	//rectangle de la maison
+	SDL_Rect rectHouse = m_position.rectangle;
+	//std::cout << "position du joueur : " << (rectPlayer.x + rectPlayer.w) << ", " << rectPlayer.y << std::endl;
+	//std::cout << "position de la maison : " << rectHouse.x << ", " << rectHouse.y << std::endl;
+	//bord gauche de la maison
+	if ((rectHouse.x >= rectPlayer.x + rectPlayer.w)
+		|| (rectHouse.x + rectHouse.w - 20 <= rectPlayer.x)
+		|| (rectHouse.y >= rectPlayer.y + rectPlayer.h)
+		|| (rectHouse.y + rectHouse.h/2 <= rectPlayer.y))
+		return false;
+	else
+		return true;
+
+}
