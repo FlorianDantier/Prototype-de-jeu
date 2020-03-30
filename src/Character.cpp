@@ -182,7 +182,7 @@ void Character::display(SDL_Renderer *renderer)
 
 Vec2<int> Character::getVecPos()
 {
-    return Vec2(m_position.rectangle.x,m_position.rectangle.y);
+    return {m_position.rectangle.x,m_position.rectangle.y};
 }
 
 void Character::die()
