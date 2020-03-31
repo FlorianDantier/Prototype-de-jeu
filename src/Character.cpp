@@ -1,6 +1,8 @@
 #include "Character.h"
 #include <iostream>
 
+const Vec2<unsigned int> WINDOW_SIZE(640,480);
+
 Character::Character()
 {
     m_health = 100;
@@ -13,8 +15,10 @@ Character::Character()
     m_isLoaded = true;
 }
 
-Character::Character(const Rectangle & pos, unsigned int health, const std::string & imPath, SDL_Renderer *renderer, unsigned int level)
-    : m_imCharacter(imPath,pos,Vec2<unsigned int>(640,480),renderer)
+Character::Character(const Rectangle & pos, unsigned int health,
+                     const std::string & imPath, SDL_Renderer *renderer,
+                     unsigned int level)
+    : m_imCharacter(imPath,pos,WINDOW_SIZE,renderer)
 {
     m_position = pos;
     m_range.rectangle.x = pos.rectangle.x + pos.rectangle.w;
@@ -134,7 +138,7 @@ void Character::event(const SDL_Event &event,Character tabCharacter[])
         if (event.key.keysym.sym == SDLK_z)
         {
             move(Vec2<int>(0,-5));
-            m_imCharacter.move(m_position,Vec2<unsigned int>(640,480));
+            m_imCharacter.move(m_position,WINDOW_SIZE);
             crashWithEnemy(tabCharacter,event);
             updateRange(event);
             std::cout<<"touche z appuyée : le joueur monte"<<std::endl;
@@ -143,7 +147,7 @@ void Character::event(const SDL_Event &event,Character tabCharacter[])
         if (event.key.keysym.sym == SDLK_s)
         {
             move(Vec2<int>(0,5));
-            m_imCharacter.move(m_position,Vec2<unsigned int>(640,480));
+            m_imCharacter.move(m_position,WINDOW_SIZE);
             crashWithEnemy(tabCharacter,event);
             updateRange(event);
             std::cout<<"touche s appuyée : le joueur descend"<<std::endl;
@@ -151,7 +155,7 @@ void Character::event(const SDL_Event &event,Character tabCharacter[])
         if (event.key.keysym.sym == SDLK_q)
         {
             move(Vec2<int>(-5,0));
-            m_imCharacter.move(m_position,Vec2<unsigned int>(640,480));
+            m_imCharacter.move(m_position,WINDOW_SIZE);
             crashWithEnemy(tabCharacter,event);
             updateRange(event);
             std::cout<<"touche q appuyée : le joueur va a gauche"<<std::endl;
@@ -159,7 +163,7 @@ void Character::event(const SDL_Event &event,Character tabCharacter[])
         if (event.key.keysym.sym == SDLK_d)
         {
             move(Vec2<int>(5,0));
-            m_imCharacter.move(m_position,Vec2<unsigned int>(640,480));
+            m_imCharacter.move(m_position,WINDOW_SIZE);
             crashWithEnemy(tabCharacter,event);
             updateRange(event);
             std::cout<<"touche d appuyée : le joueur va a droite"<<std::endl;
@@ -177,7 +181,10 @@ void Character::event(const SDL_Event &event,Character tabCharacter[])
 
 void Character::display(SDL_Renderer *renderer)
 {
-    m_imCharacter.display(renderer);
+    if((m_alive)&&(m_isLoaded))
+    {
+        m_imCharacter.display(renderer);
+    }
 }
 
 Vec2<int> Character::getVecPos()
@@ -202,25 +209,25 @@ void Character::knockBack(const SDL_Event &event)
     if (event.key.keysym.sym == SDLK_z)
     {
         move(Vec2<int>(0,20));
-        m_imCharacter.move(m_position,Vec2<unsigned int>(640,480));
+        m_imCharacter.move(m_position,WINDOW_SIZE);
         std::cout<<"entite repoussee vers le bas"<<std::endl;
     }
     if (event.key.keysym.sym == SDLK_s)
     {
         move(Vec2<int>(0,-20));
-        m_imCharacter.move(m_position,Vec2<unsigned int>(640,480));
+        m_imCharacter.move(m_position,WINDOW_SIZE);
         std::cout<<"entite repoussee vers le haut"<<std::endl;
     }
     if (event.key.keysym.sym == SDLK_q)
     {
         move(Vec2<int>(20,0));
-        m_imCharacter.moveRight(Vec2<unsigned int>(640,480));
+        m_imCharacter.move(m_position,WINDOW_SIZE);
         std::cout<<"entite repoussee vers la droite"<<std::endl;
     }
     if (event.key.keysym.sym == SDLK_d)
     {
         move(Vec2<int>(-20,0));
-        m_imCharacter.move(m_position,Vec2<unsigned int>(640,480));
+        m_imCharacter.move(m_position,WINDOW_SIZE);
         std::cout<<"entite repoussee vers la gauche"<<std::endl;
     }
 }
@@ -301,3 +308,4 @@ bool Character::isLoaded()
 {
     return m_isLoaded;
 }
+

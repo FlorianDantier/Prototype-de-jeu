@@ -2,6 +2,7 @@
 #define CHARACTER_H
 //#include "Weapon.h"
 #include "Image.h"
+#include <vector>
 
 //enlever la struct Weapon après la création de la classe Weapon
 struct Weapon
@@ -26,7 +27,9 @@ class Character
     public:
     Weapon m_weapon;
     Character(); // constructeur par défault
-    Character(const Rectangle & pos, const unsigned int health, const std::string & imPath,SDL_Renderer *renderer, const unsigned int level);
+    Character(const Rectangle & pos, const unsigned int health,
+              const std::string & imPath,SDL_Renderer *renderer,
+              const unsigned int level);
     //constructeur avec pos,health et une Image en paramètre
     void move(const Vec2<int> & direction);
     //les 8 directions possibles en Vec2<int>
