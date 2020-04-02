@@ -1,33 +1,51 @@
 #include "Instance.h"
 #include <iostream>
 
-Instance::Instance(SDL_Renderer *renderer) : m_position(500, 500, 500, 500), m_door(20, 0, 30, 70)
-{
-	Image *houseIm = new Image("../data/images/House.png", renderer);
-	m_instanceMap.push_back(houseIm);
-	m_chargeInterieur = false;
-	m_doorInInstance = Rectangle(20, 0, 30, 70);
-}
-
-Instance::Instance(const Rectangle &position, const Rectangle &door, Vec2<unsigned int> winDim, SDL_Renderer *renderer)
+Instance::Instance(SDL_Renderer *renderer) : m_rectInstance(500, 500, 500, 500), m_rectDoorOutInstance(20, 0, 30, 70), m_rectDoorInInstance(300, 0, 30, 70)
 {
 	if (renderer == NULL)
 	{
-		std::cerr << "Erreur dans l'appel au constructeur d'Instance, renderer est NULL" << std::endl;
+		std::cerr << "Erreur dans le constructeur d'Instance, renderer est NULL" << std::endl;
 		SDL_Quit();
 		exit(1);
 	}
-	m_position.rectangle = position.rectangle;
-	m_door.rectangle = door.rectangle;
-	//apparition dans l'instance en bas au centre de l'écran
-	m_doorInInstance = Rectangle(300, 430, 40, 40);
+	Vec2<unsigned int> windowDimensions = {WIDTH, HEIGHT};
 
-	Image *houseIm = new Image("../data/images/House.png", position, winDim, renderer);
-	Image *doorIm = new Image("../data/images/door.png", m_doorInInstance, winDim, renderer);
-	Image *InDoorIm = new Image("../data/images/door.png", m_door, winDim, renderer);
-	m_instanceMap.push_back(houseIm);
-	m_instanceMap.push_back(doorIm);
-	m_instanceMap.push_back(InDoorIm);
+	m_instanceMap[0] = new Image("../data/images/house.png", m_rectInstance, windowDimensions, renderer);
+	m_instanceMap[1] = new Image("../data/images/door.png", m_rectDoorInInstance, windowDimensions, renderer);
+	m_instanceMap[2] = new Image("../data/images/door.png", m_rectDoorOutInstance, windowDimensions, renderer);
+
+	m_chargeInterieur = false;
+	m_rectDoorInInstance = Rectangle(20, 0, 30, 70);
+}
+
+Instance::Instance(const std::string &pathImageInstance, const std::string &pathImageDoor, const Rectangle &rectInstance, const Rectangle &rectDoorOutInstance, SDL_Renderer *renderer)
+{
+	if (renderer == NULL)
+	{
+		std::cerr << "Erreur dans le constructeur d'Instance, renderer est NULL" << std::endl;
+		SDL_Quit();
+		exit(1);
+	}
+
+	m_rectInstance = rectInstance;
+	std::cout << "position de l'instance : " << m_rectInstance.rectangle.x << ", " << m_rectInstance.rectangle.y << std::endl;
+	m_rectDoorOutInstance = rectDoorOutInstance;
+
+	SDL_Rect SDL_rectDoorOutInstance = rectDoorOutInstance.rectangle;
+	std::cout << "position de rectDoorOutInstance : " << SDL_rectDoorOutInstance.x << ", " << SDL_rectDoorOutInstance.y << std::endl;
+	std::cout << "dimensions de rectDoorOutInstance  : " << SDL_rectDoorOutInstance.w << ", " << SDL_rectDoorOutInstance.h << std::endl; 
+	//la porte intérieur a les mêmes dimensions que la porte extérieur, mais elle est place est bas de l'écran
+	m_rectDoorInInstance = Rectangle(WIDTH/2 - SDL_rectDoorOutInstance.w, HEIGHT - m_rectDoorOutInstance.rectangle.h, 
+		SDL_rectDoorOutInstance.w, SDL_rectDoorOutInstance.h);
+
+	Vec2<unsigned int> windowDimensions = {WIDTH, HEIGHT};
+	//remplissage des 3 images
+	//std::cout << "dimensions de l'instance : " << m_rectInstance.rectangle.w << ", " << m_rectInstance.rectangle.h << std::endl;
+	m_instanceMap[0] = new Image(pathImageInstance, m_rectInstance, windowDimensions, renderer); //image de l'instance
+	m_instanceMap[1] = new Image(pathImageDoor, m_rectDoorInInstance, windowDimensions, renderer); //porte d'entrée
+	m_instanceMap[2] = new Image(pathImageDoor, m_rectDoorOutInstance, windowDimensions, renderer); //porte de sortie
+
 	m_chargeInterieur = false;
 
 	//ennemi (characters)
@@ -48,10 +66,9 @@ Instance::Instance(const Rectangle &position, const Rectangle &door, Vec2<unsign
 
 Instance::~Instance()
 {
-	for (auto i = m_instanceMap.begin(); i != m_instanceMap.end(); ++i)
+	for (int i = 0; i < 3; i++)
 	{
-		Image *image = *i;
-		delete image;
+		delete m_instanceMap[i];
 	}
 
 	for (auto i = m_ennemis.begin(); i != m_ennemis.end(); ++i)
@@ -65,14 +82,13 @@ void Instance::display(SDL_Renderer *renderer)
 {
 	if (m_chargeInterieur)
 	{
-		//std::cout << "doit charger l'intérieur" << std::endl;
 		//std::cout << "charge interieur" << std::endl;
-		SDL_Rect rectangle = Rectangle(0, 0, 640, 480).rectangle;
-		SDL_RenderFillRect(renderer, &rectangle);
+		SDL_Rect rectangleFill = {0, 0, WIDTH, HEIGHT};
+		SDL_RenderFillRect(renderer, &rectangleFill);
 
-		//affiche de la porte de sortie
+		//affichage de la porte de sortie
 		m_instanceMap[1]->display(renderer);
-		//SDL_RenderFillRects(SDL_Renderer *renderer, const SDL_Rect *rects, int count)
+
 		//affiche des ennemis
 		for (long unsigned int i = 0; i < m_ennemis.size(); i++)
 		{
@@ -82,8 +98,10 @@ void Instance::display(SDL_Renderer *renderer)
 	}
 	else
 	{
-		//affiche d'une instance l'extérieur + la porte
+		//affichage de l' instance
 		m_instanceMap[0]->display(renderer);
+
+		//affichage de la porte d'entrée
 		m_instanceMap[2]->display(renderer);
 
 		for (long unsigned int i = 0; i< m_ennemis.size(); i++)
@@ -93,94 +111,63 @@ void Instance::display(SDL_Renderer *renderer)
 	}
 }
 
-void Instance::TestPlayerTakeDoor(Player &p)
+void Instance::TestPlayerTakeDoor(Character &character)
 {
-	Rectangle rectPlayer = p.getPos();
+	Rectangle rectCharacter = character.getPos();
 
-	//Gère en même temps les colisions avec l'instance vue de l'extérieur
-	if (isCollision(p) && !m_chargeInterieur)
+	//COLLISIONS
+	if (!m_chargeInterieur)
 	{
 		//std::cout << "collision entre le joueur et la maison" << std::endl;
 
-		//bord gauche su toit
-		if (rectPlayer.in(Rectangle(m_position.rectangle.x, m_position.rectangle.y, 5, m_position.rectangle.h/2)))
+		//bord gauche du toit
+		if (rectCharacter.in(Rectangle(m_rectInstance.rectangle.x, m_rectInstance.rectangle.y, 5, m_rectInstance.rectangle.h/2)))
 		{
-			p.moove(2);
+			character.move({-1, 0});
 		}
 
 		//bord droit du toit
-		if (rectPlayer.in(Rectangle(m_position.rectangle.x + m_position.rectangle.w - 5, m_position.rectangle.y + 40, 5, m_position.rectangle.h/2)))
+		if (rectCharacter.in(Rectangle(m_rectInstance.rectangle.x + m_rectInstance.rectangle.w - 20, m_rectInstance.rectangle.y + 30, 5, 40)))
 		{
 			std::cout << "collision avec le bord droit du toit" << std::endl;
-			p.moove(3);
+			character.move({1, 0});
 		}
 
 		//haut du toit
-		if (rectPlayer.in(Rectangle(m_position.rectangle.x, m_position.rectangle.y + 30, 150, 10)))
+		if (rectCharacter.in(Rectangle(m_rectInstance.rectangle.x, m_rectInstance.rectangle.y + 30, 150, 10)))
 		{
 			std::cout << "collision avec le haut du toit" << std::endl;
-			p.moove(0);
+			character.move({0, -1});
 		}
 
 		//bas du toit
-		if (rectPlayer.in(Rectangle(m_position.rectangle.x, m_position.rectangle.y + 70, m_position.rectangle.w, 40)))
+		if (rectCharacter.in(Rectangle(m_rectInstance.rectangle.x, m_rectInstance.rectangle.y + 70, m_rectInstance.rectangle.w, 40)))
 		{
 			std::cout << "collision avec le bas du toit" << std::endl;
-			p.moove(1);
+			character.move({0, 1});
 
 		}
 	}
-
-	
 	
 
 	//extérieur -> intérieur
-	if (rectPlayer.in(m_door) && !m_chargeInterieur)
+	if (rectCharacter.in(m_rectDoorOutInstance) && !m_chargeInterieur)
 	{
-		std::cout << "position du joueur : " << rectPlayer.rectangle.x << ", " << rectPlayer.rectangle.y << std::endl;
-		std::cout << "passe la porte de l'extérieur" << std::endl;
+		std::cout << "position du joueur : " << rectCharacter.rectangle.x << ", " << rectCharacter.rectangle.y << std::endl;
+		std::cout << "passage de l'extérieur à l'intérieur" << std::endl;
 		
-		//point d'arret
-		//step into
-		//m_instanceMap[1]->move(m_doorInInstance, {640, 480});
-		//téléportation du joueur vers une position proche de la porte intérieur de l'instance
-		//p.setPos(Rectangle(m_doorInInstance.rectangle.x, m_doorInInstance.rectangle.y - 50, rectPlayer.rectangle.w, rectPlayer.rectangle.h));
 		m_chargeInterieur = true;
-		p.setPos(Rectangle(m_doorInInstance.rectangle.x, m_doorInInstance.rectangle.y - 50, rectPlayer.rectangle.w, rectPlayer.rectangle.h));
+		character.setPos(Rectangle(m_rectDoorInInstance.rectangle.x, m_rectDoorInInstance.rectangle.y - 50, rectCharacter.rectangle.w, rectCharacter.rectangle.h));
 	}
 
 	//si le joueur quitte sort par la porte de l'instance
-	if (m_chargeInterieur && rectPlayer.in(m_doorInInstance))
+	if (m_chargeInterieur && rectCharacter.in(m_rectDoorInInstance))
 	{
 
-		std::cout << "position du joueur : " << rectPlayer.rectangle.x << ", " << rectPlayer.rectangle.y << std::endl;
-		std::cout << "passe la porte de l'intérieur" << std::endl;
+		std::cout << "position du joueur : " << rectCharacter.rectangle.x << ", " << rectCharacter.rectangle.y << std::endl;
+		std::cout << "passage de l'intérieur à l'extérieur" << std::endl;
 
-		//m_instanceMap[1]->move(m_door, {640, 480});
-		std::cout << "le personnage a été téléloporté de l'intérieur vers l'extérieur" << std::endl;
-
-		p.setPos(Rectangle(m_door.rectangle.x, m_door.rectangle.y - 45, rectPlayer.rectangle.w, rectPlayer.rectangle.h));
 		m_chargeInterieur = false;
-		//p.setPos(Rectangle(m_door.rectangle.x, m_door.rectangle.y - 45, rectPlayer.rectangle.w, rectPlayer.rectangle.h));
+		character.setPos(Rectangle(m_rectDoorOutInstance.rectangle.x - rectCharacter.rectangle.w, m_rectDoorOutInstance.rectangle.y, rectCharacter.rectangle.w, rectCharacter.rectangle.h));
 	}
-}
-
-bool Instance::isCollision(Player &p)
-{
-	//rectangle du joueur
-	SDL_Rect rectPlayer = p.getPos().rectangle;
-
-	//rectangle de la maison
-	SDL_Rect rectHouse = m_position.rectangle;
-	//std::cout << "position du joueur : " << (rectPlayer.x + rectPlayer.w) << ", " << rectPlayer.y << std::endl;
-	//std::cout << "position de la maison : " << rectHouse.x << ", " << rectHouse.y << std::endl;
-	//bord gauche de la maison
-	if ((rectHouse.x >= rectPlayer.x + rectPlayer.w)
-		|| (rectHouse.x + rectHouse.w - 20 <= rectPlayer.x)
-		|| (rectHouse.y >= rectPlayer.y + rectPlayer.h)
-		|| (rectHouse.y + rectHouse.h/2 <= rectPlayer.y))
-		return false;
-	else
-		return true;
-
 }
