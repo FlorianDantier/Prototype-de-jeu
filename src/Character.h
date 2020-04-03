@@ -113,6 +113,8 @@ class Character
     // charge ou décharge l'entité
     bool isLoaded() const;
     // retour si l'entité est chargée
+    bool testInOut();
+    //vérifie que le character ne sort pas de l'écran
 };
 
 

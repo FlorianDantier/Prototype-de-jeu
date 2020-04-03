@@ -1,5 +1,6 @@
 #include "Player.h"
 
+
 Player::Player()
 {
     m_name = "unknown player";
@@ -12,11 +13,22 @@ Player::Player()
         m_inventory.m_tabEquip[i].m_type=other;
         m_inventory.m_tabEquip[i].m_index=500;
         m_inventory.m_tabEquip[i].m_isLooted=true;
+        m_inventory.m_tabEquip[i].m_destroyed=true;
     }
     m_armor.m_defense = 10;
     m_defense += m_armor.m_defense;
     m_tabEquipped[0].m_nameEquipment="beginner weapon";
+    m_tabEquipped[0].m_index=0;
+    m_tabEquipped[0].m_type=weapon;
+    m_tabEquipped[0].m_value=20;
+    m_tabEquipped[0].m_isLooted=true;
+    m_tabEquipped[0].m_destroyed=false;
     m_tabEquipped[1].m_nameEquipment="beginner armor";
+    m_tabEquipped[1].m_index=1;
+    m_tabEquipped[1].m_type=armor;
+    m_tabEquipped[1].m_value=10;
+    m_tabEquipped[1].m_isLooted=true;
+    m_tabEquipped[1].m_destroyed=false;
     m_inventory.m_numEmptySlot = 0;
 }
 
@@ -36,7 +48,17 @@ Player::Player(const std::string & name,PlayerClass Class,const Rectangle & pos,
     }
     m_armor.m_defense = 10;
     m_tabEquipped[0].m_nameEquipment="beginner weapon";
+    m_tabEquipped[0].m_index=0;
+    m_tabEquipped[0].m_type=weapon;
+    m_tabEquipped[0].m_value=20;
+    m_tabEquipped[0].m_isLooted=true;
+    m_tabEquipped[0].m_destroyed=false;
     m_tabEquipped[1].m_nameEquipment="beginner armor";
+    m_tabEquipped[1].m_index=1;
+    m_tabEquipped[1].m_type=armor;
+    m_tabEquipped[1].m_value=10;
+    m_tabEquipped[1].m_isLooted=true;
+    m_tabEquipped[1].m_destroyed=false;
     m_inventory.m_numEmptySlot = 0;
     m_name = name;
     m_class = Class;
@@ -44,14 +66,17 @@ Player::Player(const std::string & name,PlayerClass Class,const Rectangle & pos,
     {
         m_strengh += 10;
         m_health += 20;
+        m_maxHealth += 20;
     }
     if (m_class==archer)
     {
         m_health -= 10;
+        m_maxHealth -= 10;
     }
     if (m_class==mage)
     {
         m_health -= 10;
+        m_maxHealth -= 10;
     }
 }
 
@@ -77,7 +102,7 @@ void Player::levelup()
     std::cout<<"Level up ! Niveau actuel : "<<m_level<<std::endl;
 }
 
-void Player::Loot(Equipment tabObject[],unsigned int sizeTab)
+void Player::Loot(Object tabObject[],unsigned int sizeTab)
 {
     for (unsigned int i=0;i<sizeTab;i++)
     {
@@ -89,6 +114,7 @@ void Player::Loot(Equipment tabObject[],unsigned int sizeTab)
                 {
                     tabObject[i].m_isLooted=true;
                     m_inventory.m_tabEquip[m_inventory.m_numEmptySlot]=tabObject[i];
+                    std::cout<<"Objet "<<tabObject[i].m_nameEquipment<<" obtenu !"<<std::endl;
                     m_inventory.m_tabEquip[m_inventory.m_numEmptySlot].m_index= m_inventory.m_numEmptySlot;
                     m_inventory.m_numEmptySlot++;
                 }
@@ -102,23 +128,86 @@ void Player::Loot(Equipment tabObject[],unsigned int sizeTab)
 
 }
 
-void Player::Equip(Equipment & equipment)
+void Player::Equip(Object & equipment)
 {
-    Equipment temp;
-    if(equipment.m_type==weapon)
+    if(!equipment.m_destroyed)
     {
-        m_tabEquipped[0].m_index=equipment.m_index;
-        temp=m_tabEquipped[0];
-        m_tabEquipped[0]=equipment;
-        m_inventory.m_tabEquip[temp.m_index]=temp;
+        if(equipment.m_nameEquipment!="no object")
+        {
+            Object temp;
+            if(equipment.m_type==weapon)
+            {
+                m_tabEquipped[0].m_index=equipment.m_index;
+                temp=m_tabEquipped[0];
+                m_tabEquipped[0]=equipment;
+                m_weapon.m_damage = equipment.m_value;
+                std::cout<<"Objet "<<equipment.m_nameEquipment<<" équipé !"<<std::endl;
+                m_inventory.m_tabEquip[temp.m_index]=temp;
+            }
+            else if(equipment.m_type==armor)
+            {
+                m_tabEquipped[1].m_index=equipment.m_index;
+                temp=m_tabEquipped[1];
+                m_tabEquipped[1]=equipment;
+                m_defense -= m_armor.m_defense;
+                m_armor.m_defense = equipment.m_value;
+                m_defense += m_armor.m_defense;
+                std::cout<<"Objet "<<equipment.m_nameEquipment<<" équipé !"<<std::endl;
+                m_inventory.m_tabEquip[temp.m_index]=temp;
+            }
+            else
+            {
+                std::cout<<"Objet non équipable !"<<std::endl;
+            }
+        }
     }
-    else if(equipment.m_type==armor)
+}
+
+void Player::Use(Object &consumable)
+{
+    if(consumable.m_nameEquipment!="no object")
     {
-        m_tabEquipped[1].m_index=equipment.m_index;
-        temp=m_tabEquipped[1];
-        m_tabEquipped[1]=equipment;
-        m_inventory.m_tabEquip[temp.m_index]=temp;
+        if((consumable.m_type==other)&&(!consumable.m_destroyed))
+        {
+            if(m_health!=m_maxHealth)
+            {
+                unsigned int healAmount = consumable.m_value;
+                if(m_health + healAmount > m_maxHealth)
+                {
+                    m_health = m_maxHealth;
+                }
+                else
+                {
+                    m_health += healAmount;
+                }
+                std::cout<<"Objet "<<consumable.m_nameEquipment<<" utilisé !"<<std::endl;
+                std::cout<<"Vous avez "<<m_health<<" hp"<<std::endl;
+                consumable.m_destroyed = true;
+                deleteObject(consumable.m_index);
+                std::cout<<"Objet "<<consumable.m_nameEquipment<<" détruit !"<<std::endl;
+            }
+            else
+            {
+               std::cout<<"Vous avez déjà tous vos points de vies !"<<std::endl;
+            }
+        }
+        else
+        {
+            std::cout<<"Objet non utilisable !"<<std::endl;
+        }
     }
+}
+
+void Player::deleteObject(unsigned int index)
+{
+    for (unsigned int i=index;i<15;i++)
+    {
+            m_inventory.m_tabEquip[i]=m_inventory.m_tabEquip[i+1];
+            m_inventory.m_tabEquip[i].m_index--;
+    }
+     m_inventory.m_tabEquip[15].m_nameEquipment="no object";
+     m_inventory.m_tabEquip[15].m_destroyed=true;
+     m_inventory.m_numEmptySlot--;
 }
 
 
@@ -134,3 +223,23 @@ void Player::openInventory() const
         }
     }
 }
+
+std::string Player::getName() const
+{
+    return m_name;
+}
+
+std::string Player::getNameClass() const
+{
+    switch(m_class)
+    {
+
+    case 0:
+        return "Warrior";
+    case 1:
+        return "Archer";
+    case 2:
+        return "Mage";
+    }
+}
+
