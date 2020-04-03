@@ -41,15 +41,15 @@ class Character
     //reçoit des dégats et perd de la vie
     void dealDamage(Character & c_ennemi);
     // calcule les dégats infligés en fonction de l'ennemi et inflige des dégats s'il est à portée
-    unsigned int getHealth();
+    unsigned int getHealth() const;
     // retourne la vie du character
-    unsigned int getMaxHealth();
+    unsigned int getMaxHealth() const;
     //retourne la vie maximale du character
-    unsigned int getLevel();
+    unsigned int getLevel() const;
     // retourne son level
-    unsigned int getDefense();
+    unsigned int getDefense() const;
     // retourne sa défense
-    unsigned int getStrengh();
+    unsigned int getStrengh() const;
     // retourne sa force d'attaque physique
     Rectangle getRange() const;
     //retourne sa portée sous forme de rectangle
@@ -65,29 +65,53 @@ class Character
     //modifie la force d'attaque physique
     void setRange(const Rectangle & range);
     //modifie le rectangle de la portée
-    void event(const SDL_Event & event,Character tabCharacter[]);
-    //prend en compte un evènement clavier
+    void updatePlayerMoveRight(Character tabCharacter[],unsigned int sizeTab);
+    //le joueur bouge à droite + gestion de toutes les mise à jour suite à cette action
+    void updatePlayerMoveLeft(Character tabCharacter[],unsigned int sizeTab);
+    //le joueur bouge à droite + gestion de toutes les mise à jour suite à cette action
+    void updatePlayerMoveTop(Character tabCharacter[],unsigned int sizeTab);
+    //le joueur bouge à droite + gestion de toutes les mise à jour suite à cette action
+    void updatePlayerMoveBottom(Character tabCharacter[],unsigned int sizeTab);
+    //le joueur bouge à droite + gestion de toutes les mise à jour suite à cette action
     void display(SDL_Renderer *renderer);
     //affiche le character à l'écran
     Vec2<int> getVecPos();
     //renvoi la position sous forme de Vec2
     void die();
     //tue le personnage
-    bool isAlive();
+    bool isAlive() const;
     //renvoi true si le character est vivant
-    void knockBack(const SDL_Event & event);
-    // repousse quand touché
+    void knockBackRight();
+    //repousse vers la droite
+    void knockBackLeft();
+    //repousse vers la gauche
+    void knockBackTop();
+    //repousse vers le haut
+    void knockBackBottom();
+    //repousse vers le bas
     void kill(Character & enemy);
     //tue une entité quand sa vie est à 0
     void attack(Character & enemy);
     //attaque lorsque la touche d'attaque est enfoncée
-    void updateRange(const SDL_Event & event);
-    //mise à jour de la portée
-    void crashWithEnemy(Character tabCharacter[],const SDL_Event &event);
-    // collision avec un ennemi, perd de la vie et est repoussé
+    void updateRangeRight();
+    //mise à jour de la portée à droite
+    void updateRangeLeft();
+    //mise à jour de la portée à gauche
+    void updateRangeTop();
+    //mise à jour de la portée en haut
+    void updateRangeBottom();
+    //mise à jour de la portée en bas
+    void crashWithEnemyOnRight(Character tabCharacter[],unsigned int sizeTab);
+    // collision avec un ennemi, perd de la vie et est repoussé vers la gauche
+    void crashWithEnemyOnLeft(Character tabCharacter[],unsigned int sizeTab);
+    // collision avec un ennemi, perd de la vie et est repoussé vers la droite
+    void crashWithEnemyOnBottom(Character tabCharacter[],unsigned int sizeTab);
+    // collision avec un ennemi, perd de la vie et est repoussé vers le haut
+    void crashWithEnemyOnTop(Character tabCharacter[],unsigned int sizeTab);
+    // collision avec un ennemi, perd de la vie et est repoussé vers le bas
     void setLoaded(bool load);
     // charge ou décharge l'entité
-    bool isLoaded();
+    bool isLoaded() const;
     // retour si l'entité est chargée
 };
 

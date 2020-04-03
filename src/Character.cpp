@@ -71,27 +71,27 @@ void Character::dealDamage(Character & c_enemy)
     }
 }
 
-unsigned int Character::getHealth()
+unsigned int Character::getHealth() const
 {
     return m_health;
 }
 
-unsigned int Character::getMaxHealth()
+unsigned int Character::getMaxHealth() const
 {
     return m_maxHealth;
 }
 
-unsigned int Character::getLevel()
+unsigned int Character::getLevel() const
 {
     return m_level;
 }
 
-unsigned int Character::getDefense()
+unsigned int Character::getDefense() const
 {
     return m_defense;
 }
 
-unsigned int Character::getStrengh()
+unsigned int Character::getStrengh() const
 {
     return m_strengh;
 }
@@ -131,52 +131,40 @@ void Character::setRange(const Rectangle &range)
     m_range = range;
 }
 
-void Character::event(const SDL_Event &event,Character tabCharacter[])
+void Character::updatePlayerMoveRight(Character tabCharacter[],unsigned int sizeTab)
 {
-    if((m_alive)&&(m_isLoaded))
-    {
-        if (event.key.keysym.sym == SDLK_z)
-        {
-            move(Vec2<int>(0,-5));
-            m_imCharacter.move(m_position,WINDOW_SIZE);
-            crashWithEnemy(tabCharacter,event);
-            updateRange(event);
-            std::cout<<"touche z appuyée : le joueur monte"<<std::endl;
+    move(Vec2<int>(5,0));
+    m_imCharacter.move(m_position,WINDOW_SIZE);
+    crashWithEnemyOnRight(tabCharacter,sizeTab);
+    updateRangeRight();
+    std::cout<<"touche d appuyée : le joueur va a droite"<<std::endl;
+}
 
-        }
-        if (event.key.keysym.sym == SDLK_s)
-        {
-            move(Vec2<int>(0,5));
-            m_imCharacter.move(m_position,WINDOW_SIZE);
-            crashWithEnemy(tabCharacter,event);
-            updateRange(event);
-            std::cout<<"touche s appuyée : le joueur descend"<<std::endl;
-        }
-        if (event.key.keysym.sym == SDLK_q)
-        {
-            move(Vec2<int>(-5,0));
-            m_imCharacter.move(m_position,WINDOW_SIZE);
-            crashWithEnemy(tabCharacter,event);
-            updateRange(event);
-            std::cout<<"touche q appuyée : le joueur va a gauche"<<std::endl;
-        }
-        if (event.key.keysym.sym == SDLK_d)
-        {
-            move(Vec2<int>(5,0));
-            m_imCharacter.move(m_position,WINDOW_SIZE);
-            crashWithEnemy(tabCharacter,event);
-            updateRange(event);
-            std::cout<<"touche d appuyée : le joueur va a droite"<<std::endl;
-        }
-        if (event.key.keysym.sym == SDLK_SPACE)
-        {
-            std::cout<<"Le joueur attaque !"<<std::endl;
-            for(unsigned int i=0;i<1;i++)
-            {
-                attack(tabCharacter[i]);
-            }
-        }
-    }
+void Character::updatePlayerMoveLeft(Character tabCharacter[],unsigned int sizeTab)
+{
+    move(Vec2<int>(-5,0));
+    m_imCharacter.move(m_position,WINDOW_SIZE);
+    crashWithEnemyOnLeft(tabCharacter,sizeTab);
+    updateRangeLeft();
+    std::cout<<"touche q appuyée : le joueur va a gauche"<<std::endl;
+}
+
+void Character::updatePlayerMoveTop(Character tabCharacter[],unsigned int sizeTab)
+{
+    move(Vec2<int>(0,-5));
+    m_imCharacter.move(m_position,WINDOW_SIZE);
+    crashWithEnemyOnTop(tabCharacter,sizeTab);
+    updateRangeTop();
+    std::cout<<"touche z appuyée : le joueur monte"<<std::endl;
+}
+
+void Character::updatePlayerMoveBottom(Character tabCharacter[],unsigned int sizeTab)
+{
+    move(Vec2<int>(0,5));
+    m_imCharacter.move(m_position,WINDOW_SIZE);
+    crashWithEnemyOnBottom(tabCharacter,sizeTab);
+    updateRangeBottom();
+    std::cout<<"touche s appuyée : le joueur descend"<<std::endl;
 }
 
 void Character::display(SDL_Renderer *renderer)
@@ -199,37 +187,37 @@ void Character::die()
     m_isLoaded = false;
 }
 
-bool Character::isAlive()
+bool Character::isAlive() const
 {
     return m_alive;
 }
 
-void Character::knockBack(const SDL_Event &event)
+void Character::knockBackRight()
 {
-    if (event.key.keysym.sym == SDLK_z)
-    {
-        move(Vec2<int>(0,20));
-        m_imCharacter.move(m_position,WINDOW_SIZE);
-        std::cout<<"entite repoussee vers le bas"<<std::endl;
-    }
-    if (event.key.keysym.sym == SDLK_s)
-    {
-        move(Vec2<int>(0,-20));
-        m_imCharacter.move(m_position,WINDOW_SIZE);
-        std::cout<<"entite repoussee vers le haut"<<std::endl;
-    }
-    if (event.key.keysym.sym == SDLK_q)
-    {
-        move(Vec2<int>(20,0));
-        m_imCharacter.move(m_position,WINDOW_SIZE);
-        std::cout<<"entite repoussee vers la droite"<<std::endl;
-    }
-    if (event.key.keysym.sym == SDLK_d)
-    {
-        move(Vec2<int>(-20,0));
-        m_imCharacter.move(m_position,WINDOW_SIZE);
-        std::cout<<"entite repoussee vers la gauche"<<std::endl;
-    }
+    move(Vec2<int>(20,0));
+    m_imCharacter.move(m_position,WINDOW_SIZE);
+    std::cout<<"entite repoussee vers la droite"<<std::endl;
+}
+
+void Character::knockBackLeft()
+{
+    move(Vec2<int>(-20,0));
+    m_imCharacter.move(m_position,WINDOW_SIZE);
+    std::cout<<"entite repoussee vers la gauche"<<std::endl;
+}
+
+void Character::knockBackTop()
+{
+    move(Vec2<int>(0,-20));
+    m_imCharacter.move(m_position,WINDOW_SIZE);
+    std::cout<<"entite repoussee vers le haut"<<std::endl;
+}
+
+void Character::knockBackBottom()
+{
+    move(Vec2<int>(0,20));
+    m_imCharacter.move(m_position,WINDOW_SIZE);
+    std::cout<<"entite repoussee vers le bas"<<std::endl;
 }
 
 void Character::kill(Character &enemy)
@@ -250,41 +238,41 @@ void Character::attack(Character & enemy)
     }
 }
 
-void Character::updateRange(const SDL_Event &event)
+void Character::updateRangeRight()
 {
-    if (event.key.keysym.sym == SDLK_d)
-    {
-        m_range.rectangle.x = m_position.rectangle.x + m_position.rectangle.w;
-        m_range.rectangle.y = m_position.rectangle.y + (m_position.rectangle.h / 4);
-        m_range.rectangle.w = m_position.rectangle.w / 2;
-        m_range.rectangle.h = m_position.rectangle.h / 2;
-    }
-    if (event.key.keysym.sym == SDLK_q)
-    {
-        m_range.rectangle.x = m_position.rectangle.x - m_range.rectangle.w;
-        m_range.rectangle.y = m_position.rectangle.y + (m_position.rectangle.h / 4);
-        m_range.rectangle.w = m_position.rectangle.w / 2;
-        m_range.rectangle.h = m_position.rectangle.h / 2;
-    }
-    if (event.key.keysym.sym == SDLK_s)
-    {
-        m_range.rectangle.x = m_position.rectangle.x + (m_position.rectangle.w/4);
-        m_range.rectangle.y = m_position.rectangle.y + m_position.rectangle.h;
-        m_range.rectangle.w = m_position.rectangle.w / 2;
-        m_range.rectangle.h = m_position.rectangle.h / 2;
-    }
-    if (event.key.keysym.sym == SDLK_z)
-    {
-        m_range.rectangle.x = m_position.rectangle.x + (m_position.rectangle.w/4);
-        m_range.rectangle.y = m_position.rectangle.y - m_range.rectangle.h;
-        m_range.rectangle.w = m_position.rectangle.w / 2;
-        m_range.rectangle.h = m_position.rectangle.h / 2;
-    }
+    m_range.rectangle.x = m_position.rectangle.x + m_position.rectangle.w;
+    m_range.rectangle.y = m_position.rectangle.y + (m_position.rectangle.h / 4);
+    m_range.rectangle.w = m_position.rectangle.w / 2;
+    m_range.rectangle.h = m_position.rectangle.h / 2;
 }
 
-void Character::crashWithEnemy(Character tabCharacter[],const SDL_Event &event)
+void Character::updateRangeLeft()
 {
-    for (unsigned int i=0;i<1;i++)
+    m_range.rectangle.x = m_position.rectangle.x - m_range.rectangle.w;
+    m_range.rectangle.y = m_position.rectangle.y + (m_position.rectangle.h / 4);
+    m_range.rectangle.w = m_position.rectangle.w / 2;
+    m_range.rectangle.h = m_position.rectangle.h / 2;
+}
+
+void Character::updateRangeTop()
+{
+    m_range.rectangle.x = m_position.rectangle.x + (m_position.rectangle.w/4);
+    m_range.rectangle.y = m_position.rectangle.y - m_range.rectangle.h;
+    m_range.rectangle.w = m_position.rectangle.w / 2;
+    m_range.rectangle.h = m_position.rectangle.h / 2;
+}
+
+void Character::updateRangeBottom()
+{
+    m_range.rectangle.x = m_position.rectangle.x + (m_position.rectangle.w/4);
+    m_range.rectangle.y = m_position.rectangle.y + m_position.rectangle.h;
+    m_range.rectangle.w = m_position.rectangle.w / 2;
+    m_range.rectangle.h = m_position.rectangle.h / 2;
+}
+
+void Character::crashWithEnemyOnRight(Character tabCharacter[],unsigned int sizeTab)
+{
+    for (unsigned int i=0;i<sizeTab;i++)
     {
         if((tabCharacter[i].isAlive())&&(tabCharacter[i].isLoaded()))
         {
@@ -293,7 +281,58 @@ void Character::crashWithEnemy(Character tabCharacter[],const SDL_Event &event)
                 tabCharacter[i].dealDamage(*this);
                 std::cout<<"warrior touche ! il perd de la vie ..."<<std::endl;
                 std::cout<<"Vie de warrior restante : "<<getHealth()<<" HP"<<std::endl;
-                knockBack(event);
+                knockBackLeft();
+            }
+        }
+    }
+}
+
+void Character::crashWithEnemyOnLeft(Character tabCharacter[],unsigned int sizeTab)
+{
+    for (unsigned int i=0;i<sizeTab;i++)
+    {
+        if((tabCharacter[i].isAlive())&&(tabCharacter[i].isLoaded()))
+        {
+            if(getPos().in(tabCharacter[i].getPos()))
+            {
+                tabCharacter[i].dealDamage(*this);
+                std::cout<<"warrior touche ! il perd de la vie ..."<<std::endl;
+                std::cout<<"Vie de warrior restante : "<<getHealth()<<" HP"<<std::endl;
+                knockBackRight();
+            }
+        }
+    }
+}
+
+void Character::crashWithEnemyOnBottom(Character tabCharacter[],unsigned int sizeTab)
+{
+    for (unsigned int i=0;i<sizeTab;i++)
+    {
+        if((tabCharacter[i].isAlive())&&(tabCharacter[i].isLoaded()))
+        {
+            if(getPos().in(tabCharacter[i].getPos()))
+            {
+                tabCharacter[i].dealDamage(*this);
+                std::cout<<"warrior touche ! il perd de la vie ..."<<std::endl;
+                std::cout<<"Vie de warrior restante : "<<getHealth()<<" HP"<<std::endl;
+                knockBackTop();
+            }
+        }
+    }
+}
+
+void Character::crashWithEnemyOnTop(Character tabCharacter[],unsigned int sizeTab)
+{
+    for (unsigned int i=0;i<sizeTab;i++)
+    {
+        if((tabCharacter[i].isAlive())&&(tabCharacter[i].isLoaded()))
+        {
+            if(getPos().in(tabCharacter[i].getPos()))
+            {
+                tabCharacter[i].dealDamage(*this);
+                std::cout<<"warrior touche ! il perd de la vie ..."<<std::endl;
+                std::cout<<"Vie de warrior restante : "<<getHealth()<<" HP"<<std::endl;
+                knockBackBottom();
             }
         }
     }
@@ -304,7 +343,7 @@ void Character::setLoaded(bool load)
     m_isLoaded = load;
 }
 
-bool Character::isLoaded()
+bool Character::isLoaded() const
 {
     return m_isLoaded;
 }
