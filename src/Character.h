@@ -3,8 +3,10 @@
 //#include "Weapon.h"
 #include "Image.h"
 #include <vector>
+#include <ctime>
 
 //enlever la struct Weapon après la création de la classe Weapon
+
 struct Weapon
 {
     int m_damage;
@@ -23,6 +25,7 @@ class Character
     Rectangle m_range;
     Image m_imCharacter;
     bool m_isLoaded;
+    bool m_isXpGiven;
 
     public:
     Weapon m_weapon;
@@ -30,7 +33,7 @@ class Character
     Character(const Rectangle & pos, const unsigned int health,
               const std::string & imPath,SDL_Renderer *renderer,
               const unsigned int level);
-    //constructeur avec pos,health et une Image en paramètre
+    //constructeur avec pos,health, une Image et un rendu en paramètre
     void move(const Vec2<int> & direction);
     //les 8 directions possibles en Vec2<int>
     Rectangle getPos() const;

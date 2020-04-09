@@ -14,6 +14,7 @@ Player::Player()
         m_inventory.m_tabEquip[i].m_index=500;
         m_inventory.m_tabEquip[i].m_isLooted=true;
         m_inventory.m_tabEquip[i].m_destroyed=true;
+        m_inventory.m_tabEquip[i].m_dropped=false;
     }
     m_armor.m_defense = 10;
     m_defense += m_armor.m_defense;
@@ -23,18 +24,20 @@ Player::Player()
     m_tabEquipped[0].m_value=20;
     m_tabEquipped[0].m_isLooted=true;
     m_tabEquipped[0].m_destroyed=false;
+    m_tabEquipped[0].m_dropped=false;
     m_tabEquipped[1].m_nameEquipment="beginner armor";
     m_tabEquipped[1].m_index=1;
     m_tabEquipped[1].m_type=armor;
     m_tabEquipped[1].m_value=10;
     m_tabEquipped[1].m_isLooted=true;
     m_tabEquipped[1].m_destroyed=false;
+    m_tabEquipped[1].m_dropped=false;
     m_inventory.m_numEmptySlot = 0;
 }
 
-Player::Player(const std::string & name,PlayerClass Class,const Rectangle & pos,
-               const unsigned int health,const unsigned int level,
-               const std::string & imPath,SDL_Renderer *renderer) :
+Player::Player(const std::string & name,PlayerClass Class, const Rectangle & pos,
+               const unsigned int health, const unsigned int level,
+               const std::string & imPath, SDL_Renderer *renderer) :
            Character(pos,health,imPath,renderer,level)
 {
     m_xpCurrent = 0;
@@ -45,6 +48,8 @@ Player::Player(const std::string & name,PlayerClass Class,const Rectangle & pos,
         m_inventory.m_tabEquip[i].m_type=other;
         m_inventory.m_tabEquip[i].m_index=500;
         m_inventory.m_tabEquip[i].m_isLooted=true;
+        m_inventory.m_tabEquip[i].m_dropped=false;
+
     }
     m_armor.m_defense = 10;
     m_tabEquipped[0].m_nameEquipment="beginner weapon";
@@ -53,12 +58,14 @@ Player::Player(const std::string & name,PlayerClass Class,const Rectangle & pos,
     m_tabEquipped[0].m_value=20;
     m_tabEquipped[0].m_isLooted=true;
     m_tabEquipped[0].m_destroyed=false;
+    m_tabEquipped[0].m_dropped=false;
     m_tabEquipped[1].m_nameEquipment="beginner armor";
     m_tabEquipped[1].m_index=1;
     m_tabEquipped[1].m_type=armor;
     m_tabEquipped[1].m_value=10;
     m_tabEquipped[1].m_isLooted=true;
     m_tabEquipped[1].m_destroyed=false;
+    m_tabEquipped[0].m_dropped=false;
     m_inventory.m_numEmptySlot = 0;
     m_name = name;
     m_class = Class;
@@ -90,6 +97,11 @@ unsigned int Player::getXpMax() const
     return m_xpMax;
 }
 
+void Player::increaseXp(unsigned int xpGot)
+{
+    m_xpCurrent += xpGot;
+}
+
 void Player::levelup()
 {
     m_strengh+=10;
@@ -100,6 +112,7 @@ void Player::levelup()
     m_xpCurrent=0;
     m_level++;
     std::cout<<"Level up ! Niveau actuel : "<<m_level<<std::endl;
+    std::cout<<"Vous avez récupéré tous vos HP !"<<std::endl;
 }
 
 void Player::Loot(Object tabObject[],unsigned int sizeTab)
@@ -113,6 +126,7 @@ void Player::Loot(Object tabObject[],unsigned int sizeTab)
                 if(m_inventory.m_numEmptySlot<16)
                 {
                     tabObject[i].m_isLooted=true;
+                    tabObject[i].m_dropped=false;
                     m_inventory.m_tabEquip[m_inventory.m_numEmptySlot]=tabObject[i];
                     std::cout<<"Objet "<<tabObject[i].m_nameEquipment<<" obtenu !"<<std::endl;
                     m_inventory.m_tabEquip[m_inventory.m_numEmptySlot].m_index= m_inventory.m_numEmptySlot;
@@ -188,7 +202,7 @@ void Player::Use(Object &consumable)
             }
             else
             {
-               std::cout<<"Vous avez déjà tous vos points de vies !"<<std::endl;
+               std::cout<<"Vous avez déjà tous vos HP !"<<std::endl;
             }
         }
         else
@@ -241,5 +255,18 @@ std::string Player::getNameClass() const
     case 2:
         return "Mage";
     }
+}
+
+void Player::getPlayerStats() const
+{
+    std::cout<<"### Statistiques du joueur ###"<<std::endl;
+    std::cout<<"Nom : "<<getName()<<std::endl;
+    std::cout<<"Classe : "<<getNameClass()<<std::endl;
+    std::cout<<"Level : "<<getLevel()<<std::endl;
+    std::cout<<"Expérience actuelle : "<<getXpCurrent()<<"/"<<getXpMax()<<std::endl;
+    std::cout<<"Expérience avant le prochain niveau : "<<getXpMax()-getXpCurrent()<<std::endl;
+    std::cout<<"Vie : "<<getHealth()<<"/"<<getMaxHealth()<<" HP"<<std::endl;
+    std::cout<<"Force : "<<getStrengh()<<std::endl;
+    std::cout<<"Défense : "<<getDefense()<<std::endl<<std::endl;
 }
 

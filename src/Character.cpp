@@ -13,6 +13,7 @@ Character::Character()
     m_weapon.m_damage = 20;
     m_alive = true;
     m_isLoaded = true;
+    m_isXpGiven = true;
 }
 
 Character::Character(const Rectangle & pos, unsigned int health,
@@ -33,6 +34,7 @@ Character::Character(const Rectangle & pos, unsigned int health,
     m_weapon.m_damage = 20;
     m_alive = true;
     m_isLoaded = true;
+    m_isXpGiven = false;
 }
 
 void Character::move(const Vec2<int> & direction)

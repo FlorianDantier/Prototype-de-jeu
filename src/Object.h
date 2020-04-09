@@ -2,26 +2,22 @@
 #define OBJECT_H
 
 #include "Image.h"
-#include <string.h>
+#include <string>
 
-enum Rarity {common,rare,epic,unique};
-
-class Object
+enum ObjectType {weapon,armor,other};
+struct Object
 {
-    private:
-    Image m_imObject;
-    Rarity m_rarity;
-    string m_name;
-    bool m_looted;
-    bool m_selected;
-
-    public:
-    Object();
-    Object(const & Image imObject, Rarity rarity, const & string name);
-    void setLooted(bool isLooted);
-    void setSelected(bool isSelected);
+    std::string m_nameEquipment;
+    ObjectType m_type;
+    unsigned int m_index;
+    Rectangle m_pos;
+    Image m_image;
+    bool m_isLooted;
+    int m_value;
+    bool m_destroyed;
+    bool m_dropped;
+};
 
 
-}
 
 #endif

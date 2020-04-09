@@ -5,22 +5,13 @@
 //#include "Inventory.h"
 //#include "Equipment.h"
 //#include "Consommable.h"
-#include "Character.h"
 #include <iostream>
+#include "Character.h"
+
+#include "Object.h"
 
 //structures à enlever après implémentation des classes en question
-enum ObjectType {weapon,armor,other};
-struct Object
-{
-    std::string m_nameEquipment;
-    ObjectType m_type;
-    unsigned int m_index;
-    Rectangle m_pos;
-    Image m_image;
-    bool m_isLooted;
-    int m_value;
-    bool m_destroyed;
-};
+
 struct Inventory
 {
     Object m_tabEquip[16];
@@ -49,6 +40,7 @@ class Player : public Character
     Inventory m_inventory;
 
     Player();
+    //constructeur par défaut
     Player(const std::string & name,PlayerClass Class,const Rectangle & pos,
            const unsigned int health,const unsigned int level,
            const std::string & imPath,SDL_Renderer *renderer);
@@ -56,6 +48,8 @@ class Player : public Character
     // retourne l'expérience actuelle
     unsigned int getXpMax() const;
     //retourne l'xp à atteindre pour level up
+    void increaseXp(unsigned int xpGot);
+    //gagne de l'xp : on incrémente m_xpCurrent
     void levelup();
     //met à jour les caractéristiques du joueur lorsqu'il level up
     void Loot(Object tabObject[],unsigned int sizeTab);
@@ -70,5 +64,7 @@ class Player : public Character
     //retourne le nom du joueur
     std::string getNameClass() const;
     //retourne la classe du joueur sous forme de string
+    void getPlayerStats() const;
+    //affiche les stats du joueur
 };
 #endif
