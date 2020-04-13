@@ -2,91 +2,76 @@
 #define BUTTON_H
 
 #include "Rectangle.h"
-#include "Image.h"
-#include <SDL2/SDL.h>
 #include <string>
 #include <iostream>
 /**
  * @brief Cette classe permet de créer un bouton
  */
+
+
 class Button
 {
 private:
-    Image m_image;
+    //Image m_image;
     Rectangle m_position;
-    bool m_isHover;
-    bool m_isPressed;
 
-
-    void curseurIsHover(const SDL_Event & event);
-    void isClick(const SDL_Event & event);
     template<typename nameClass, typename returnType>
-    void actionOnClick(returnType (nameClass::*ptr)(), nameClass & object) const;
+    void actionOnClick(returnType (nameClass::*ptr)(), nameClass & object);
 
     template<typename nameClass, typename returnType, typename arg>
-    void actionOnClick(returnType (nameClass::*ptr)(arg), nameClass & object, const arg & argumentPtrFct) const;
+    void actionOnClick(returnType (nameClass::*ptr)(arg*), nameClass & object, arg* argumentPtrFct);
+
+    template<typename nameClass, typename returnType, typename arg>
+    void actionOnClick(returnType (nameClass::*ptr)(arg), nameClass & object, const arg & argumentPtrFct);
 
 public:
+    bool m_isLoad;
     Button();
-    Button(const Rectangle & position, const std::string & pathImage, SDL_Renderer *renderer);
-    void imageForOtherCase();
+    Button(const Rectangle & position, bool isLoad);
+    Rectangle getPosition() const;
+    bool isPressed(Vec2<int> mousePos);
 
     template<typename nameClass, typename returnType>
-    void eventButton(returnType (nameClass::*ptr)(), nameClass & object, const SDL_Event & event);
+    void eventButton(returnType (nameClass::*ptr)(), nameClass & object, Vec2<int> mousePos);
 
     template<typename nameClass, typename returnType, typename arg>
-    void eventButton(returnType (nameClass::*ptr)(arg), nameClass & object, const arg & argumentPtrFct ,const SDL_Event & event);
+    void eventButton(returnType (nameClass::*ptr)(arg), nameClass & object, const arg & argumentPtrFct , Vec2<int> mousePos);
 
-
-    void display(SDL_Renderer* renderer);
-    // A voir pour une image sur click, en fonction de si 'lon charge tout instant ou si l'on faire un changement progressif
+    template<typename nameClass, typename returnType, typename arg>
+    void eventButton(returnType (nameClass::*ptr)(arg*), nameClass & object,arg* argumentPtrFct , Vec2<int> mousePost);
 };
 
 template<typename nameClass, typename returnType>
-void Button::actionOnClick(returnType (nameClass::*ptr)(), nameClass & object) const
+void Button::actionOnClick(returnType (nameClass::*ptr)(), nameClass & object)
 {
-    if(m_isPressed)
+    if(m_isLoad)
         (object.*ptr)();
 }
 
 template<typename nameClass, typename returnType, typename arg>
-void Button::actionOnClick(returnType (nameClass::*ptr)(arg), nameClass & object, const arg & argumentPtrFct) const
+void Button::actionOnClick(returnType (nameClass::*ptr)(arg*), nameClass & object, arg* argumentPtrFct)
 {
-    if(m_isPressed)
+     if(m_isLoad)
         (object.*ptr)(argumentPtrFct);
 }
 
 
 template<typename nameClass, typename returnType>
-void Button::eventButton(returnType (nameClass::*ptr)(), nameClass & object, const SDL_Event &event)
+void Button::eventButton(returnType (nameClass::*ptr)(), nameClass & object, Vec2<int> mousePos)
 {
-    curseurIsHover(event);
-    isClick(event);
-    if(m_isHover){
-
-    }
-    if(m_isPressed)
+    if(isPressed(mousePos))
     {
         actionOnClick(ptr, object);
     }
-    m_isPressed = false;
 }
 
 template<typename nameClass, typename returnType, typename arg>
-void Button::eventButton(returnType (nameClass::*ptr)(arg), nameClass & object, const arg & argumentPtrFct ,const SDL_Event &event)
+void Button::eventButton(returnType (nameClass::*ptr)(arg*), nameClass & object,arg* argumentPtrFct, Vec2<int> mousePos)
 {
-    curseurIsHover(event);
-    isClick(event);
-    if(m_isHover){
-
-    }
-    if(m_isPressed)
+    if(isPressed(mousePos))
     {
         actionOnClick(ptr, object, argumentPtrFct);
     }
-    m_isHover = false;
-    m_isPressed = false;
 }
-
 
 #endif // BUTTON_H

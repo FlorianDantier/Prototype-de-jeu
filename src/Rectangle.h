@@ -1,16 +1,16 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 
-#include <SDL2/SDL.h>
 #include "Vec2.h"
 
 class Rectangle
 {
 public:
-    SDL_Rect rectangle;
+    Vec2<int> m_position;
+    Vec2<int> m_dimension;
     Rectangle();
     Rectangle(const int x, const int y, const int w, const int h);
-    Rectangle(const Vec2<int> position, const Vec2<int> & dimension);
+    Rectangle(const Vec2<int> &position, const Vec2<int> & dimension);
     bool in(const Vec2<int> &point);
     bool in(const Rectangle & rect);
     Vec2<int> centre();

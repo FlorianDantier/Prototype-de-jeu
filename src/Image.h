@@ -11,10 +11,15 @@ private:
     void testInOut(const Vec2 <unsigned int> & dimFenetre);
     void loadImage(SDL_Renderer* rendu);
 
+    void setDestination(const Rectangle & r);
+    void setSource(const Rectangle & r);
+
     SDL_Surface* m_psurface;
     SDL_Texture* m_ptexture;
     Rectangle m_source;
     Rectangle m_destination;
+    SDL_Rect m_SDL_source;
+    SDL_Rect m_SDL_destination;
     std::string m_image;
 
 public:
@@ -35,6 +40,7 @@ public:
 
     /*------ " DRAW " -------*/
     void display(SDL_Renderer* rendu);
+
 
     ~Image();
 };

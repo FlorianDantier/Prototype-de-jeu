@@ -2,35 +2,38 @@
 
 Button::Button()
 {
-    m_isHover = false;
-    m_isPressed = false;
+    m_isLoad = false;
     // Constructeur d'image et rectangle appelé (constructeur par défaut)
 }
 
-Button::Button(const Rectangle & position, const std::string & pathImage, SDL_Renderer* renderer) :
-    m_image(pathImage, position, Vec2<unsigned int>(640, 480), renderer)
+Button::Button(const Rectangle & position, bool isLoad)
 {
     m_position = position;
-    m_isHover = false;
-    m_isPressed = false;
+    m_isLoad = isLoad;
 }
 
-void Button::display(SDL_Renderer *renderer)
+Rectangle Button::getPosition() const
 {
-    m_image.display(renderer);
+    return m_position;
 }
 
-void Button::curseurIsHover(const SDL_Event &event)
+bool Button::isPressed(Vec2<int> mousePos)
 {
-    Vec2<int> point(event.button.x, event.button.y);
-    if(m_position.in(point))
-        m_isHover = true;
+    if(m_isLoad)
+    {
+        if(m_position.in(mousePos))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     else
-        m_isHover = false;
+    {
+        return false;
+    }
+
 }
 
-void Button::isClick(const SDL_Event &event)
-{
-    if(m_isHover && event.type == SDL_MOUSEBUTTONDOWN)
-        m_isPressed = true;
-}

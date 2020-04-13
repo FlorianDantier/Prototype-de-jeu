@@ -2,28 +2,66 @@
 #define MENU_H
 
 #include "Button.h"
-#include <SDL2/SDL.h>
-#include "Image.h"
 #include <string>
 
 class Menu
 {
 private:
-    Button* m_choices;
     unsigned int m_nbChoices;
     Rectangle m_position;
-
+    Button* m_choices;
+    bool m_isLoad;
     bool m_isOpen;
-public:
     Button m_openButton;
     Button m_closeButton;
-    Image m_background;
+    //Image m_background;
 
+
+
+    void open(const Vec2<int> & leftClick);
+    void close(const Vec2<int> & leftClick);
+    void isLoadButton();
+
+public:
+    //===============CONSTRUCTEURS===============
     Menu();
-    Menu(int nbButton, const Rectangle &position, const std::string &pathImageBackground, SDL_Renderer *renderer, bool isOpen = false);
-    void display(SDL_Renderer* renderer);
+    Menu(int nbButton, bool isOpen , bool isLoad);
+    //==============FIN CONSTRUCTEURS==============
+
+    //===============ACCESSEURS===============
+    bool getIsLoad() const;
+    void setIsLoad(const bool isLoad);
+
+    Button& getChoice(const unsigned int indice) const;
     void setChoice(const Button & btn, const unsigned int indice);
-    Button& getChoice(const unsigned int indice);
+
+    Button getOpenButton() const;
+    void setOpenButton(const Button & b);
+
+    Button getCloseButton() const;
+    void setCloseButton(const Button & b);
+
+    bool getIsOpen() const;
+    void setIsOpen(const bool isOpen);
+    //===============FIN ACCESSEURS===============
+
+    //=================EVENEMENT==================
+    void mouseLeftClick(const Vec2<int> &leftClick);
+    //===============FIN EVENEMENT===============
+    //void display(SDL_Renderer* renderer);
+
+
+
+
+
+
+    Button& listenEvent(const unsigned int indice);
+
+
+
+
+
+
 
     ~Menu();
 };

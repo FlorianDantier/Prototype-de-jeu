@@ -12,7 +12,7 @@ HEADERS += \
     src/Menu.h \
     src/Rectangle.h \
     src/Vec2.h \
-    src/Character.h
+    #src/Character.h
 
 SOURCES += \
     src/Button.cpp \
@@ -20,7 +20,7 @@ SOURCES += \
     src/Rectangle.cpp \
     src/Image.cpp \
     src/main.cpp \
-    src/Character.cpp \
+    #src/Character.cpp \
     #src/Game.cpp \
 
 LIBS += -L/usr/lib -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
