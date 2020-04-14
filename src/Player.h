@@ -7,6 +7,7 @@
 //#include "Consommable.h"
 #include <iostream>
 #include "Character.h"
+class Enemy;
 #include "Enemy.h"
 #include "Object.h"
 
@@ -33,6 +34,7 @@ class Player : public Character
     PlayerClass m_class;
     unsigned int m_xpCurrent;
     unsigned int m_xpMax;
+    clock_t m_timer;
     void deleteObject(unsigned int index);
     //supprimer un objet et réassemble l'inventaire sans "trous"
 
@@ -65,5 +67,13 @@ class Player : public Character
     //retourne la classe du joueur sous forme de string
     void getPlayerStats() const;
     //affiche les stats du joueur
+    void attack(Enemy &enemy);
+    //le joueur attaque
+    void dealDamage(Enemy & enemy);
+    //inflige des dégats à l'ennemi
+    void kill(Enemy &enemy);
+    //le joueur tue l'ennemi
+    unsigned int getTimer() const;
+    //retourne le temps de la dernière attaque
 };
 #endif
