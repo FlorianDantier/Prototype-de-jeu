@@ -86,7 +86,7 @@ Vec2<T> &Vec2<T>::operator/=(const T scalar)
 template<typename T>
 Vec2<T> operator+(const Vec2<T> & v1, const Vec2<T> & v2)
 {
-    Vec2 r(v1);
+    Vec2<T> r(v1);
     r+=v2;
 
     return r;
@@ -95,7 +95,7 @@ Vec2<T> operator+(const Vec2<T> & v1, const Vec2<T> & v2)
 template<typename T>
 Vec2<T> operator-(const Vec2<T> & v1, const Vec2<T> & v2)
 {
-    Vec2 r(v1);
+    Vec2<T> r(v1);
     r-=v2;
 
     return r;
@@ -104,7 +104,7 @@ Vec2<T> operator-(const Vec2<T> & v1, const Vec2<T> & v2)
 template<typename T>
 Vec2<T> operator*(const Vec2<T> & v1, const T scalar)
 {
-    Vec2 r(v1);
+    Vec2<T> r(v1);
     r*=scalar;
 
     return r;
@@ -113,7 +113,7 @@ Vec2<T> operator*(const Vec2<T> & v1, const T scalar)
 template<typename T>
 Vec2<T> operator*(const T scalar, const Vec2<T> & v1)
 {
-    Vec2 r(v1);
+    Vec2<T> r(v1);
     r*=scalar;
 
     return r;
@@ -123,7 +123,7 @@ Vec2<T> operator*(const T scalar, const Vec2<T> & v1)
 template<typename T>
 Vec2<T> operator/(const Vec2<T> & v1, const T scalar)
 {
-    Vec2 r(v1);
+    Vec2<T> r(v1);
     r/=scalar;
 
     return r;
@@ -132,7 +132,7 @@ Vec2<T> operator/(const Vec2<T> & v1, const T scalar)
 template<typename T>
 Vec2<T> operator/(const T scalar, const Vec2<T> & v1)
 {
-    Vec2 r(v1);
+    Vec2<T> r(v1);
     r/=scalar;
 
     return r;
