@@ -12,7 +12,6 @@ public:
     ObjectType m_type;
     unsigned int m_index;
     Rectangle m_pos;
-    Image m_image;
     bool m_isLooted;
     int m_value;
     bool m_destroyed;
