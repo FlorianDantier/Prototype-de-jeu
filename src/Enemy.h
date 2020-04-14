@@ -1,6 +1,7 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 #include "Character.h"
+class Player;
 #include "Player.h"
 #include "Object.h"
 
@@ -30,8 +31,7 @@ public:
     Enemy();
     //constructeur par défaut
     Enemy(EnemyType type, EnemyRace race, const Rectangle & pos, const Object tabLoot[], const Object tabLootChest[],
-          const unsigned int health, const unsigned int level,
-          const std::string & imPath,RoamingDirection direction, SDL_Renderer *renderer);
+          const unsigned int health, const unsigned int level,RoamingDirection direction);
 
     void moveRight();
     // va à droite

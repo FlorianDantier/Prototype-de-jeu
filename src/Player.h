@@ -7,7 +7,7 @@
 //#include "Consommable.h"
 #include <iostream>
 #include "Character.h"
-
+#include "Enemy.h"
 #include "Object.h"
 
 //structures à enlever après implémentation des classes en question
@@ -41,9 +41,8 @@ class Player : public Character
 
     Player();
     //constructeur par défaut
-    Player(const std::string & name,PlayerClass Class,const Rectangle & pos,
-           const unsigned int health,const unsigned int level,
-           const std::string & imPath,SDL_Renderer *renderer);
+    Player(const std::string & name, PlayerClass Class, const Rectangle & pos,
+           const unsigned int health, const unsigned int level);
     unsigned int getXpCurrent() const;
     // retourne l'expérience actuelle
     unsigned int getXpMax() const;

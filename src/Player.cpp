@@ -36,9 +36,8 @@ Player::Player()
 }
 
 Player::Player(const std::string & name,PlayerClass Class, const Rectangle & pos,
-               const unsigned int health, const unsigned int level,
-               const std::string & imPath, SDL_Renderer *renderer) :
-           Character(pos,health,imPath,renderer,level)
+               const unsigned int health, const unsigned int level) :
+           Character(pos,health,level)
 {
     m_xpCurrent = 0;
     m_xpMax = 100;

@@ -41,10 +41,8 @@ Enemy::Enemy()
 
 Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
              const Object tabLoot[], const Object tabLootChest[],
-             const unsigned int health, const unsigned int level,
-             const std::string &imPath, RoamingDirection direction,
-             SDL_Renderer *renderer) :
-    Character(pos,health,imPath,renderer,level)
+             const unsigned int health, const unsigned int level,RoamingDirection direction) :
+    Character(pos,health,level)
 {
     m_type = type;
     m_race = race;
@@ -97,39 +95,36 @@ Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
     m_status = roaming;
     m_direction = direction;
     m_timer = clock();
-    m_posOrigin = Vec2(pos.rectangle.x,pos.rectangle.y);
+    m_posOrigin = Vec2(pos.m_position.x,pos.m_position.y);
+    m_isXpGiven = true;
 }
 
 void Enemy::moveRight()
 {
     move(Vec2(1,0));
-    m_imCharacter.moveRight(WINDOW_SIZE);
     updateRangeRight();
 }
 void Enemy::moveLeft()
 {
     move(Vec2(-1,0));
-    m_imCharacter.moveLeft(WINDOW_SIZE);
     updateRangeLeft();
 }
 void Enemy::moveTop()
 {
     move(Vec2(0,-1));
-    m_imCharacter.moveTop(WINDOW_SIZE);
     updateRangeTop();
 }
 void Enemy::moveBottom()
 {
     move(Vec2(0,1));
-    m_imCharacter.moveBottom(WINDOW_SIZE);
     updateRangeBottom();
 }
 
 void Enemy::enemyPattern(Player & p)
 {
     int dx,dy;
-    dx = m_position.rectangle.x - p.getPos().rectangle.x;
-    dy = m_position.rectangle.y - p.getPos().rectangle.y;
+    dx = m_position.m_position.x - p.getPos().m_position.x;
+    dy = m_position.m_position.y - p.getPos().m_position.y;
 
     switch(m_status)
     {
@@ -141,7 +136,7 @@ void Enemy::enemyPattern(Player & p)
 
         if(m_direction==horizontalRight)
         {
-            if(m_position.rectangle.x < m_posOrigin.x + 50)
+            if(m_position.m_position.x < m_posOrigin.x + 50)
             {
                 moveRight();
             }
@@ -152,7 +147,7 @@ void Enemy::enemyPattern(Player & p)
         }
         if(m_direction==horizontalLeft)
         {
-            if(m_position.rectangle.x > m_posOrigin.x - 50)
+            if(m_position.m_position.x > m_posOrigin.x - 50)
             {
                 moveLeft();
             }
@@ -163,7 +158,7 @@ void Enemy::enemyPattern(Player & p)
         }
         if(m_direction==verticalTop)
         {
-            if(m_position.rectangle.y > m_posOrigin.y - 50)
+            if(m_position.m_position.y > m_posOrigin.y - 50)
             {
                 moveTop();
             }
@@ -174,7 +169,7 @@ void Enemy::enemyPattern(Player & p)
         }
         if(m_direction==verticalBottom)
         {
-            if(m_position.rectangle.y < m_posOrigin.y + 50)
+            if(m_position.m_position.y < m_posOrigin.y + 50)
             {
                 moveBottom();
             }
@@ -210,7 +205,7 @@ void Enemy::enemyPattern(Player & p)
         {
             moveTop();
         }
-        m_posOrigin = Vec2(m_position.rectangle.x,m_position.rectangle.y);
+        m_posOrigin = Vec2(m_position.m_position.x,m_position.m_position.y);
         break;
 
     case dead:
