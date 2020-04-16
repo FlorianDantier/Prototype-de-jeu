@@ -12,8 +12,7 @@
 class Button
 {
 private:
-    //Image m_image;
-    Rectangle m_position;
+    Rectangle* m_position;
 
     template<typename nameClass, typename returnType>
     void actionOnClick(returnType (nameClass::*ptr)(), nameClass & object);
@@ -28,7 +27,13 @@ public:
     bool m_isLoad;
     Button();
     Button(const Rectangle & position, bool isLoad);
-    Rectangle getPosition() const;
+    Button(const Button &copie);
+    ~Button();
+
+    Button& operator=(const Button &copie);
+
+    Rectangle &getPosition() const;
+
     bool isPressed(Vec2<int> mousePos);
 
     template<typename nameClass, typename returnType>
@@ -54,7 +59,6 @@ void Button::actionOnClick(returnType (nameClass::*ptr)(arg*), nameClass & objec
      if(m_isLoad)
         (object.*ptr)(argumentPtrFct);
 }
-
 
 template<typename nameClass, typename returnType>
 void Button::eventButton(returnType (nameClass::*ptr)(), nameClass & object, Vec2<int> mousePos)

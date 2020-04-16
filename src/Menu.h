@@ -12,10 +12,8 @@ private:
     Button* m_choices;
     bool m_isLoad;
     bool m_isOpen;
-    Button m_openButton;
-    Button m_closeButton;
-    //Image m_background;
-
+    Button* m_openButton;
+    Button* m_closeButton; // Cette ligne modifié .... A finir ...
 
 
     void open(const Vec2<int> & leftClick);
@@ -23,9 +21,11 @@ private:
     void isLoadButton();
 
 public:
+    Menu& operator=(const Menu &copie);
+
     //===============CONSTRUCTEURS===============
     Menu();
-    Menu(int nbButton, bool isOpen , bool isLoad);
+    Menu(unsigned int nbButton, bool isOpen , bool isLoad, const Button &open, const Button &close);
     //==============FIN CONSTRUCTEURS==============
 
     //===============ACCESSEURS===============
@@ -35,10 +35,10 @@ public:
     Button& getChoice(const unsigned int indice) const;
     void setChoice(const Button & btn, const unsigned int indice);
 
-    Button getOpenButton() const;
+    Button& getOpenButton() const;
     void setOpenButton(const Button & b);
 
-    Button getCloseButton() const;
+    Button& getCloseButton() const;
     void setCloseButton(const Button & b);
 
     bool getIsOpen() const;
@@ -50,18 +50,7 @@ public:
     //===============FIN EVENEMENT===============
     //void display(SDL_Renderer* renderer);
 
-
-
-
-
-
     Button& listenEvent(const unsigned int indice);
-
-
-
-
-
-
 
     ~Menu();
 };

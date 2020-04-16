@@ -1,27 +1,48 @@
 #include "Button.h"
 
-Button::Button()
+
+Button::Button() : m_position(nullptr), m_isLoad(false)
 {
-    m_isLoad = false;
-    // Constructeur d'image et rectangle appelé (constructeur par défaut)
+
 }
 
-Button::Button(const Rectangle & position, bool isLoad)
+Button::Button(const Rectangle & position, bool isLoad) : m_position(nullptr), m_isLoad(isLoad)
 {
-    m_position = position;
-    m_isLoad = isLoad;
+    m_position = new Rectangle(position);
 }
 
-Rectangle Button::getPosition() const
+Button::Button(const Button &copie) : m_position(nullptr), m_isLoad(copie.m_isLoad)
 {
-    return m_position;
+    m_position = new Rectangle(*(copie.m_position));
+}
+
+Button::~Button()
+{
+    delete m_position;
+    //    m_position = nullptr;
+}
+
+Button &Button::operator=(const Button &copie)
+{    
+    if(this != &copie)
+    {
+        m_isLoad = copie.m_isLoad;
+        delete m_position;
+        m_position = new Rectangle(*(copie.m_position));
+    }
+    return *this;
+}
+
+Rectangle& Button::getPosition() const
+{
+    return *m_position;
 }
 
 bool Button::isPressed(Vec2<int> mousePos)
 {
     if(m_isLoad)
     {
-        if(m_position.in(mousePos))
+        if(m_position->in(mousePos))
         {
             return true;
         }

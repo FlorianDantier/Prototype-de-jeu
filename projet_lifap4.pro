@@ -7,20 +7,22 @@ DESTDIR += bin/
 
 HEADERS += \
     src/Button.h \
-    #src/Game.hpp \
+    src/Game.h \
     src/Image.h \
     src/Menu.h \
     src/Rectangle.h \
-    src/Vec2.h \
-    #src/Character.h
+    src/SDL_Game.h \
+    src/Vec2.h
+     #src/Character.h
 
 SOURCES += \
     src/Button.cpp \
+    src/Game.cpp \
     src/Menu.cpp \
     src/Rectangle.cpp \
     src/Image.cpp \
-    src/main.cpp \
-    #src/Character.cpp \
-    #src/Game.cpp \
+    src/SDL_Game.cpp \
+    src/main.cpp
+     #src/Character.cpp \
 
 LIBS += -L/usr/lib -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer

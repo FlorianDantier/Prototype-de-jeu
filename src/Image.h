@@ -4,43 +4,44 @@
 #include <SDL2/SDL.h>
 #include <string>
 #include "Rectangle.h"
-
+#include <iostream>
+const std::string path = "/home/florian/Dropbox/Licence/L2/S4/LIFAP4/projet_lifap4/data/";
 class Image
 {
 private:
     void testInOut(const Vec2 <unsigned int> & dimFenetre);
     void loadImage(SDL_Renderer* rendu);
 
-    void setDestination(const Rectangle & r);
-    void setSource(const Rectangle & r);
+    void setDestination();
+    void setSource();
 
     SDL_Surface* m_psurface;
     SDL_Texture* m_ptexture;
-    Rectangle m_source;
-    Rectangle m_destination;
     SDL_Rect m_SDL_source;
     SDL_Rect m_SDL_destination;
+    Rectangle m_source;
+    Rectangle* m_destination;
     std::string m_image;
 
 public:
     /*------CONSTRUCTEUR-------*/
     Image();
-    Image(const std::string & cheminImage, SDL_Renderer* rendu); // Les dimensions seront celle de l'image et la position sera en haut à gauche
-    Image(const std::string & cheminImage, const Rectangle &destination, const Vec2<unsigned int> & dimFenetre, SDL_Renderer* rendu); // Ici on choisis les dimesion et la pos
-    Image(const std::string & cheminImage, const Rectangle & source, const Rectangle & destination , const Vec2<unsigned int> & dimFenetre, SDL_Renderer* rendu);
+    Image(const std::string & cheminImage, Rectangle* destination, const Vec2<unsigned int> & dimFenetre, SDL_Renderer* rendu); // Ici on choisis les dimesion et la pos
+    Image(const std::string & cheminImage, const Rectangle & source, Rectangle* destination , const Vec2<unsigned int> & dimFenetre, SDL_Renderer *rendu);
 
-
-    /*------ " UPDATE " -------*/
-    void move(const Rectangle &pos, const Vec2<unsigned int> & dimFenetre);
-    void moveRight(const Vec2<unsigned int> & dimFenetre);
-    void moveLeft(const Vec2<unsigned int> & dimFenetre);
-    void moveTop(const Vec2<unsigned int> & dimFenetre);
-    void moveBottom(const Vec2<unsigned int> & dimFenetre);
     void rotate(SDL_RendererFlip flip, float angle, const Vec2<int> & centre, SDL_Renderer* rendu);
 
     /*------ " DRAW " -------*/
     void display(SDL_Renderer* rendu);
 
+    void debug()
+    {
+        std::cout<<"Destination = "<<std::endl;
+        m_destination->debug();
+
+        std::cout<<"Source = "<<std::endl;
+        m_source.debug();
+    }
 
     ~Image();
 };

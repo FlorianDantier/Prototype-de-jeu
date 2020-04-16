@@ -1,20 +1,13 @@
 #include "Rectangle.h"
 
 Rectangle::Rectangle()
-{
-    // Constructeur de Vec2 appelé par défaut
-}
+{}
 
 Rectangle::Rectangle(const int x, const int y, const int w, const int h) : m_position(x, y), m_dimension(w, h)
-{
-
-}
+{}
 
 Rectangle::Rectangle(const Vec2<int> &position, const Vec2<int> &dimension) : m_position(position), m_dimension(dimension)
-{
-
-}
-
+{}
 
 bool Rectangle::in(const Vec2<int> & point)
 {
@@ -29,9 +22,9 @@ bool Rectangle::in(const Vec2<int> & point)
 bool Rectangle::in(const Rectangle &rect)
 {
     if((m_position.x >= rect.m_position.x + rect.m_dimension.x)      // trop à droite
-        || (m_position.x + m_dimension.x <= rect.m_position.x) // trop à gauche
-        || (m_position.y >= rect.m_position.y + rect.m_dimension.y) // trop en bas
-        || (m_position.y + m_dimension.y <= rect.m_position.y))  // trop en haut
+        || (m_position.x + m_dimension.x <= rect.m_position.x)       // trop à gauche
+        || (m_position.y >= rect.m_position.y + rect.m_dimension.y)  // trop en bas
+        || (m_position.y + m_dimension.y <= rect.m_position.y))      // trop en haut
               return false;
        else
               return true;
