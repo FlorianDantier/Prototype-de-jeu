@@ -11,21 +11,19 @@ Character::Character()
     m_strengh = 5;
     m_level = 1;
     m_weapon.m_damage = 20;
-    m_alive = true;
-    m_isLoaded = true;
-    m_isXpGiven = true;
+    m_alive = false;
+    m_isLoaded = false;
+    m_isXpGiven = false;
 }
 
 Character::Character(const Rectangle & pos, unsigned int health,
-                     const std::string & imPath, SDL_Renderer *renderer,
                      unsigned int level)
-    : m_imCharacter(imPath,pos,WINDOW_SIZE,renderer)
 {
     m_position = pos;
-    m_range.rectangle.x = pos.rectangle.x + pos.rectangle.w;
-    m_range.rectangle.y = pos.rectangle.y + (pos.rectangle.h / 4);
-    m_range.rectangle.w = pos.rectangle.w / 2;
-    m_range.rectangle.h = pos.rectangle.h / 2;
+    m_range.m_position.x = pos.m_position.x + pos.m_dimension.x;
+    m_range.m_position.y = pos.m_position.y + (pos.m_dimension.y / 4);
+    m_range.m_dimension.x = pos.m_dimension.x / 2;
+    m_range.m_dimension.y = pos.m_dimension.y / 2;
     m_maxHealth = health;
     m_health = health;
     m_level = level;
@@ -39,8 +37,8 @@ Character::Character(const Rectangle & pos, unsigned int health,
 
 void Character::move(const Vec2<int> & direction)
 {
-    m_position.rectangle.x += direction.x;
-    m_position.rectangle.y += direction.y;
+    m_position.m_position.x += direction.x;
+    m_position.m_position.y += direction.y;
 }
 
 Rectangle Character::getPos() const
@@ -138,7 +136,6 @@ void Character::updatePlayerMoveRight(Character tabCharacter[],unsigned int size
     move(Vec2<int>(5,0));
     if(testInOut())
     {
-        m_imCharacter.move(m_position,WINDOW_SIZE);
         crashWithEnemyOnRight(tabCharacter,sizeTab);
         updateRangeRight();
         std::cout<<"touche d appuyée : le joueur va a droite"<<std::endl;
@@ -150,7 +147,6 @@ void Character::updatePlayerMoveLeft(Character tabCharacter[],unsigned int sizeT
     move(Vec2<int>(-5,0));
     if(testInOut())
     {
-        m_imCharacter.move(m_position,WINDOW_SIZE);
         crashWithEnemyOnLeft(tabCharacter,sizeTab);
         updateRangeLeft();
         std::cout<<"touche q appuyée : le joueur va a gauche"<<std::endl;
@@ -162,7 +158,6 @@ void Character::updatePlayerMoveTop(Character tabCharacter[],unsigned int sizeTa
     move(Vec2<int>(0,-5));
     if(testInOut())
     {
-        m_imCharacter.move(m_position,WINDOW_SIZE);
         crashWithEnemyOnTop(tabCharacter,sizeTab);
         updateRangeTop();
         std::cout<<"touche z appuyée : le joueur monte"<<std::endl;
@@ -174,24 +169,23 @@ void Character::updatePlayerMoveBottom(Character tabCharacter[],unsigned int siz
     move(Vec2<int>(0,5));
     if(testInOut())
     {
-        m_imCharacter.move(m_position,WINDOW_SIZE);
         crashWithEnemyOnBottom(tabCharacter,sizeTab);
         updateRangeBottom();
         std::cout<<"touche s appuyée : le joueur descend"<<std::endl;
     }
 }
 
-void Character::display(SDL_Renderer *renderer)
+void Character::display()
 {
     if((m_alive)&&(m_isLoaded))
     {
-        m_imCharacter.display(renderer);
+        //m_imCharacter.display();
     }
 }
 
 Vec2<int> Character::getVecPos()
 {
-    return {m_position.rectangle.x,m_position.rectangle.y};
+    return {m_position.m_position.x,m_position.m_position.y};
 }
 
 void Character::die()
@@ -211,7 +205,6 @@ void Character::knockBackRight()
     move(Vec2<int>(20,0));
     if(testInOut())
     {
-        m_imCharacter.move(m_position,WINDOW_SIZE);
         std::cout<<"entite repoussee vers la droite"<<std::endl;
     }
 }
@@ -221,7 +214,6 @@ void Character::knockBackLeft()
     move(Vec2<int>(-20,0));
     if(testInOut())
     {
-        m_imCharacter.move(m_position,WINDOW_SIZE);
         std::cout<<"entite repoussee vers la gauche"<<std::endl;
     }
 }
@@ -231,7 +223,6 @@ void Character::knockBackTop()
     move(Vec2<int>(0,-20));
     if(testInOut())
     {
-        m_imCharacter.move(m_position,WINDOW_SIZE);
         std::cout<<"entite repoussee vers le haut"<<std::endl;
     }
 }
@@ -241,7 +232,6 @@ void Character::knockBackBottom()
     move(Vec2<int>(0,20));
     if(testInOut())
     {
-        m_imCharacter.move(m_position,WINDOW_SIZE);
         std::cout<<"entite repoussee vers le bas"<<std::endl;
     }
 }
@@ -266,34 +256,34 @@ void Character::attack(Character & enemy)
 
 void Character::updateRangeRight()
 {
-    m_range.rectangle.x = m_position.rectangle.x + m_position.rectangle.w;
-    m_range.rectangle.y = m_position.rectangle.y + (m_position.rectangle.h / 4);
-    m_range.rectangle.w = m_position.rectangle.w / 2;
-    m_range.rectangle.h = m_position.rectangle.h / 2;
+    m_range.m_position.x = m_position.m_position.x + m_position.m_dimension.x;
+    m_range.m_position.y = m_position.m_position.y + (m_position.m_dimension.y / 4);
+    m_range.m_dimension.x = m_position.m_dimension.x / 2;
+    m_range.m_dimension.y = m_position.m_dimension.y / 2;
 }
 
 void Character::updateRangeLeft()
 {
-    m_range.rectangle.x = m_position.rectangle.x - m_range.rectangle.w;
-    m_range.rectangle.y = m_position.rectangle.y + (m_position.rectangle.h / 4);
-    m_range.rectangle.w = m_position.rectangle.w / 2;
-    m_range.rectangle.h = m_position.rectangle.h / 2;
+    m_range.m_position.x = m_position.m_position.x - m_range.m_dimension.x;
+    m_range.m_position.y = m_position.m_position.y + (m_position.m_dimension.y / 4);
+    m_range.m_dimension.x = m_position.m_dimension.x / 2;
+    m_range.m_dimension.y = m_position.m_dimension.y / 2;
 }
 
 void Character::updateRangeTop()
 {
-    m_range.rectangle.x = m_position.rectangle.x + (m_position.rectangle.w/4);
-    m_range.rectangle.y = m_position.rectangle.y - m_range.rectangle.h;
-    m_range.rectangle.w = m_position.rectangle.w / 2;
-    m_range.rectangle.h = m_position.rectangle.h / 2;
+    m_range.m_position.x = m_position.m_position.x + (m_position.m_dimension.x/4);
+    m_range.m_position.y = m_position.m_position.y - m_range.m_dimension.y;
+    m_range.m_dimension.x = m_position.m_dimension.x / 2;
+    m_range.m_dimension.y = m_position.m_dimension.y / 2;
 }
 
 void Character::updateRangeBottom()
 {
-    m_range.rectangle.x = m_position.rectangle.x + (m_position.rectangle.w/4);
-    m_range.rectangle.y = m_position.rectangle.y + m_position.rectangle.h;
-    m_range.rectangle.w = m_position.rectangle.w / 2;
-    m_range.rectangle.h = m_position.rectangle.h / 2;
+    m_range.m_position.x = m_position.m_position.x + (m_position.m_dimension.x/4);
+    m_range.m_position.y = m_position.m_position.y + m_position.m_dimension.y;
+    m_range.m_dimension.x = m_position.m_dimension.x / 2;
+    m_range.m_dimension.y = m_position.m_dimension.y / 2;
 }
 
 void Character::crashWithEnemyOnRight(Character tabCharacter[],unsigned int sizeTab)
@@ -376,24 +366,24 @@ bool Character::isLoaded() const
 
 bool Character::testInOut()
 {
-    if(m_position.rectangle.x<0)
+    if(m_position.m_position.x<0)
     {
-        m_position.rectangle.x=0;
+        m_position.m_position.x=0;
         return false;
     }
-    if(m_position.rectangle.y<0)
+    if(m_position.m_position.y<0)
     {
-        m_position.rectangle.y=0;
+        m_position.m_position.y=0;
         return false;
     }
-    if((m_position.rectangle.x + m_position.rectangle.w) > WINDOW_SIZE.x)
+    if((m_position.m_position.x + m_position.m_dimension.x) > WINDOW_SIZE.x)
     {
-        m_position.rectangle.x = WINDOW_SIZE.x - m_position.rectangle.w;
+        m_position.m_position.x = WINDOW_SIZE.x - m_position.m_dimension.x;
         return false;
     }
-    if((m_position.rectangle.y + m_position.rectangle.h) > WINDOW_SIZE.y)
+    if((m_position.m_position.y + m_position.m_dimension.y) > WINDOW_SIZE.y)
     {
-        m_position.rectangle.y = WINDOW_SIZE.y - m_position.rectangle.h;
+        m_position.m_position.y = WINDOW_SIZE.y - m_position.m_dimension.y;
         return false;
     }
     return true;

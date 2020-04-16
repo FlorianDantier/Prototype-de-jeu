@@ -7,7 +7,8 @@
 //#include "Consommable.h"
 #include <iostream>
 #include "Character.h"
-
+class Enemy;
+#include "Enemy.h"
 #include "Object.h"
 
 //structures à enlever après implémentation des classes en question
@@ -33,6 +34,7 @@ class Player : public Character
     PlayerClass m_class;
     unsigned int m_xpCurrent;
     unsigned int m_xpMax;
+    clock_t m_timer;
     void deleteObject(unsigned int index);
     //supprimer un objet et réassemble l'inventaire sans "trous"
 
@@ -41,9 +43,8 @@ class Player : public Character
 
     Player();
     //constructeur par défaut
-    Player(const std::string & name,PlayerClass Class,const Rectangle & pos,
-           const unsigned int health,const unsigned int level,
-           const std::string & imPath,SDL_Renderer *renderer);
+    Player(const std::string & name, PlayerClass Class, const Rectangle & pos,
+           const unsigned int health, const unsigned int level);
     unsigned int getXpCurrent() const;
     // retourne l'expérience actuelle
     unsigned int getXpMax() const;
@@ -66,5 +67,13 @@ class Player : public Character
     //retourne la classe du joueur sous forme de string
     void getPlayerStats() const;
     //affiche les stats du joueur
+    void attack(Enemy &enemy);
+    //le joueur attaque
+    void dealDamage(Enemy & enemy);
+    //inflige des dégats à l'ennemi
+    void kill(Enemy &enemy);
+    //le joueur tue l'ennemi
+    unsigned int getTimer() const;
+    //retourne le temps de la dernière attaque
 };
 #endif

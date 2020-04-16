@@ -33,12 +33,12 @@ Player::Player()
     m_tabEquipped[1].m_destroyed=false;
     m_tabEquipped[1].m_dropped=false;
     m_inventory.m_numEmptySlot = 0;
+    m_timer=clock();
 }
 
 Player::Player(const std::string & name,PlayerClass Class, const Rectangle & pos,
-               const unsigned int health, const unsigned int level,
-               const std::string & imPath, SDL_Renderer *renderer) :
-           Character(pos,health,imPath,renderer,level)
+               const unsigned int health, const unsigned int level) :
+           Character(pos,health,level)
 {
     m_xpCurrent = 0;
     m_xpMax = 100;
@@ -85,6 +85,7 @@ Player::Player(const std::string & name,PlayerClass Class, const Rectangle & pos
         m_health -= 10;
         m_maxHealth -= 10;
     }
+    m_timer=SDL_GetTicks();
 }
 
 unsigned int Player::getXpCurrent() const
@@ -100,6 +101,7 @@ unsigned int Player::getXpMax() const
 void Player::increaseXp(unsigned int xpGot)
 {
     m_xpCurrent += xpGot;
+    std::cout<<"Vous avez gagné "<<xpGot<<" xp"<<std::endl;
 }
 
 void Player::levelup()
@@ -270,3 +272,40 @@ void Player::getPlayerStats() const
     std::cout<<"Défense : "<<getDefense()<<std::endl<<std::endl;
 }
 
+void Player::attack(Enemy & enemy)
+{
+    if ((m_alive)&&(m_isLoaded)&&(enemy.isAlive())&&(enemy.isLoaded()))
+    {
+        if (getRange().in(enemy.getPos()))
+        {
+            if((SDL_GetTicks()-m_timer)>1000)
+            {
+                std::cout<<"Le joueur attaque !"<<std::endl;
+                dealDamage(enemy);
+                std::cout<<enemy.getEnemyRace()<<" "<<enemy.getEnemyType()<<
+                        " touché ! Il perd de la vie ..."<<std::endl;
+                std::cout<<"Vie du "<<enemy.getEnemyRace()<<" "<<enemy.getEnemyType()<<
+                           " restante : "<<enemy.getHealth()<<" HP"<<std::endl;
+                m_timer=SDL_GetTicks();
+            }
+        }
+    }
+}
+
+void Player::dealDamage(Enemy & enemy)
+{
+    int damageToDeal = m_weapon.m_damage + m_strengh - enemy.getDefense();
+    if (damageToDeal > 0)
+    {
+        enemy.takeDamage(damageToDeal,*this);
+    }
+}
+void Player::kill(Enemy &enemy)
+{
+    enemy.die(*this);
+}
+
+unsigned int Player::getTimer() const
+{
+    return m_timer;
+}
