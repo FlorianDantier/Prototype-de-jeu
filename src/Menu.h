@@ -3,6 +3,7 @@
 
 #include "Button.h"
 #include <string>
+#include <cassert>
 
 class Menu
 {
@@ -19,6 +20,9 @@ private:
     void open(const Vec2<int> & leftClick);
     void close(const Vec2<int> & leftClick);
     void isLoadButton();
+
+
+
 
 public:
     Menu& operator=(const Menu &copie);
@@ -50,9 +54,43 @@ public:
     //===============FIN EVENEMENT===============
     //void display(SDL_Renderer* renderer);
 
-    Button& listenEvent(const unsigned int indice);
+    //Button& listenEvent(const unsigned int indice);
+
+    template<typename nameClass, typename returnType>
+    void listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(), nameClass & object, const Vec2<int> &mousePos);
+
+    template<typename nameClass, typename returnType, typename arg>
+    void listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(arg), nameClass & object, const arg & argumentPtrFct , const Vec2<int> &mousePos);
+
+    template<typename nameClass, typename returnType, typename arg>
+    void listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(arg*), nameClass & object,arg* argumentPtrFct , const Vec2<int> &mousePos);
+
+
+
 
     ~Menu();
 };
+
+template<typename nameClass, typename returnType>
+void Menu::listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(), nameClass & object, const Vec2<int> &mousePos)
+{
+    assert(indice >= 0 && indice < m_nbChoices);
+    m_choices->eventButton(ptr, object, mousePos);
+}
+
+template<typename nameClass, typename returnType, typename arg>
+void Menu::listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(arg), nameClass & object, const arg & argumentPtrFct , const Vec2<int> &mousePos)
+{
+    assert(indice >= 0 && indice < m_nbChoices);
+    m_choices[indice].eventButton(ptr, object, argumentPtrFct, mousePos);
+}
+
+template<typename nameClass, typename returnType, typename arg>
+void Menu::listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(arg*), nameClass & object,arg* argumentPtrFct , const Vec2<int> &mousePos)
+{
+    assert(indice >= 0 && indice < m_nbChoices);
+
+    m_choices[indice].eventButton(ptr, object, argumentPtrFct, mousePos);
+}
 
 #endif // MENU_H

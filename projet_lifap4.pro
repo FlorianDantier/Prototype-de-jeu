@@ -6,6 +6,7 @@ CONFIG -= qt
 DESTDIR += bin/
 
 HEADERS += \
+    src/common.h \
     src/Button.h \
     src/Game.h \
     src/Image.h \
@@ -13,7 +14,7 @@ HEADERS += \
     src/Rectangle.h \
     src/SDL_Game.h \
     src/Vec2.h
-     #src/Character.h
+    #src/Character.h
 
 SOURCES += \
     src/Button.cpp \
@@ -22,7 +23,8 @@ SOURCES += \
     src/Rectangle.cpp \
     src/Image.cpp \
     src/SDL_Game.cpp \
-    src/main.cpp
-     #src/Character.cpp \
+    src/main.cpp \
+    #src/mainTest.cpp \
+    #src/Character.cpp \
 
 LIBS += -L/usr/lib -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer

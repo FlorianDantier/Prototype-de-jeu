@@ -6,6 +6,8 @@
 #include "Rectangle.h"
 #include <iostream>
 const std::string path = "/home/florian/Dropbox/Licence/L2/S4/LIFAP4/projet_lifap4/data/";
+
+
 class Image
 {
 private:
@@ -23,6 +25,7 @@ private:
     Rectangle* m_destination;
     std::string m_image;
 
+
 public:
     /*------CONSTRUCTEUR-------*/
     Image();
@@ -33,15 +36,6 @@ public:
 
     /*------ " DRAW " -------*/
     void display(SDL_Renderer* rendu);
-
-    void debug()
-    {
-        std::cout<<"Destination = "<<std::endl;
-        m_destination->debug();
-
-        std::cout<<"Source = "<<std::endl;
-        m_source.debug();
-    }
 
     ~Image();
 };

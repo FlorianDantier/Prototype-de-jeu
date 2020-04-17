@@ -2,14 +2,17 @@
 #define GAME_H
 
 #include "Menu.h"
+#include "common.h"
 
-const Vec2<unsigned int> windowSize(640, 480);
+
+
 
 class Game
 {
 private:
     // Florian
     Menu* m_home;
+    GameStatus m_status;
 
 
     // Franklin
@@ -20,14 +23,19 @@ private:
 
 
 
-    bool m_isRunning; // Jeu en pause ou pas
+
 public:
     Game();
     ~Game();
 
     // Florian
     Menu& getHome() const;
+    void setStatus(bool b);
+    void(Game::*ptrONsetStatus)(GameStatus);
+    GameStatus getStatus() const;
+    void setStatus(const GameStatus gs);
 
+    void eventManagers();
 
     // Franklin
 
@@ -36,6 +44,13 @@ public:
     // Joris
 
 
+
+    // Pour les touches ou click
+    void touchZ();
+    void touchQ();
+    void touchS();
+    void touchD();
+    void mouseLeftClick(const Vec2<int> &mousePos);
 };
 
 #endif // GAME_H

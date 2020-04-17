@@ -2,7 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 
-SDL_Game::SDL_Game() : m_menuImage(nullptr)
+SDL_Game::SDL_Game() : m_mainHomeBtn(nullptr), m_mainBackground(nullptr)
 {
     m_pWindow = NULL;
     m_pRenderer = NULL;
@@ -12,7 +12,8 @@ SDL_Game::SDL_Game() : m_menuImage(nullptr)
 SDL_Game::~SDL_Game()
 {
     clean();
-    delete m_menuImage;
+    delete m_mainHomeBtn;
+    delete m_mainBackground;
 }
 
 bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos, unsigned int width, unsigned int height)
@@ -62,7 +63,9 @@ bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos, uns
 // Toutes les images seront chargé dynamiquement ci-dessous, donc n'oubliez pas le DELETE DANS LE DESTRUCTEUR.
 void SDL_Game::loadAllImage()
 {
-    m_menuImage = new Image(path + "button.png", &g.getHome().getOpenButton().getPosition(), windowSize, m_pRenderer);
+    m_mainHomeBtn = new Image(path + "button.png", &g.getHome().getChoice(0).getPosition(), windowSize, m_pRenderer);
+    static Rectangle r(0, 0, windowSize.x, windowSize.y);
+    m_mainBackground = new Image(path + "background.png", &r, windowSize, m_pRenderer);
 }
 
 void SDL_Game::render()
@@ -71,7 +74,8 @@ void SDL_Game::render()
 
     // Ici tous les affichage des images
     /* ==========Florian============ */
-    m_menuImage->display(m_pRenderer);
+    m_mainBackground->display(m_pRenderer);
+    m_mainHomeBtn->display(m_pRenderer);
 
 
 
@@ -98,26 +102,6 @@ void SDL_Game::clean()
     std::cout<<"called clean"<<std::endl;
 }
 
-void SDL_Game::touchZ()
-{
-
-}
-
-void SDL_Game::touchQ()
-{
-
-}
-
-void SDL_Game::touchS()
-{
-
-}
-
-void SDL_Game::touchD()
-{
-
-}
-
 void SDL_Game::handleEvents()
 {
     SDL_Event event;
@@ -135,20 +119,23 @@ void SDL_Game::handleEvents()
                 {
 
                     case SDLK_z:
-                        touchZ();
+                        g.touchZ();
                         break;
 
                     case SDLK_q:
-                        touchQ();
+                        g.touchQ();
                         break;
 
                     case SDLK_s:
-                        touchS();
+                        g.touchS();
                         break;
 
                     case SDLK_d:
-                        touchD();
+                        g.touchD();
                         break;
+
+                        // Ne pas hésitez à rajouter des touches au besoin...
+                        // Si rajout de touche, bien crée la fonction touch dans Game
 
                     case SDLK_ESCAPE:
                         m_bRunning = false;
@@ -161,7 +148,15 @@ void SDL_Game::handleEvents()
             break;
 
         case SDL_MOUSEBUTTONDOWN:
-            // Fonction void mouseLeftClick());
+            if(event.button.button == SDL_BUTTON_LEFT) // Click gauche
+            {
+                 g.mouseLeftClick(Vec2<int>(event.button.x, event.button.y));
+            }
+            else if(event.button.button == SDL_BUTTON_RIGHT)
+            {
+                // Tous les actions devant s'éxecuter lors d'un click droit à mettre en dessous
+            }
+
             break;
 
         default:

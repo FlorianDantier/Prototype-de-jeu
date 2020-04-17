@@ -26,10 +26,6 @@ private:
     void loadAllImage();
     void clean();
 
-    void touchZ();
-    void touchQ();
-    void touchS();
-    void touchD();
     // Membre SDL
     SDL_Window* m_pWindow;
     SDL_Renderer* m_pRenderer;
@@ -37,7 +33,8 @@ private:
     Game g;
 
     // Florian
-    Image* m_menuImage;
+    Image* m_mainBackground;
+    Image* m_mainHomeBtn;
 
 
     // Franklin

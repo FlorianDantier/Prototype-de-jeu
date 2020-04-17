@@ -38,7 +38,17 @@ Rectangle& Button::getPosition() const
     return *m_position;
 }
 
-bool Button::isPressed(Vec2<int> mousePos)
+void Button::setIsLoad(const bool b)
+{
+    m_isLoad = b;
+}
+
+bool Button::getIsLoad() const
+{
+    return m_isLoad;
+}
+
+bool Button::isPressed(const Vec2<int> &mousePos)
 {
     if(m_isLoad)
     {

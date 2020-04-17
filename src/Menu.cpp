@@ -1,5 +1,5 @@
 #include "Menu.h"
-#include <cassert>
+
 
 void Menu::isLoadButton()
 {
@@ -9,29 +9,29 @@ void Menu::isLoadButton()
         {
             for(unsigned int i = 0; i-1 < m_nbChoices; i++)
             {
-                m_choices[i].m_isLoad = true;
+                m_choices[i].setIsLoad(true);
             }
-            m_closeButton->m_isLoad = true;
-            m_openButton->m_isLoad = false;
+            m_closeButton->setIsLoad(true);
+            m_openButton->setIsLoad(false);
         }
         else
         {
             for(unsigned int i = 0; i < m_nbChoices; i++)
             {
-                m_choices[i].m_isLoad = false;
+                m_choices[i].setIsLoad(false);
             }
-            m_closeButton->m_isLoad = false;
-            m_openButton->m_isLoad = true;
+            m_closeButton->setIsLoad(false);
+            m_openButton->setIsLoad(true);
         }
     }
     else
     {
         for(unsigned int i = 0; i < m_nbChoices; i++)
         {
-            m_choices[i].m_isLoad = false;
+            m_choices[i].setIsLoad(false);
         }
-        m_openButton->m_isLoad = false;
-        m_closeButton->m_isLoad = false;
+        m_openButton->setIsLoad(false);
+        m_closeButton->setIsLoad(false);
     }
 }
 
@@ -157,12 +157,6 @@ Button& Menu::getCloseButton() const
 {
     // Vérifier si diff de nullptr ?
     return *m_closeButton;
-}
-
-Button &Menu::listenEvent(const unsigned int indice)
-{
-    assert(indice >= 0 && indice < m_nbChoices);
-    return m_choices[indice];
 }
 
 void Menu::setIsLoad(const bool isLoad)
