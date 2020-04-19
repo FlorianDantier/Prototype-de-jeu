@@ -41,7 +41,8 @@ private:
 
 
     // Joris
-
+    Image* m_warrior;
+    Image* m_slime;
 
 };
 

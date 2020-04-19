@@ -14,6 +14,8 @@ SDL_Game::~SDL_Game()
     clean();
     delete m_mainHomeBtn;
     delete m_mainBackground;
+    delete  m_warrior;
+    delete m_slime;
 }
 
 bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos, unsigned int width, unsigned int height)
@@ -66,6 +68,9 @@ void SDL_Game::loadAllImage()
     m_mainHomeBtn = new Image(path + "button.png", &g.getHome().getChoice(0).getPosition(), windowSize, m_pRenderer);
     static Rectangle r(0, 0, windowSize.x, windowSize.y);
     m_mainBackground = new Image(path + "background.png", &r, windowSize, m_pRenderer);
+    m_warrior = new Image(path + "images/joueur.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
+    //m_slime = new Image(path + "slime.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
+
 }
 
 void SDL_Game::render()
@@ -80,8 +85,7 @@ void SDL_Game::render()
 
 
     /*=============Joris===============*/
-
-
+    m_warrior->display(m_pRenderer);
 
 
     /* ===========Franklin========== */

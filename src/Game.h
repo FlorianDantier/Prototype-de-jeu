@@ -3,6 +3,8 @@
 
 #include "Menu.h"
 #include "common.h"
+#include "Player.h"
+#include "Enemy.h"
 
 
 
@@ -20,7 +22,7 @@ private:
 
 
     // Joris
-
+    Player * m_warrior;
 
 
 
@@ -42,7 +44,7 @@ public:
 
 
     // Joris
-
+    Player& getPlayer() const;
 
 
     // Pour les touches ou click

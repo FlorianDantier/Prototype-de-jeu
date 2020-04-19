@@ -5,7 +5,8 @@
 #include <string>
 #include "Rectangle.h"
 #include <iostream>
-const std::string path = "/home/florian/Dropbox/Licence/L2/S4/LIFAP4/projet_lifap4/data/";
+//const std::string path = "/home/florian/Dropbox/Licence/L2/S4/LIFAP4/projet_lifap4/data/";
+const std::string path = "/home/joris/Bureau/lifap4/projet_lifap4/data/";
 
 
 class Image

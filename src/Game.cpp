@@ -6,6 +6,9 @@ Game::Game() : m_home(nullptr)
     Button notLoad(Rectangle(-1 ,-1, -1, -1), false);
     m_home = new Menu(2, true, true, notLoad, notLoad);
     m_home->setChoice(Button (Rectangle  (50, 100, 550, 100), true), 0);
+    Rectangle warPos(windowSize.x/2,windowSize.y/2,30,30);
+    m_warrior = new Player("Bob",warrior,warPos,100,1);
+
 
 }
 
@@ -13,6 +16,8 @@ Game::~Game()
 {
     delete m_home;
     m_home = nullptr;
+    delete m_warrior;
+    m_warrior = nullptr;
 }
 
 Menu& Game::getHome() const
@@ -45,6 +50,11 @@ void Game::eventManagers()
     {
 
     }
+}
+
+Player &Game::getPlayer() const
+{
+    return *m_warrior;
 }
 
 void Game::touchZ()
