@@ -13,8 +13,11 @@ HEADERS += \
     src/Menu.h \
     src/Rectangle.h \
     src/SDL_Game.h \
-    src/Vec2.h
-    #src/Character.h
+    src/Vec2.h \
+    src/Character.h \
+    src/Player.h \
+    src/Enemy.h \
+    src/Object.h \
 
 SOURCES += \
     src/Button.cpp \
@@ -25,6 +28,9 @@ SOURCES += \
     src/SDL_Game.cpp \
     src/main.cpp \
     #src/mainTest.cpp \
-    #src/Character.cpp \
+    src/Character.cpp \
+    src/Player.cpp \
+    src/Enemy.cpp \
+    src/Object.cpp \
 
 LIBS += -L/usr/lib -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
