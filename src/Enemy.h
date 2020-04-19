@@ -18,19 +18,19 @@ private:
     bool m_hasLoot;
     Object m_loot;
     bool m_hasChest;
-    Object m_tabLootChest[3];
+    Object m_Chest;
     EnemyType m_type;
     EnemyRace m_race;
     unsigned int m_xpGiving;
     EnemyStatus m_status;
     RoamingDirection m_direction;
-    Vec2<int> m_posOrigin;
+    Vec2<int> * m_posOrigin;
     unsigned int m_waitingBeforeAttacking;
 
 public:
     Enemy();
     //constructeur par défaut
-    Enemy(EnemyType type, EnemyRace race, const Rectangle & pos, const Object loot, const Object tabLootChest[],
+    Enemy(EnemyType type, EnemyRace race, const Rectangle & pos, const Object & loot, const Object & Chest,
           const unsigned int health, const unsigned int level, RoamingDirection direction);
 
     void moveRight();
@@ -57,7 +57,7 @@ public:
     //tue l'ennemi
     Object getLoot() const;
     //retourne le loot
-    Object * getChest();
+    Object getChest();
     //retourne le loot dans le coffre du boss
     unsigned int getTimer() const;
     //retourne le temps de la dernière attaque

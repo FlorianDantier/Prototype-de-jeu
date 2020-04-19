@@ -21,22 +21,23 @@ class Character
     unsigned int m_level;
     unsigned int m_strengh;
     bool m_alive;
-    Rectangle m_position;
-    Rectangle m_range;
+    Rectangle * m_position;
+    Rectangle * m_range;
     bool m_isLoaded;
     bool m_isXpGiven;
 
     public:
     Weapon m_weapon;
     Character(); // constructeur par défault
-    Character(const Rectangle & pos, const unsigned int health,
+    Character(const Rectangle &pos, const unsigned int health,
               const unsigned int level);
     //constructeur avec pos,health,level en paramètre
+    ~Character(); //destructeur
     void move(const Vec2<int> & direction);
     //les 8 directions possibles en Vec2<int>
-    Rectangle getPos() const;
+    Rectangle& getPos() const;
     //renvoi la position sous forme de rectangle
-    void setPos(const Rectangle & rec);
+    void setPos(Rectangle * rec);
     //modifie la position à partir d'un rectangle
     void takeDamage(unsigned int damageToDeal,Character & enemy);
     //reçoit des dégats et perd de la vie
@@ -52,7 +53,7 @@ class Character
     // retourne sa défense
     unsigned int getStrengh() const;
     // retourne sa force d'attaque physique
-    Rectangle getRange() const;
+    Rectangle& getRange() const;
     //retourne sa portée sous forme de rectangle
     void setHealth(const unsigned int health);
     //modifie la vie
@@ -64,7 +65,7 @@ class Character
     //modifie la défense
     void setStrengh(const unsigned int strengh);
     //modifie la force d'attaque physique
-    void setRange(const Rectangle & range);
+    void setRange(Rectangle *range);
     //modifie le rectangle de la portée
     void updatePlayerMoveRight(Character tabCharacter[],unsigned int sizeTab);
     //le joueur bouge à droite + gestion de toutes les mise à jour suite à cette action

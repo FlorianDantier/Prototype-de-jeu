@@ -15,6 +15,8 @@ Player::Player()
         m_inventory.m_tabEquip[i].m_isLooted=true;
         m_inventory.m_tabEquip[i].m_destroyed=true;
         m_inventory.m_tabEquip[i].m_dropped=false;
+        m_inventory.m_tabEquip[i].m_pos=nullptr;
+
     }
     m_armor.m_defense = 10;
     m_defense += m_armor.m_defense;
@@ -25,6 +27,7 @@ Player::Player()
     m_tabEquipped[0].m_isLooted=true;
     m_tabEquipped[0].m_destroyed=false;
     m_tabEquipped[0].m_dropped=false;
+    m_tabEquipped[0].m_pos = nullptr;
     m_tabEquipped[1].m_nameEquipment="beginner armor";
     m_tabEquipped[1].m_index=1;
     m_tabEquipped[1].m_type=armor;
@@ -32,8 +35,9 @@ Player::Player()
     m_tabEquipped[1].m_isLooted=true;
     m_tabEquipped[1].m_destroyed=false;
     m_tabEquipped[1].m_dropped=false;
+    m_tabEquipped[1].m_pos = nullptr;
     m_inventory.m_numEmptySlot = 0;
-    m_timer=clock();
+    m_timer=SDL_GetTicks();
 }
 
 Player::Player(const std::string & name,PlayerClass Class, const Rectangle & pos,
@@ -48,7 +52,9 @@ Player::Player(const std::string & name,PlayerClass Class, const Rectangle & pos
         m_inventory.m_tabEquip[i].m_type=other;
         m_inventory.m_tabEquip[i].m_index=500;
         m_inventory.m_tabEquip[i].m_isLooted=true;
+        m_inventory.m_tabEquip[i].m_destroyed=true;
         m_inventory.m_tabEquip[i].m_dropped=false;
+        m_inventory.m_tabEquip[i].m_pos=nullptr;
 
     }
     m_armor.m_defense = 10;
@@ -59,13 +65,15 @@ Player::Player(const std::string & name,PlayerClass Class, const Rectangle & pos
     m_tabEquipped[0].m_isLooted=true;
     m_tabEquipped[0].m_destroyed=false;
     m_tabEquipped[0].m_dropped=false;
+    m_tabEquipped[0].m_pos = nullptr;
     m_tabEquipped[1].m_nameEquipment="beginner armor";
     m_tabEquipped[1].m_index=1;
     m_tabEquipped[1].m_type=armor;
     m_tabEquipped[1].m_value=10;
     m_tabEquipped[1].m_isLooted=true;
     m_tabEquipped[1].m_destroyed=false;
-    m_tabEquipped[0].m_dropped=false;
+    m_tabEquipped[1].m_dropped=false;
+    m_tabEquipped[1].m_pos = nullptr;
     m_inventory.m_numEmptySlot = 0;
     m_name = name;
     m_class = Class;
@@ -121,14 +129,15 @@ void Player::Loot(Object tabObject[],unsigned int sizeTab)
 {
     for (unsigned int i=0;i<sizeTab;i++)
     {
-        if(getPos().in(tabObject[i].m_pos))
+        if(getPos().in(*(tabObject[i].m_pos)))
         {
-            if(!tabObject[i].m_isLooted)
+            if((!tabObject[i].m_isLooted)&&(tabObject[i].m_dropped))
             {
                 if(m_inventory.m_numEmptySlot<16)
                 {
                     tabObject[i].m_isLooted=true;
                     tabObject[i].m_dropped=false;
+                    tabObject[i].m_destroyed=false;
                     m_inventory.m_tabEquip[m_inventory.m_numEmptySlot]=tabObject[i];
                     std::cout<<"Objet "<<tabObject[i].m_nameEquipment<<" obtenu !"<<std::endl;
                     m_inventory.m_tabEquip[m_inventory.m_numEmptySlot].m_index= m_inventory.m_numEmptySlot;
@@ -256,6 +265,8 @@ std::string Player::getNameClass() const
         return "Archer";
     case 2:
         return "Mage";
+    default:
+        return "error";
     }
 }
 

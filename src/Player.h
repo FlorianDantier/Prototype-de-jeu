@@ -34,7 +34,7 @@ class Player : public Character
     PlayerClass m_class;
     unsigned int m_xpCurrent;
     unsigned int m_xpMax;
-    clock_t m_timer;
+    unsigned int m_timer;
     void deleteObject(unsigned int index);
     //supprimer un objet et réassemble l'inventaire sans "trous"
 

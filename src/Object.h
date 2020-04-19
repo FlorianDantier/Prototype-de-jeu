@@ -11,7 +11,7 @@ public:
     std::string m_nameEquipment;
     ObjectType m_type;
     unsigned int m_index;
-    Rectangle m_pos;
+    Rectangle *m_pos;
     bool m_isLooted;
     int m_value;
     bool m_destroyed;

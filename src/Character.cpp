@@ -1,7 +1,6 @@
 #include "Character.h"
 #include <iostream>
-
-const Vec2<unsigned int> WINDOW_SIZE(640,480);
+#include "common.h"
 
 Character::Character()
 {
@@ -14,16 +13,23 @@ Character::Character()
     m_alive = false;
     m_isLoaded = false;
     m_isXpGiven = false;
+    m_position = nullptr;
+    m_range = nullptr;
 }
 
 Character::Character(const Rectangle & pos, unsigned int health,
                      unsigned int level)
 {
-    m_position = pos;
-    m_range.m_position.x = pos.m_position.x + pos.m_dimension.x;
-    m_range.m_position.y = pos.m_position.y + (pos.m_dimension.y / 4);
-    m_range.m_dimension.x = pos.m_dimension.x / 2;
-    m_range.m_dimension.y = pos.m_dimension.y / 2;
+    m_position = new Rectangle;
+    m_position->m_position.x = pos.m_position.x;
+    m_position->m_position.y = pos.m_position.y;
+    m_position->m_dimension.x = pos.m_dimension.x;
+    m_position->m_dimension.y = pos.m_dimension.y;
+    m_range = new Rectangle;
+    m_range->m_position.x = pos.m_position.x + pos.m_dimension.x;
+    m_range->m_position.y = pos.m_position.y + (pos.m_dimension.y / 4);
+    m_range->m_dimension.x = pos.m_dimension.x / 2;
+    m_range->m_dimension.y = pos.m_dimension.y / 2;
     m_maxHealth = health;
     m_health = health;
     m_level = level;
@@ -35,18 +41,26 @@ Character::Character(const Rectangle & pos, unsigned int health,
     m_isXpGiven = false;
 }
 
+Character::~Character()
+{
+    delete m_position;
+    delete m_range;
+    m_position = nullptr;
+    m_range = nullptr;
+}
+
 void Character::move(const Vec2<int> & direction)
 {
-    m_position.m_position.x += direction.x;
-    m_position.m_position.y += direction.y;
+    m_position->m_position.x += direction.x;
+    m_position->m_position.y += direction.y;
 }
 
-Rectangle Character::getPos() const
+Rectangle& Character::getPos() const
 {
-    return m_position;
+    return *m_position;
 }
 
-void Character::setPos(const Rectangle & recPos)
+void Character::setPos(Rectangle * recPos)
 {
     m_position = recPos;
 }
@@ -96,9 +110,9 @@ unsigned int Character::getStrengh() const
     return m_strengh;
 }
 
-Rectangle Character::getRange() const
+Rectangle& Character::getRange() const
 {
-    return m_range;
+    return *m_range;
 }
 
 void Character::setHealth(const unsigned int health)
@@ -126,7 +140,7 @@ void Character::setStrengh(const unsigned int strengh)
     m_strengh = strengh;
 }
 
-void Character::setRange(const Rectangle &range)
+void Character::setRange(Rectangle * range)
 {
     m_range = range;
 }
@@ -185,7 +199,7 @@ void Character::display()
 
 Vec2<int> Character::getVecPos()
 {
-    return {m_position.m_position.x,m_position.m_position.y};
+    return {m_position->m_position.x,m_position->m_position.y};
 }
 
 void Character::die()
@@ -256,34 +270,34 @@ void Character::attack(Character & enemy)
 
 void Character::updateRangeRight()
 {
-    m_range.m_position.x = m_position.m_position.x + m_position.m_dimension.x;
-    m_range.m_position.y = m_position.m_position.y + (m_position.m_dimension.y / 4);
-    m_range.m_dimension.x = m_position.m_dimension.x / 2;
-    m_range.m_dimension.y = m_position.m_dimension.y / 2;
+    m_range->m_position.x = m_position->m_position.x + m_position->m_dimension.x;
+    m_range->m_position.y = m_position->m_position.y + (m_position->m_dimension.y / 4);
+    m_range->m_dimension.x = m_position->m_dimension.x / 2;
+    m_range->m_dimension.y = m_position->m_dimension.y / 2;
 }
 
 void Character::updateRangeLeft()
 {
-    m_range.m_position.x = m_position.m_position.x - m_range.m_dimension.x;
-    m_range.m_position.y = m_position.m_position.y + (m_position.m_dimension.y / 4);
-    m_range.m_dimension.x = m_position.m_dimension.x / 2;
-    m_range.m_dimension.y = m_position.m_dimension.y / 2;
+    m_range->m_position.x = m_position->m_position.x - m_range->m_dimension.x;
+    m_range->m_position.y = m_position->m_position.y + (m_position->m_dimension.y / 4);
+    m_range->m_dimension.x = m_position->m_dimension.x / 2;
+    m_range->m_dimension.y = m_position->m_dimension.y / 2;
 }
 
 void Character::updateRangeTop()
 {
-    m_range.m_position.x = m_position.m_position.x + (m_position.m_dimension.x/4);
-    m_range.m_position.y = m_position.m_position.y - m_range.m_dimension.y;
-    m_range.m_dimension.x = m_position.m_dimension.x / 2;
-    m_range.m_dimension.y = m_position.m_dimension.y / 2;
+    m_range->m_position.x = m_position->m_position.x + (m_position->m_dimension.x/4);
+    m_range->m_position.y = m_position->m_position.y - m_range->m_dimension.y;
+    m_range->m_dimension.x = m_position->m_dimension.x / 2;
+    m_range->m_dimension.y = m_position->m_dimension.y / 2;
 }
 
 void Character::updateRangeBottom()
 {
-    m_range.m_position.x = m_position.m_position.x + (m_position.m_dimension.x/4);
-    m_range.m_position.y = m_position.m_position.y + m_position.m_dimension.y;
-    m_range.m_dimension.x = m_position.m_dimension.x / 2;
-    m_range.m_dimension.y = m_position.m_dimension.y / 2;
+    m_range->m_position.x = m_position->m_position.x + (m_position->m_dimension.x/4);
+    m_range->m_position.y = m_position->m_position.y + m_position->m_dimension.y;
+    m_range->m_dimension.x = m_position->m_dimension.x / 2;
+    m_range->m_dimension.y = m_position->m_dimension.y / 2;
 }
 
 void Character::crashWithEnemyOnRight(Character tabCharacter[],unsigned int sizeTab)
@@ -366,24 +380,24 @@ bool Character::isLoaded() const
 
 bool Character::testInOut()
 {
-    if(m_position.m_position.x<0)
+    if(m_position->m_position.x<0)
     {
-        m_position.m_position.x=0;
+        m_position->m_position.x=0;
         return false;
     }
-    if(m_position.m_position.y<0)
+    if(m_position->m_position.y<0)
     {
-        m_position.m_position.y=0;
+        m_position->m_position.y=0;
         return false;
     }
-    if((m_position.m_position.x + m_position.m_dimension.x) > WINDOW_SIZE.x)
+    if((m_position->m_position.x + m_position->m_dimension.x) > windowSize.x)
     {
-        m_position.m_position.x = WINDOW_SIZE.x - m_position.m_dimension.x;
+        m_position->m_position.x = windowSize.x - m_position->m_dimension.x;
         return false;
     }
-    if((m_position.m_position.y + m_position.m_dimension.y) > WINDOW_SIZE.y)
+    if((m_position->m_position.y + m_position->m_dimension.y) > windowSize.y)
     {
-        m_position.m_position.y = WINDOW_SIZE.y - m_position.m_dimension.y;
+        m_position->m_position.y = windowSize.y - m_position->m_dimension.y;
         return false;
     }
     return true;

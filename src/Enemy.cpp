@@ -2,7 +2,6 @@
 #include <time.h>
 #include <math.h>
 
-const Vec2<unsigned int> WINDOW_SIZE(640,480);
 
 // On suppose a<b
 int rand_a_b(int a, int b){
@@ -18,27 +17,29 @@ Enemy::Enemy()
     m_loot.m_isLooted=false;
     m_loot.m_destroyed=true;
     m_loot.m_dropped=false;
+    m_loot.m_pos = nullptr;
     m_hasChest = false;
-    for(unsigned int i = 0;i<3;i++)
-    {
-        m_tabLootChest[i].m_nameEquipment="no object";
-        m_tabLootChest[i].m_type=other;
-        m_tabLootChest[i].m_index=500;
-        m_tabLootChest[i].m_isLooted=false;
-        m_tabLootChest[i].m_destroyed=true;
-        m_tabLootChest[i].m_dropped=false;
-    }
+
+    m_Chest.m_nameEquipment="no object";
+    m_Chest.m_type=other;
+    m_Chest.m_index=500;
+    m_Chest.m_isLooted=false;
+    m_Chest.m_destroyed=true;
+    m_Chest.m_dropped=false;
+    m_Chest.m_pos = nullptr;
+
     m_type = sbire;
     m_race = beast;
     m_xpGiving = 0;
     m_status = dead;
     m_direction = horizontalRight;
     m_waitingBeforeAttacking = 0;
+    m_posOrigin = nullptr;
 }
 
 Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
-             const Object loot, const Object tabLootChest[],
-             const unsigned int health, const unsigned int level,RoamingDirection direction) :
+             const Object &loot, const Object &Chest,
+             const unsigned int health, const unsigned int level, RoamingDirection direction) :
     Character(pos,health,level)
 {
     m_type = type;
@@ -53,7 +54,7 @@ Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
         m_loot.m_isLooted=false;
         m_loot.m_destroyed=false;
         m_loot.m_dropped=false;
-        m_loot.m_pos = pos;
+        m_loot.m_pos = new Rectangle(pos);
         m_loot.m_value = loot.m_value;
     }
     else
@@ -63,17 +64,14 @@ Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
     if (type==boss)
     {
         m_hasChest = true;
-        for(unsigned int i = 0;i<3;i++)
-        {
-            m_tabLootChest[i].m_nameEquipment=tabLootChest[i].m_nameEquipment;
-            m_tabLootChest[i].m_type=tabLootChest[i].m_type;
-            m_tabLootChest[i].m_index=500;
-            m_tabLootChest[i].m_isLooted=false;
-            m_tabLootChest[i].m_destroyed=false;
-            m_tabLootChest[i].m_dropped=false;
-            m_tabLootChest[i].m_pos = pos;
-            m_tabLootChest[i].m_value = tabLootChest[i].m_value;
-        }
+        m_Chest.m_nameEquipment=Chest.m_nameEquipment;
+        m_Chest.m_type=Chest.m_type;
+        m_Chest.m_index=500;
+        m_Chest.m_isLooted=false;
+        m_Chest.m_destroyed=false;
+        m_Chest.m_dropped=false;
+        m_Chest.m_pos = new Rectangle(pos);
+        m_Chest.m_value = Chest.m_value;
         m_xpGiving = 1000 + (level * 100);
     }
     if(type==sbire)
@@ -86,37 +84,37 @@ Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
     }
     m_status = roaming;
     m_direction = direction;
-    m_posOrigin = Vec2(pos.m_position.x,pos.m_position.y);
+    m_posOrigin = new Vec2<int>(pos.m_position.x,pos.m_position.y);
     m_isXpGiven = true;
     m_waitingBeforeAttacking = 0;
 }
 
 void Enemy::moveRight()
 {
-    move(Vec2(1,0));
+    move(Vec2(2,0));
     updateRangeRight();
 }
 void Enemy::moveLeft()
 {
-    move(Vec2(-1,0));
+    move(Vec2(-2,0));
     updateRangeLeft();
 }
 void Enemy::moveTop()
 {
-    move(Vec2(0,-1));
+    move(Vec2(0,-2));
     updateRangeTop();
 }
 void Enemy::moveBottom()
 {
-    move(Vec2(0,1));
+    move(Vec2(0,2));
     updateRangeBottom();
 }
 
 void Enemy::enemyPattern(Player & p)
 {
     int dx,dy;
-    dx = m_position.m_position.x - p.getPos().m_position.x;
-    dy = m_position.m_position.y - p.getPos().m_position.y;
+    dx = m_position->m_position.x - p.getPos().m_position.x;
+    dy = m_position->m_position.y - p.getPos().m_position.y;
 
     switch(m_status)
     {
@@ -128,7 +126,7 @@ void Enemy::enemyPattern(Player & p)
 
         if(m_direction==horizontalRight)
         {
-            if(m_position.m_position.x < m_posOrigin.x + 50)
+            if(m_position->m_position.x < m_posOrigin->x + 50)
             {
                 moveRight();
             }
@@ -139,7 +137,7 @@ void Enemy::enemyPattern(Player & p)
         }
         if(m_direction==horizontalLeft)
         {
-            if(m_position.m_position.x > m_posOrigin.x - 50)
+            if(m_position->m_position.x > m_posOrigin->x - 50)
             {
                 moveLeft();
             }
@@ -150,7 +148,7 @@ void Enemy::enemyPattern(Player & p)
         }
         if(m_direction==verticalTop)
         {
-            if(m_position.m_position.y > m_posOrigin.y - 50)
+            if(m_position->m_position.y > m_posOrigin->y - 50)
             {
                 moveTop();
             }
@@ -161,7 +159,7 @@ void Enemy::enemyPattern(Player & p)
         }
         if(m_direction==verticalBottom)
         {
-            if(m_position.m_position.y < m_posOrigin.y + 50)
+            if(m_position->m_position.y < m_posOrigin->y + 50)
             {
                 moveBottom();
             }
@@ -176,8 +174,10 @@ void Enemy::enemyPattern(Player & p)
         if((abs(dx)>=100)||(abs(dy)>=100))
         {
             m_status = roaming;
+            delete m_posOrigin;
+            m_posOrigin = new Vec2<int>(m_position->m_position.x,m_position->m_position.y);
         }
-        if(p.getPos().in(m_range))
+        if(p.getPos().in(*(m_range)))
         {
             m_status = attacking;
             m_waitingBeforeAttacking = SDL_GetTicks();
@@ -198,14 +198,13 @@ void Enemy::enemyPattern(Player & p)
         {
             moveTop();
         }
-        m_posOrigin = Vec2(m_position.m_position.x,m_position.m_position.y);
         break;
 
     case dead:
         break;
 
     case attacking:
-        if(!p.getPos().in(m_range))
+        if(!p.getPos().in(*(m_range)))
         {
             m_status = comingToPlayer;
         }
@@ -239,6 +238,8 @@ std::string Enemy::getEnemyType() const
         return "Elite";
     case 2:
         return "Boss";
+    default:
+        return "error";
     }
 }
 
@@ -246,6 +247,8 @@ void Enemy::dropLoot()
 {
     m_loot.m_dropped=true;
     m_loot.m_pos=m_position;
+    m_Chest.m_dropped=true;
+    m_Chest.m_pos=m_position;
 }
 
 std::string Enemy::getEnemyRace() const
@@ -259,6 +262,8 @@ std::string Enemy::getEnemyRace() const
         return "Element";
     case 2:
         return "Humanoid";
+    default:
+        return "error";
     }
 }
 
@@ -291,9 +296,9 @@ Object Enemy::getLoot() const
     return m_loot;
 }
 
-Object *Enemy::getChest()
+Object Enemy::getChest()
 {
-    return m_tabLootChest;
+    return m_Chest;
 }
 
 unsigned int Enemy::getTimer() const
