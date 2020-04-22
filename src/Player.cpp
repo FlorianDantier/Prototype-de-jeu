@@ -9,33 +9,12 @@ Player::Player()
     m_xpMax = 100;
     for(unsigned int i=0;i<16;i++)
     {
-        m_inventory.m_tabEquip[i].m_nameEquipment="no object";
-        m_inventory.m_tabEquip[i].m_type=other;
-        m_inventory.m_tabEquip[i].m_index=500;
-        m_inventory.m_tabEquip[i].m_isLooted=true;
-        m_inventory.m_tabEquip[i].m_destroyed=true;
-        m_inventory.m_tabEquip[i].m_dropped=false;
-        m_inventory.m_tabEquip[i].m_pos=nullptr;
-
+        m_inventory.m_tabEquip[i] = Object();
     }
     m_armor.m_defense = 10;
     m_defense += m_armor.m_defense;
-    m_tabEquipped[0].m_nameEquipment="beginner weapon";
-    m_tabEquipped[0].m_index=0;
-    m_tabEquipped[0].m_type=weapon;
-    m_tabEquipped[0].m_value=20;
-    m_tabEquipped[0].m_isLooted=true;
-    m_tabEquipped[0].m_destroyed=false;
-    m_tabEquipped[0].m_dropped=false;
-    m_tabEquipped[0].m_pos = nullptr;
-    m_tabEquipped[1].m_nameEquipment="beginner armor";
-    m_tabEquipped[1].m_index=1;
-    m_tabEquipped[1].m_type=armor;
-    m_tabEquipped[1].m_value=10;
-    m_tabEquipped[1].m_isLooted=true;
-    m_tabEquipped[1].m_destroyed=false;
-    m_tabEquipped[1].m_dropped=false;
-    m_tabEquipped[1].m_pos = nullptr;
+    m_tabEquipped[0] = Object("beginner weapon",weapon,0,getPos(),20,true,false);
+    m_tabEquipped[1] = Object("beginner armor",armor,1,getPos(),10,true,false);
     m_inventory.m_numEmptySlot = 0;
     m_timer=SDL_GetTicks();
 }
@@ -48,32 +27,11 @@ Player::Player(const std::string & name,PlayerClass Class, const Rectangle & pos
     m_xpMax = 100;
     for(unsigned int i=0;i<16;i++)
     {
-        m_inventory.m_tabEquip[i].m_nameEquipment="no object";
-        m_inventory.m_tabEquip[i].m_type=other;
-        m_inventory.m_tabEquip[i].m_index=500;
-        m_inventory.m_tabEquip[i].m_isLooted=true;
-        m_inventory.m_tabEquip[i].m_destroyed=true;
-        m_inventory.m_tabEquip[i].m_dropped=false;
-        m_inventory.m_tabEquip[i].m_pos=nullptr;
-
+        m_inventory.m_tabEquip[i] = Object("no object",other,500,getPos(),0,true,false);
     }
     m_armor.m_defense = 10;
-    m_tabEquipped[0].m_nameEquipment="beginner weapon";
-    m_tabEquipped[0].m_index=0;
-    m_tabEquipped[0].m_type=weapon;
-    m_tabEquipped[0].m_value=20;
-    m_tabEquipped[0].m_isLooted=true;
-    m_tabEquipped[0].m_destroyed=false;
-    m_tabEquipped[0].m_dropped=false;
-    m_tabEquipped[0].m_pos = nullptr;
-    m_tabEquipped[1].m_nameEquipment="beginner armor";
-    m_tabEquipped[1].m_index=1;
-    m_tabEquipped[1].m_type=armor;
-    m_tabEquipped[1].m_value=10;
-    m_tabEquipped[1].m_isLooted=true;
-    m_tabEquipped[1].m_destroyed=false;
-    m_tabEquipped[1].m_dropped=false;
-    m_tabEquipped[1].m_pos = nullptr;
+    m_tabEquipped[0] = Object("beginner weapon",weapon,0,getPos(),20,true,false);
+    m_tabEquipped[1] = Object("beginner armor",armor,1,getPos(),10,true,false);
     m_inventory.m_numEmptySlot = 0;
     m_name = name;
     m_class = Class;
@@ -129,18 +87,18 @@ void Player::Loot(Object tabObject[],unsigned int sizeTab)
 {
     for (unsigned int i=0;i<sizeTab;i++)
     {
-        if(getPos().in(*(tabObject[i].m_pos)))
+        if(getPos().in(tabObject[i].getPos()))
         {
-            if((!tabObject[i].m_isLooted)&&(tabObject[i].m_dropped))
+            if((!tabObject[i].isLooted())&&(tabObject[i].isDropped()))
             {
                 if(m_inventory.m_numEmptySlot<16)
                 {
-                    tabObject[i].m_isLooted=true;
-                    tabObject[i].m_dropped=false;
-                    tabObject[i].m_destroyed=false;
+                    tabObject[i].setLooted(true);
+                    tabObject[i].setDropped(false);
+                    tabObject[i].setDestroyed(false);
                     m_inventory.m_tabEquip[m_inventory.m_numEmptySlot]=tabObject[i];
-                    std::cout<<"Objet "<<tabObject[i].m_nameEquipment<<" obtenu !"<<std::endl;
-                    m_inventory.m_tabEquip[m_inventory.m_numEmptySlot].m_index= m_inventory.m_numEmptySlot;
+                    std::cout<<"Objet "<<tabObject[i].getNameObject()<<" obtenu !"<<std::endl;
+                    m_inventory.m_tabEquip[m_inventory.m_numEmptySlot].setIndex(m_inventory.m_numEmptySlot);
                     m_inventory.m_numEmptySlot++;
                 }
                 else
@@ -155,30 +113,30 @@ void Player::Loot(Object tabObject[],unsigned int sizeTab)
 
 void Player::Equip(Object & equipment)
 {
-    if(!equipment.m_destroyed)
+    if(!equipment.isDestroyed())
     {
-        if(equipment.m_nameEquipment!="no object")
+        if(equipment.getNameObject() != "no object")
         {
             Object temp;
-            if(equipment.m_type==weapon)
+            if(equipment.getType()==weapon)
             {
-                m_tabEquipped[0].m_index=equipment.m_index;
+                m_tabEquipped[0].setIndex(equipment.getIndex());
                 temp=m_tabEquipped[0];
                 m_tabEquipped[0]=equipment;
-                m_weapon.m_damage = equipment.m_value;
-                std::cout<<"Objet "<<equipment.m_nameEquipment<<" équipé !"<<std::endl;
-                m_inventory.m_tabEquip[temp.m_index]=temp;
+                m_weapon.m_damage = equipment.getValue();
+                std::cout<<"Objet "<<equipment.getNameObject()<<" équipé !"<<std::endl;
+                m_inventory.m_tabEquip[temp.getIndex()]=temp;
             }
-            else if(equipment.m_type==armor)
+            else if(equipment.getType()==armor)
             {
-                m_tabEquipped[1].m_index=equipment.m_index;
+                m_tabEquipped[1].setIndex(equipment.getIndex());
                 temp=m_tabEquipped[1];
                 m_tabEquipped[1]=equipment;
                 m_defense -= m_armor.m_defense;
-                m_armor.m_defense = equipment.m_value;
+                m_armor.m_defense = equipment.getValue();
                 m_defense += m_armor.m_defense;
-                std::cout<<"Objet "<<equipment.m_nameEquipment<<" équipé !"<<std::endl;
-                m_inventory.m_tabEquip[temp.m_index]=temp;
+                std::cout<<"Objet "<<equipment.getNameObject()<<" équipé !"<<std::endl;
+                m_inventory.m_tabEquip[temp.getIndex()]=temp;
             }
             else
             {
@@ -190,13 +148,13 @@ void Player::Equip(Object & equipment)
 
 void Player::Use(Object &consumable)
 {
-    if(consumable.m_nameEquipment!="no object")
+    if(consumable.getNameObject()!="no object")
     {
-        if((consumable.m_type==other)&&(!consumable.m_destroyed))
+        if((consumable.getType()==other)&&(!consumable.isDestroyed()))
         {
             if(m_health!=m_maxHealth)
             {
-                unsigned int healAmount = consumable.m_value;
+                unsigned int healAmount = consumable.getValue();
                 if(m_health + healAmount > m_maxHealth)
                 {
                     m_health = m_maxHealth;
@@ -205,11 +163,11 @@ void Player::Use(Object &consumable)
                 {
                     m_health += healAmount;
                 }
-                std::cout<<"Objet "<<consumable.m_nameEquipment<<" utilisé !"<<std::endl;
+                std::cout<<"Objet "<<consumable.getNameObject()<<" utilisé !"<<std::endl;
                 std::cout<<"Vous avez "<<m_health<<" hp"<<std::endl;
-                consumable.m_destroyed = true;
-                deleteObject(consumable.m_index);
-                std::cout<<"Objet "<<consumable.m_nameEquipment<<" détruit !"<<std::endl;
+                consumable.setDestroyed(true);
+                deleteObject(consumable.getIndex());
+                std::cout<<"Objet "<<consumable.getNameObject()<<" détruit !"<<std::endl;
             }
             else
             {
@@ -228,10 +186,10 @@ void Player::deleteObject(unsigned int index)
     for (unsigned int i=index;i<15;i++)
     {
             m_inventory.m_tabEquip[i]=m_inventory.m_tabEquip[i+1];
-            m_inventory.m_tabEquip[i].m_index--;
+            m_inventory.m_tabEquip[i].setIndex(m_inventory.m_tabEquip[i].getIndex()-1);
     }
-     m_inventory.m_tabEquip[15].m_nameEquipment="no object";
-     m_inventory.m_tabEquip[15].m_destroyed=true;
+     m_inventory.m_tabEquip[15].setNameObject("no object");
+     m_inventory.m_tabEquip[15].setDestroyed(true);
      m_inventory.m_numEmptySlot--;
 }
 
@@ -240,11 +198,11 @@ void Player::openInventory() const
 {
     for (unsigned int i=0;i<16;i++)
     {
-        if(m_inventory.m_tabEquip[i].m_nameEquipment!="no object")
+        if(m_inventory.m_tabEquip[i].getNameObject()!="no object")
         {
             std::cout<<"item slot "<<i<<" : "<<
-                       m_inventory.m_tabEquip[i].m_nameEquipment<<std::endl<<
-                       m_inventory.m_tabEquip[i].m_type<<std::endl;
+                       m_inventory.m_tabEquip[i].getNameObject()<<std::endl<<
+                       m_inventory.m_tabEquip[i].getObjectType()<<std::endl;
         }
     }
 }

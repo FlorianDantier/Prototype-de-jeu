@@ -30,8 +30,10 @@ private:
 public:
     Enemy();
     //constructeur par défaut
-    Enemy(EnemyType type, EnemyRace race, const Rectangle & pos, const Object & loot, const Object & Chest,
-          const unsigned int health, const unsigned int level, RoamingDirection direction);
+    Enemy(EnemyType type, EnemyRace race, const Rectangle & pos,
+          const Object & loot, const Object & Chest,
+          const unsigned int health, const unsigned int level,
+          RoamingDirection direction, bool hasLoot);
 
     void moveRight();
     // va à droite

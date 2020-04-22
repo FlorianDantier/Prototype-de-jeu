@@ -11,23 +11,9 @@ int rand_a_b(int a, int b){
 Enemy::Enemy()
 {
     m_hasLoot = false;
-    m_loot.m_nameEquipment="no object";
-    m_loot.m_type=other;
-    m_loot.m_index=500;
-    m_loot.m_isLooted=false;
-    m_loot.m_destroyed=true;
-    m_loot.m_dropped=false;
-    m_loot.m_pos = nullptr;
+    m_loot = Object();
     m_hasChest = false;
-
-    m_Chest.m_nameEquipment="no object";
-    m_Chest.m_type=other;
-    m_Chest.m_index=500;
-    m_Chest.m_isLooted=false;
-    m_Chest.m_destroyed=true;
-    m_Chest.m_dropped=false;
-    m_Chest.m_pos = nullptr;
-
+    m_Chest = Object();
     m_type = sbire;
     m_race = beast;
     m_xpGiving = 0;
@@ -39,23 +25,16 @@ Enemy::Enemy()
 
 Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
              const Object &loot, const Object &Chest,
-             const unsigned int health, const unsigned int level, RoamingDirection direction) :
+             const unsigned int health, const unsigned int level, RoamingDirection direction, bool hasLoot) :
     Character(pos,health,level)
 {
     m_type = type;
     m_race = race;
-    int tmpNb = rand_a_b(0,1);
-    if(tmpNb == 1)
+    if(hasLoot)
     {
         m_hasLoot = true;
-        m_loot.m_nameEquipment=loot.m_nameEquipment;
-        m_loot.m_type=loot.m_type;
-        m_loot.m_index=500;
-        m_loot.m_isLooted=false;
-        m_loot.m_destroyed=false;
-        m_loot.m_dropped=false;
-        m_loot.m_pos = new Rectangle(pos);
-        m_loot.m_value = loot.m_value;
+        m_loot = Object(loot);
+        m_loot.setDropped(false);
     }
     else
     {
@@ -64,14 +43,8 @@ Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
     if (type==boss)
     {
         m_hasChest = true;
-        m_Chest.m_nameEquipment=Chest.m_nameEquipment;
-        m_Chest.m_type=Chest.m_type;
-        m_Chest.m_index=500;
-        m_Chest.m_isLooted=false;
-        m_Chest.m_destroyed=false;
-        m_Chest.m_dropped=false;
-        m_Chest.m_pos = new Rectangle(pos);
-        m_Chest.m_value = Chest.m_value;
+        m_Chest = Object(Chest);
+        m_Chest.setDropped(false);
         m_xpGiving = 1000 + (level * 100);
     }
     if(type==sbire)
@@ -245,10 +218,10 @@ std::string Enemy::getEnemyType() const
 
 void Enemy::dropLoot()
 {
-    m_loot.m_dropped=true;
-    m_loot.m_pos=m_position;
-    m_Chest.m_dropped=true;
-    m_Chest.m_pos=m_position;
+    m_loot.setDropped(true);
+    m_loot.setPos(*m_position);
+    m_Chest.setDropped(true);
+    m_Chest.setPos(*m_position);
 }
 
 std::string Enemy::getEnemyRace() const
