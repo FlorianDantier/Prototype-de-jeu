@@ -12,7 +12,7 @@ class Enemy;
 #include "Object.h"
 
 //structures à enlever après implémentation des classes en question
-
+/// eeee
 struct Inventory
 {
     Object m_tabEquip[16];

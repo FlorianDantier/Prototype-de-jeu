@@ -66,12 +66,12 @@ bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos, uns
 // Toutes les images seront chargé dynamiquement ci-dessous, donc n'oubliez pas le DELETE DANS LE DESTRUCTEUR.
 void SDL_Game::loadAllImage()
 {
-    m_mainHomeBtn = new Image(path + "button.png", &g.getHome().getChoice(0).getPosition(), windowSize, m_pRenderer);
+    m_mainHomeBtn = new Image("../data/button.png", &g.getHome().getChoice(0).getPosition(), windowSize, m_pRenderer);
     static Rectangle r(0, 0, windowSize.x, windowSize.y);
-    m_mainBackground = new Image(path + "background.png", &r, windowSize, m_pRenderer);
-    m_warrior = new Image(path + "images/joueur.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
+    m_mainBackground = new Image("../data/background.png", &r, windowSize, m_pRenderer);
+    m_warrior = new Image("../data/images/joueur.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
 
-    m_imageMap1 = new Image(path + "map1.png", &r , windowSize ,m_pRenderer);
+    m_imageMap1 = new Image("../data/map1.png", &r , windowSize ,m_pRenderer);
 
     //m_slime = new Image(path + "slime.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
 }
