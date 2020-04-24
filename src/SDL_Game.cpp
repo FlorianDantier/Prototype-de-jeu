@@ -15,7 +15,11 @@ SDL_Game::~SDL_Game()
     clean();
     delete m_mainHomeBtn;
     delete m_mainBackground;
-    delete  m_warrior;
+    for(int i = 0; i < 4; i++)
+    {
+        delete m_warrior[i];
+        m_warrior[i] = nullptr;
+    }
     delete m_slime;
 }
 
@@ -69,9 +73,11 @@ void SDL_Game::loadAllImage()
     m_mainHomeBtn = new Image("../data/button.png", &g.getHome().getChoice(0).getPosition(), windowSize, m_pRenderer);
     static Rectangle r(0, 0, windowSize.x, windowSize.y);
     m_mainBackground = new Image("../data/background.png", &r, windowSize, m_pRenderer);
-    m_warrior = new Image("../data/images/joueur.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
-
-    m_imageMap1 = new Image("../data/map1.png", &r , windowSize ,m_pRenderer);
+    m_warrior[Orientation::south] = new Image("../data/player/link.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
+    m_warrior[Orientation::north] = new Image("../data/player/linkDos.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
+    m_warrior[Orientation::east] = new Image("../data/player/linkDroit.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
+    m_warrior[Orientation::west] = new Image("../data/player/linkGauche.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
+    m_imageMap1 = new Image("../data/map/map1.png", &r, windowSize ,m_pRenderer);
 
     //m_slime = new Image(path + "slime.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
 }
@@ -91,7 +97,7 @@ void SDL_Game::render()
     {
 
         m_imageMap1->display(m_pRenderer);
-        m_warrior->display(m_pRenderer);
+        m_warrior[g.getPlayer().getOrientation()]->display(m_pRenderer);
 //        SDL_Rect r;
 //        r.x = g.getMap1().getDecor(0).m_position.x;
 //        r.y = g.getMap1().getDecor(0).m_position.y;

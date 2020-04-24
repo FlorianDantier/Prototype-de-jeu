@@ -16,6 +16,8 @@ public:
     void setDecor(const unsigned int indice, const Rectangle &r);
     Rectangle &getDecor(const unsigned int indice) const;
 
+    unsigned int getNbDecor() const;
+
 };
 
 #endif // MAP_H

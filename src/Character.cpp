@@ -39,6 +39,7 @@ Character::Character(const Rectangle & pos, unsigned int health,
     m_alive = true;
     m_isLoaded = true;
     m_isXpGiven = false;
+    m_orient = south;
 }
 
 Character::~Character()
@@ -401,5 +402,15 @@ bool Character::testInOut()
         return false;
     }
     return true;
+}
+
+void Character::setOrientation(const Orientation orient)
+{
+    m_orient = orient;
+}
+
+Orientation Character::getOrientation() const
+{
+    return m_orient;
 }
 

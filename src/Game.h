@@ -40,7 +40,7 @@ public:
     void controlePos();
     Map &getMap1() const;
     void eventManagers();
-
+    Orientation m_orient;
     // Franklin
 
 

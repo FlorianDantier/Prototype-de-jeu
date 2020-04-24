@@ -6,6 +6,14 @@
 #include <ctime>
 
 //enlever la struct Weapon après la création de la classe Weapon
+enum Orientation
+{
+    north = 0,
+    west,
+    south,
+    east
+};
+
 
 struct Weapon
 {
@@ -25,6 +33,7 @@ class Character
     Rectangle * m_range;
     bool m_isLoaded;
     bool m_isXpGiven;
+    Orientation m_orient;
 
     public:
     Weapon m_weapon;
@@ -117,6 +126,8 @@ class Character
     // retour si l'entité est chargée
     bool testInOut();
     //vérifie que le character ne sort pas de l'écran
+    void setOrientation(const Orientation orient);
+    Orientation getOrientation() const;
 };
 
 

@@ -12,7 +12,7 @@ enum GameStatus
 
 
 
-const Vec2<unsigned int> windowSize(515, 515);
+const Vec2<unsigned int> windowSize(800, 800);
 
 const int impact = 3;
 

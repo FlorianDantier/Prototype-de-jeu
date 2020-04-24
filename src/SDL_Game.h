@@ -43,7 +43,7 @@ private:
 
 
     // Joris
-    Image* m_warrior;
+    Image* m_warrior[4];
     Image* m_slime;
 
 };
