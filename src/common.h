@@ -1,15 +1,26 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include "src/Vec2.h"
+#include "Vec2.h"
 enum GameStatus
 {
     run = 0,
     standBy,
-    home
+    home,
+    noValue
 };
 
-const Vec2<unsigned int> windowSize(640, 480);
+
+
+const Vec2<unsigned int> windowSize(515, 515);
+
+const int impact = 3;
+
+const Vec2<int> top(0, -5);
+const Vec2<int> bottom(0, 5);
+const Vec2<int> left(-5, 0);
+const Vec2<int> right(5, 0);
+
 
 
 #endif // COMMON_H

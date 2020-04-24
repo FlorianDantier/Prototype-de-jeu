@@ -2,12 +2,13 @@
 #define MENU_H
 
 #include "Button.h"
+#include "common.h"
 #include <string>
 #include <cassert>
 
 class Menu
 {
-private:
+protected:
     unsigned int m_nbChoices;
     Rectangle m_position;
     Button* m_choices;

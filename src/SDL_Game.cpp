@@ -1,6 +1,7 @@
 #include "SDL_Game.h"
 #include <SDL2/SDL_image.h>
 #include <iostream>
+#include "common.h"
 
 SDL_Game::SDL_Game() : m_mainHomeBtn(nullptr), m_mainBackground(nullptr)
 {
@@ -69,8 +70,10 @@ void SDL_Game::loadAllImage()
     static Rectangle r(0, 0, windowSize.x, windowSize.y);
     m_mainBackground = new Image(path + "background.png", &r, windowSize, m_pRenderer);
     m_warrior = new Image(path + "images/joueur.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
-    //m_slime = new Image(path + "slime.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
 
+    m_imageMap1 = new Image(path + "map1.png", &r , windowSize ,m_pRenderer);
+
+    //m_slime = new Image(path + "slime.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
 }
 
 void SDL_Game::render()
@@ -78,21 +81,34 @@ void SDL_Game::render()
     SDL_RenderClear(m_pRenderer);
 
     // Ici tous les affichage des images
-    /* ==========Florian============ */
-    m_mainBackground->display(m_pRenderer);
-    m_mainHomeBtn->display(m_pRenderer);
+
+    if(g.getStatus() == GameStatus::home)
+    {
+        m_mainBackground->display(m_pRenderer);
+        m_mainHomeBtn->display(m_pRenderer);
+    }
+    else if(g.getStatus() == GameStatus::run)
+    {
+
+        m_imageMap1->display(m_pRenderer);
+        m_warrior->display(m_pRenderer);
+//        SDL_Rect r;
+//        r.x = g.getMap1().getDecor(0).m_position.x;
+//        r.y = g.getMap1().getDecor(0).m_position.y;
+//        r.w = g.getMap1().getDecor(0).m_dimension.x;
+//        r.h = g.getMap1().getDecor(0).m_dimension.y;
+//        SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+//        SDL_RenderFillRect(m_pRenderer, &r);
 
 
+    }
+    else if(g.getStatus() == GameStatus::standBy)
+    {
 
-    /*=============Joris===============*/
-    m_warrior->display(m_pRenderer);
-
-
-    /* ===========Franklin========== */
-
+    }
 
 
-
+    SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     //==========FIN AFFICHAGE=========
     SDL_RenderPresent(m_pRenderer);
 }

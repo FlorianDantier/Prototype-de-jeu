@@ -15,6 +15,30 @@ public:
     bool in(const Vec2<int> &point);
     bool in(const Rectangle & rect);
     Vec2<int> centre();
+    void setCentre(const Vec2<int> &c);
+
+    void setPointMin(const Vec2<int> & ptMin);
+    void setPointMax(const Vec2<int> & ptMax);
+
+    Vec2<int> getPointMin() const;
+    Vec2<int> getPointMax() const;
+
+    int getXmin() const;
+    int getYmin() const;
+    int getXmax() const;
+    int getYmax() const;
+
+    void setXmin(const int xMin);
+    void setYmin(const int yMin);
+    void setXmax(const int xMax);
+    void setYmax(const int yMax);
+
+    Rectangle getDroit() const;
+    Rectangle getGauche() const;
+    Rectangle getHaut() const;
+    Rectangle getBas() const;
+
+    void reSize(const float factor);
 };
 
 #endif // RECTANGLE_H

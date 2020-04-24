@@ -22,7 +22,7 @@ public:
 
 
 private:
-    // Méthode privées
+    // Méthodes privées
     void loadAllImage();
     void clean();
 
@@ -35,6 +35,8 @@ private:
     // Florian
     Image* m_mainBackground;
     Image* m_mainHomeBtn;
+
+    Image* m_imageMap1;
 
 
     // Franklin

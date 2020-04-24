@@ -6,7 +6,7 @@
 #include "Player.h"
 #include "Enemy.h"
 
-
+#include "Map.h"
 
 
 class Game
@@ -14,6 +14,7 @@ class Game
 private:
     // Florian
     Menu* m_home;
+    Map* map1;
     GameStatus m_status;
 
 
@@ -36,7 +37,8 @@ public:
     void(Game::*ptrONsetStatus)(GameStatus);
     GameStatus getStatus() const;
     void setStatus(const GameStatus gs);
-
+    void controlePos();
+    Map &getMap1() const;
     void eventManagers();
 
     // Franklin

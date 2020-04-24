@@ -6,6 +6,8 @@ CONFIG -= qt
 DESTDIR += bin/
 
 HEADERS += \
+    src/Map.h \
+    src/Inventory.h \
     src/common.h \
     src/Button.h \
     src/Game.h \
@@ -20,14 +22,16 @@ HEADERS += \
     src/Object.h \
 
 SOURCES += \
+    src/Map.cpp \
     src/Button.cpp \
     src/Game.cpp \
+    src/Inventory.cpp \
     src/Menu.cpp \
     src/Rectangle.cpp \
     src/Image.cpp \
     src/SDL_Game.cpp \
     src/main.cpp \
-    #src/mainTest.cpp \
+    #mainTest.cpp \
     src/Character.cpp \
     src/Player.cpp \
     src/Enemy.cpp \

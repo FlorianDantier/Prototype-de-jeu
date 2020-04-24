@@ -23,14 +23,11 @@ void Image::setDestination()
     }
     else
     {
-        static int compteur = 0;
-        std::cout<<"Appel "<<compteur<<std::endl;
         std::cout<<"m_destination is null"<<std::endl;
         m_SDL_destination.x = 0;
         m_SDL_destination.y = 0;
         m_SDL_destination.w = 0;
         m_SDL_destination.h = 0;
-        compteur++;
     }
 }
 
