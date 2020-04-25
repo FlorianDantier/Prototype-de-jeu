@@ -24,7 +24,7 @@ Enemy::Enemy()
 }
 
 Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
-             const Object &loot, const Object &Chest,
+             Object loot, Object Chest,
              const unsigned int health, const unsigned int level, RoamingDirection direction, bool hasLoot) :
     Character(pos,health,level)
 {
@@ -33,7 +33,7 @@ Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
     if(hasLoot)
     {
         m_hasLoot = true;
-        m_loot = Object(loot);
+        m_loot = loot;
         m_loot.setDropped(false);
     }
     else
@@ -43,7 +43,7 @@ Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
     if (type==boss)
     {
         m_hasChest = true;
-        m_Chest = Object(Chest);
+        m_Chest = Chest;
         m_Chest.setDropped(false);
         m_xpGiving = 1000 + (level * 100);
     }

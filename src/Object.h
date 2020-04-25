@@ -24,7 +24,7 @@ public:
            const Rectangle & pos,int value,bool looted,bool dropped);
     //constructeur prenant en paramètre le nom, le type, l'indice,
     //la position et le bonus de l'objet
-    Object(const Object & object);
+    //Object(const Object &copie);
     //contructeur par copie
     ~Object();
     //destructeur

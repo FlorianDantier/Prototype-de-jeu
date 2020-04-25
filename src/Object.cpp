@@ -26,18 +26,18 @@ Object::Object(const std::string &name, ObjectType type, unsigned int index,
     m_isDropped = dropped;
 }
 
-Object::Object(const Object &object)
+/*Object::Object(const Object &copie)
 {
-    m_nameObject = object.m_nameObject;
-    m_type = object.m_type;
-    m_index = object.m_index;
-    m_pos = new Rectangle(*object.m_pos);
-    m_value = object.m_value;
-    m_isLooted = object.m_isLooted;
-    m_isDestroyed = object.m_isDestroyed;
-    m_isDropped = object.m_isDropped;
+    m_nameObject = copie.m_nameObject;
+    m_type = copie.m_type;
+    m_index = copie.m_index;
+    m_pos = new Rectangle(*(copie.m_pos));
+    m_value = copie.m_value;
+    m_isLooted = copie.m_isLooted;
+    m_isDestroyed = copie.m_isDestroyed;
+    m_isDropped = copie.m_isDropped;
 }
-
+*/
 Object::~Object()
 {
     delete m_pos;
