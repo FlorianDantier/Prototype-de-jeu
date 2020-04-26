@@ -19,7 +19,7 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home), map1(nullptr)
     Rectangle statue2 = Rectangle(655, 550, 48, 48);
 
     Rectangle temple[3];
-    temple[0] = Rectangle(553, 276, 99, 95);
+    temple[0] = Rectangle(553, 276, 99, 110);
     temple[1] = Rectangle(554, 276, 24, 224);
     temple[2] = Rectangle(628, 276, 24, 224);
 
@@ -116,9 +116,12 @@ bool Game::collisionManager(const direction::Type d)
 {
     bool isNotInDecor = true;
     unsigned int indice = 0;
+    Rectangle temp = m_warrior->getPos();
+    temp.m_position.y += 2 * temp.m_dimension.y / 3;
+    temp.m_dimension.y /= 3;
     for(unsigned int i = 0; i < map1->getNbDecor() && isNotInDecor; i++)
     {
-        if(m_warrior->getPos().in(map1->getDecor(i)))
+        if(temp.in(map1->getDecor(i)))
         {
             isNotInDecor = false;
             indice = i;
@@ -153,13 +156,15 @@ bool Game::collisionManager(const direction::Type d)
                 m_warrior->setPos(r);
                 break;
         }
-        while (m_warrior->getPos().in(map1->getDecor(indice)))
+        while (temp.in(map1->getDecor(indice)))
         {
+            std::cout<<"Dans le tant que coincer decor\n";
             switch (d)
             {
                 case direction::top:
                     r.m_position += bottom;
                     m_warrior->setPos(r);
+
                     break;
 
                 case direction::left:
@@ -177,6 +182,17 @@ bool Game::collisionManager(const direction::Type d)
                     m_warrior->setPos(r);
                     break;
             }
+            temp.m_position = m_warrior->getPos().m_position;
+        }
+        if(d == direction::top) // Pour "contrer" un bug, corriger le bug si le temps à la place de ce bricolage
+        {
+            Vec2<int> v = m_warrior->getPos().m_dimension;
+            v.y /= 3;
+            v.y *= 2; // On divise par 2/3
+            v.x = 0;
+            Rectangle r = m_warrior->getPos();
+            r.m_position -= v;
+            m_warrior->setPos(r);
         }
         return false;
     }

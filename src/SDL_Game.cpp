@@ -95,18 +95,8 @@ void SDL_Game::render()
     }
     else if(g.getStatus() == GameStatus::run)
     {
-
         m_imageMap1->display(m_pRenderer);
         m_warrior[g.getPlayer().getOrientation()]->display(m_pRenderer);
-//        SDL_Rect r;
-//        r.x = g.getMap1().getDecor(0).m_position.x;
-//        r.y = g.getMap1().getDecor(0).m_position.y;
-//        r.w = g.getMap1().getDecor(0).m_dimension.x;
-//        r.h = g.getMap1().getDecor(0).m_dimension.y;
-//        SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
-//        SDL_RenderFillRect(m_pRenderer, &r);
-
-
     }
     else if(g.getStatus() == GameStatus::standBy)
     {
