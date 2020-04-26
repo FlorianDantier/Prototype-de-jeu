@@ -31,7 +31,7 @@ public:
     Enemy();
     //constructeur par défaut
     Enemy(EnemyType type, EnemyRace race, const Rectangle & pos,
-          const Object & loot, const Object & Chest,
+          Object loot, Object Chest,
           const unsigned int health, const unsigned int level,
           RoamingDirection direction, bool hasLoot);
 
