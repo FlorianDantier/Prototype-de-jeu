@@ -3,8 +3,8 @@ CONFIG += console c++17
 CONFIG -= app_bundle
 CONFIG -= qt
 
-DESTDIR = ../projet_lifap4/bin
-OBJECTS_DIR = ../projet_lifap4/obj/
+DESTDIR = bin/
+OBJECTS_DIR = obj/
 
 HEADERS += \
     src/Map.h \
