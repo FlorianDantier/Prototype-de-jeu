@@ -44,14 +44,14 @@ public:
 
     // Florian
     Menu& getHome() const;
-    void setStatus(bool b);
-    void(Game::*ptrONsetStatus)(GameStatus);
+    void(Game::*ptrOnLauchGame)(GameStatus);
     GameStatus getStatus() const;
     void setStatus(const GameStatus gs);
     void controlePos();
     Map &getMap1() const;
     void eventManagers();
     bool collisionManager(const direction::Type d);
+    void launchGame(const GameStatus gs);
     // Franklin
 
 

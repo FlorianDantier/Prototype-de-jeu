@@ -3,9 +3,9 @@
 
 Game::Game() : m_home(nullptr), m_status(GameStatus::home), map1(nullptr)
 {
-    ptrONsetStatus = &Game::setStatus;
+    ptrOnLauchGame = &Game::launchGame;
     Button notLoad(Rectangle(-1 ,-1, -1, -1), false);
-    m_home = new Menu(2, true, true, notLoad, notLoad); // Le menu "home" est une exception dans le sens où il n'y aura pas de bouton pour ouvir ou fermer ce menu
+    m_home = new Menu(1, true, true, notLoad, notLoad); // Le menu "home" est une exception dans le sens où il n'y aura pas de bouton pour ouvir ou fermer ce menu
     m_home->setChoice(Button (Rectangle  (50, 100, 550, 100), true), 0);
     Rectangle warPos(windowSize.x / 2, windowSize.y / 2, 25, 34);
     m_warrior = new Player("Bob", warrior, warPos, 100, 1);
@@ -81,10 +81,15 @@ GameStatus Game::getStatus() const
 
 void Game::setStatus(const GameStatus gs)
 {
-    std::cout<<"marche"<<std::endl;
-    m_status = gs;
+  m_status = gs;
 }
 
+void Game::launchGame(const GameStatus gs)
+{
+    std::cout<<"marche"<<std::endl;
+    setStatus(gs);
+    m_home->getChoice(0).setIsLoad(false);
+}
 
 Map &Game::getMap1() const
 {
@@ -220,8 +225,7 @@ void Game::touchD()
 
 void Game::mouseLeftClick(const Vec2<int> &mousePos)
 {
-    getHome().listenEvent(0, ptrONsetStatus, *this, GameStatus::run, mousePos);
-    getHome().getChoice(0).setIsLoad(false);
+    getHome().listenEvent(0, ptrOnLauchGame, *this, GameStatus::run, mousePos);
 }
 
 
