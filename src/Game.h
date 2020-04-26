@@ -15,9 +15,16 @@ namespace direction
         top = 0,
         left,
         bottom,
-        right
+        right,
+        noValue,
     };
 }
+
+enum MapLoad
+{
+    map_1 = 0,
+    map_2,
+};
 
 
 class Game
@@ -25,9 +32,10 @@ class Game
 private:
     // Florian
     Menu* m_home;
-    Map* map1;
+    Map* map[2];
+    unsigned int nbMap;
     GameStatus m_status;
-
+    MapLoad ml;
 
     // Franklin
 
@@ -48,10 +56,15 @@ public:
     GameStatus getStatus() const;
     void setStatus(const GameStatus gs);
     void controlePos();
-    Map &getMap1() const;
+    Map &getMap1(unsigned int indice) const;
     void eventManagers();
     bool collisionManager(const direction::Type d);
     void launchGame(const GameStatus gs);
+    direction::Type isAtTheEdge(const Rectangle & rect);
+    void changeMapManager();
+    void setMapLoad(const MapLoad m);
+    MapLoad getMapLoad() const;
+
     // Franklin
 
 

@@ -1,8 +1,13 @@
 #include "Game.h"
 #include <cassert>
 
-Game::Game() : m_home(nullptr), m_status(GameStatus::home), map1(nullptr)
+Game::Game() : m_home(nullptr), m_status(GameStatus::home)
 {
+    nbMap = 2;
+    for(unsigned int i = 0; i < nbMap; i++)
+    {
+        map[i] = nullptr;
+    }
     ptrOnLauchGame = &Game::launchGame;
     Button notLoad(Rectangle(-1 ,-1, -1, -1), false);
     m_home = new Menu(1, true, true, notLoad, notLoad); // Le menu "home" est une exception dans le sens où il n'y aura pas de bouton pour ouvir ou fermer ce menu
@@ -10,9 +15,10 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home), map1(nullptr)
     Rectangle warPos(windowSize.x / 2, windowSize.y / 2, 25, 34);
     m_warrior = new Player("Bob", warrior, warPos, 100, 1);
 
+    ml = map_1;
     //=============== Création des maps==================
-    map1 = new Map(17);
-    assert(map1 != nullptr);
+    map[0] = new Map(17);
+    assert(map[0] != nullptr);
 
 
     Rectangle statue1 = Rectangle(504, 552, 48, 48);
@@ -36,23 +42,27 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home), map1(nullptr)
     mur[8] = Rectangle(0, 434, 52, 15);
     mur[9] = Rectangle(0, 717, 52, 10);
 
-    map1->setDecor(3, statue1);
-    map1->setDecor(4, statue2);
+    map[0]->setDecor(3, statue1);
+    map[0]->setDecor(4, statue2);
     for(int i = 0; i < 3; i++)
     {
-        map1->setDecor(i, temple[i]);
+        map[0]->setDecor(i, temple[i]);
     }
     for(int i = 0; i < 10; i++)
     {
-        map1->setDecor(i + 5, mur[i]);
+        map[0]->setDecor(i + 5, mur[i]);
     }
 
     Rectangle stone[2];
     stone[0] = Rectangle(727, 52, 73, 20);
     stone[1] = Rectangle(707, 0, 21, 51);
 
-    map1->setDecor(15, stone[0]);
-    map1->setDecor(16, stone[1]);
+    map[0]->setDecor(15, stone[0]);
+    map[0]->setDecor(16, stone[1]);
+
+
+    map[1] = new Map(1);
+    map[1]->setDecor(0, Rectangle(102, 327, 95, 70));
     // =========Fin de création des maps================
 
 }
@@ -65,8 +75,11 @@ Game::~Game()
     delete m_warrior;
     m_warrior = nullptr;
 
-    delete map1;
-    map1 = nullptr;
+    for(unsigned int i = 0; i < nbMap; i++)
+    {
+        delete map[i];
+        map[i] = nullptr;
+    }
 }
 
 Menu& Game::getHome() const
@@ -91,9 +104,61 @@ void Game::launchGame(const GameStatus gs)
     m_home->getChoice(0).setIsLoad(false);
 }
 
-Map &Game::getMap1() const
+direction::Type Game::isAtTheEdge(const Rectangle &rect)
 {
-    return *map1;
+    if(rect.m_position.x <= -15)
+    {
+        return direction::left;
+    }
+    else if(rect.m_position.x >= 790)
+    {
+        return direction::right;
+    }
+    else if(rect.m_position.y <= -20)
+    {
+        return direction::top;
+    }
+    else if(rect.m_position.y >= -785)
+    {
+        return direction::bottom;
+    }
+    else
+    {
+        return direction::noValue;
+    }
+}
+
+void Game::changeMapManager()
+{
+   if(isAtTheEdge(m_warrior->getPos()) == direction::right && ml == map_1)
+   {
+        ml = map_2;
+        Rectangle r = m_warrior->getPos();
+        r.m_position.x = -15;
+        m_warrior->setPos(r);
+   }
+   else if(isAtTheEdge(m_warrior->getPos()) == direction::left && ml == map_2)
+   {
+        ml = map_1;
+        Rectangle r = m_warrior->getPos();
+        r.m_position.x = 790;
+        m_warrior->setPos(r);
+   }
+}
+
+void Game::setMapLoad(const MapLoad m)
+{
+    ml = m;
+}
+
+MapLoad Game::getMapLoad() const
+{
+    return ml;
+}
+
+Map &Game::getMap1(unsigned int indice) const
+{
+    return *map[indice];
 }
 
 void Game::eventManagers()
@@ -119,9 +184,9 @@ bool Game::collisionManager(const direction::Type d)
     Rectangle temp = m_warrior->getPos();
     temp.m_position.y += 2 * temp.m_dimension.y / 3;
     temp.m_dimension.y /= 3;
-    for(unsigned int i = 0; i < map1->getNbDecor() && isNotInDecor; i++)
+    for(unsigned int i = 0; i < map[ml]->getNbDecor() && isNotInDecor; i++)
     {
-        if(temp.in(map1->getDecor(i)))
+        if(temp.in(map[ml]->getDecor(i)))
         {
             isNotInDecor = false;
             indice = i;
@@ -156,9 +221,8 @@ bool Game::collisionManager(const direction::Type d)
                 m_warrior->setPos(r);
                 break;
         }
-        while (temp.in(map1->getDecor(indice)))
+        while (temp.in(map[ml]->getDecor(indice)))
         {
-            std::cout<<"Dans le tant que coincer decor\n";
             switch (d)
             {
                 case direction::top:
@@ -210,6 +274,8 @@ void Game::touchZ()
         m_warrior->move(top);
     }
     collisionManager(direction::top);
+    std::cout<<m_warrior->getPos().m_position.x<< " / "<<m_warrior->getPos().m_position.y<<std::endl;
+    changeMapManager();
 }
 
 void Game::touchQ()
@@ -219,6 +285,8 @@ void Game::touchQ()
         m_warrior->move(left);
     }
     collisionManager(direction::left); // Puis on restest après avoir bouger, car il est possible d'être dans le décor après le déplacement
+    std::cout<<m_warrior->getPos().m_position.x<< " / "<<m_warrior->getPos().m_position.y<<std::endl;
+    changeMapManager();
 }
 
 void Game::touchS()
@@ -228,6 +296,8 @@ void Game::touchS()
         m_warrior->move(bottom);
     }
     collisionManager(direction::bottom);
+    std::cout<<m_warrior->getPos().m_position.x<< " / "<<m_warrior->getPos().m_position.y<<std::endl;
+    changeMapManager();
 }
 
 void Game::touchD()
@@ -237,6 +307,8 @@ void Game::touchD()
         m_warrior->move(right);
     }
     collisionManager(direction::right);
+    std::cout<<m_warrior->getPos().m_position.x<< " / "<<m_warrior->getPos().m_position.y<<std::endl;
+    changeMapManager();
 }
 
 void Game::mouseLeftClick(const Vec2<int> &mousePos)

@@ -77,7 +77,8 @@ void SDL_Game::loadAllImage()
     m_warrior[Orientation::north] = new Image("../data/player/linkDos.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
     m_warrior[Orientation::east] = new Image("../data/player/linkDroit.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
     m_warrior[Orientation::west] = new Image("../data/player/linkGauche.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
-    m_imageMap1 = new Image("../data/map/map1.png", &r, windowSize ,m_pRenderer);
+    m_imageMap[map_1] = new Image("../data/map/map1.png", &r, windowSize ,m_pRenderer);
+    m_imageMap[map_2] = new Image("../data/map/map2.png", &r, windowSize ,m_pRenderer);
 
     //m_slime = new Image(path + "slime.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
 }
@@ -95,7 +96,7 @@ void SDL_Game::render()
     }
     else if(g.getStatus() == GameStatus::run)
     {
-        m_imageMap1->display(m_pRenderer);
+        m_imageMap[g.getMapLoad()]->display(m_pRenderer);
         m_warrior[g.getPlayer().getOrientation()]->display(m_pRenderer);
     }
     else if(g.getStatus() == GameStatus::standBy)
