@@ -8,6 +8,17 @@
 
 #include "Map.h"
 
+namespace direction
+{
+    enum Type
+    {
+        top = 0,
+        left,
+        bottom,
+        right
+    };
+}
+
 
 class Game
 {
@@ -40,7 +51,7 @@ public:
     void controlePos();
     Map &getMap1() const;
     void eventManagers();
-    Orientation m_orient;
+    bool collisionManager(const direction::Type d);
     // Franklin
 
 

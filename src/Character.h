@@ -46,7 +46,7 @@ class Character
     //les 8 directions possibles en Vec2<int>
     Rectangle& getPos() const;
     //renvoi la position sous forme de rectangle
-    void setPos(Rectangle * rec);
+    void setPos(const Rectangle & rec);
     //modifie la position à partir d'un rectangle
     void takeDamage(unsigned int damageToDeal,Character & enemy);
     //reçoit des dégats et perd de la vie

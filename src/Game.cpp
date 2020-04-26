@@ -107,6 +107,76 @@ void Game::eventManagers()
     }
 }
 
+bool Game::collisionManager(const direction::Type d)
+{
+    bool isNotInDecor = true;
+    unsigned int indice = 0;
+    for(unsigned int i = 0; i < map1->getNbDecor() && isNotInDecor; i++)
+    {
+        if(m_warrior->getPos().in(map1->getDecor(i)))
+        {
+            isNotInDecor = false;
+            indice = i;
+        }
+    }
+    if(isNotInDecor)
+    {
+        return true;
+    }
+    else
+    {
+        Rectangle r = m_warrior->getPos();
+        switch (d)
+        {
+            case direction::top:
+                r.m_position += bottom;
+                m_warrior->setPos(r);
+                break;
+
+            case direction::left:
+                r.m_position += right;
+                m_warrior->setPos(r);
+                break;
+
+            case direction::bottom:
+                r.m_position += top;
+                m_warrior->setPos(r);
+                break;
+
+            case direction::right:
+                r.m_position += left;
+                m_warrior->setPos(r);
+                break;
+        }
+        while (m_warrior->getPos().in(map1->getDecor(indice)))
+        {
+            switch (d)
+            {
+                case direction::top:
+                    r.m_position += bottom;
+                    m_warrior->setPos(r);
+                    break;
+
+                case direction::left:
+                    r.m_position += right;
+                    m_warrior->setPos(r);
+                    break;
+
+                case direction::bottom:
+                    r.m_position += top;
+                    m_warrior->setPos(r);
+                    break;
+
+                case direction::right:
+                    r.m_position += left;
+                    m_warrior->setPos(r);
+                    break;
+            }
+        }
+        return false;
+    }
+}
+
 Player &Game::getPlayer() const
 {
     return *m_warrior;
@@ -114,171 +184,44 @@ Player &Game::getPlayer() const
 
 void Game::touchZ()
 {
-    bool estPasDansDecor = true;
-    unsigned int indice = 0;
-    std::cout<<map1->getNbDecor()<<std::endl;
-    for(unsigned int i = 0; i < map1->getNbDecor() && estPasDansDecor; i++)
+    if(collisionManager(direction::top))
     {
-        if(m_warrior->getPos().in(map1->getDecor(i)))
-        {
-            estPasDansDecor = false;
-            indice = i;
-        }
-
+        m_warrior->move(top);
     }
-    if(estPasDansDecor)
-    {
-       m_warrior->move(top);
-    }
-
-    for(unsigned int i = 0; i < map1->getNbDecor() && estPasDansDecor; i++)
-    {
-        if(m_warrior->getPos().in(map1->getDecor(i)))
-        {
-            estPasDansDecor = false;
-            indice = i;
-        }
-
-    }
-
-    if(!estPasDansDecor) // Si je suis dans le décor
-    {
-        m_warrior->move(bottom);
-        std::cout<<indice<<std::endl;
-        while (m_warrior->getPos().in(map1->getDecor(indice)))
-        {
-            m_warrior->move(bottom);
-        }
-    }
-
-    getPlayer().setOrientation(north);
+    collisionManager(direction::top);
 }
 
 void Game::touchQ()
 {
-    bool estPasDansDecor = true;
-    unsigned int indice;
-    for(unsigned int i = 0; i < map1->getNbDecor() && estPasDansDecor; i++)
+    if(collisionManager(direction::left)) // On test une avant de bouger si ok alors on bouge
     {
-        if(m_warrior->getPos().in(map1->getDecor(i)))
-        {
-            estPasDansDecor = false;
-            indice = i;
-        }
-
+        m_warrior->move(left);
     }
-    if(estPasDansDecor)
-    {
-       m_warrior->move(left);
-    }
-
-    for(unsigned int i = 0; i < map1->getNbDecor() && estPasDansDecor; i++)
-    {
-        if(m_warrior->getPos().in(map1->getDecor(i)))
-        {
-            estPasDansDecor = false;
-            indice = i;
-        }
-
-    }
-
-    if(!estPasDansDecor) // Si je suis dans le décor
-    {
-        m_warrior->move(right);
-        while (m_warrior->getPos().in(map1->getDecor(indice)))
-        {
-            m_warrior->move(right);
-        }
-    }
-
-    getPlayer().setOrientation(west);
-
+    collisionManager(direction::left); // Puis on restest après avoir bouger, car il est possible d'être dans le décor après le déplacement
 }
 
 void Game::touchS()
 {
-
-    bool estPasDansDecor = true;
-    unsigned int indice;
-    for(unsigned int i = 0; i < map1->getNbDecor() && estPasDansDecor; i++)
+    if(collisionManager(direction::bottom))
     {
-        if(m_warrior->getPos().in(map1->getDecor(i)))
-        {
-            estPasDansDecor = false;
-            indice = i;
-        }
-
+        m_warrior->move(bottom);
     }
-    if(estPasDansDecor)
-    {
-       m_warrior->move(bottom);
-    }
-
-    for(unsigned int i = 0; i < map1->getNbDecor() && estPasDansDecor; i++)
-    {
-        if(m_warrior->getPos().in(map1->getDecor(i)))
-        {
-            estPasDansDecor = false;
-            indice = i;
-        }
-
-    }
-
-    if(!estPasDansDecor) // Si je suis dans le décor
-    {
-        m_warrior->move(top);
-        while (m_warrior->getPos().in(map1->getDecor(indice)))
-        {
-            m_warrior->move(top);
-        }
-    }
-
-    getPlayer().setOrientation(south);
+    collisionManager(direction::bottom);
 }
 
 void Game::touchD()
 {
-    bool estPasDansDecor = true;
-    unsigned int indice;
-    for(unsigned int i = 0; i < map1->getNbDecor() && estPasDansDecor; i++)
+    if(collisionManager(direction::right))
     {
-        if(m_warrior->getPos().in(map1->getDecor(i)))
-        {
-            estPasDansDecor = false;
-            indice = i;
-        }
-
+        m_warrior->move(right);
     }
-    if(estPasDansDecor)
-    {
-       m_warrior->move(right);
-    }
-
-    for(unsigned int i = 0; i < map1->getNbDecor() && estPasDansDecor; i++)
-    {
-        if(m_warrior->getPos().in(map1->getDecor(i)))
-        {
-            estPasDansDecor = false;
-            indice = i;
-        }
-
-    }
-
-    if(!estPasDansDecor) // Si je suis dans le décor
-    {
-        m_warrior->move(left);
-        while (m_warrior->getPos().in(map1->getDecor(indice)))
-        {
-            m_warrior->move(left);
-        }
-    }
-
-    getPlayer().setOrientation(east);
+    collisionManager(direction::right);
 }
 
 void Game::mouseLeftClick(const Vec2<int> &mousePos)
 {
     getHome().listenEvent(0, ptrONsetStatus, *this, GameStatus::run, mousePos);
+    getHome().getChoice(0).setIsLoad(false);
 }
 
 

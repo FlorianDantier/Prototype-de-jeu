@@ -138,4 +138,19 @@ Vec2<T> operator/(const T scalar, const Vec2<T> & v1)
     return r;
 }
 
+template<typename T>
+bool operator==(const Vec2<T> & v1, const Vec2<T> & v2)
+{
+    if(v1.x == v2.x && v1.y == v2.y)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+
 #endif // VEC2_H

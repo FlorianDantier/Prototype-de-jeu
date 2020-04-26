@@ -54,6 +54,22 @@ void Character::move(const Vec2<int> & direction)
 {
     m_position->m_position.x += direction.x;
     m_position->m_position.y += direction.y;
+    if(direction == top)
+    {
+        m_orient = north;
+    }
+    else if(direction == bottom)
+    {
+        m_orient = south;
+    }
+    else if(direction == left)
+    {
+        m_orient = west;
+    }
+    else if(direction == right)
+    {
+        m_orient = east;
+    }
 }
 
 Rectangle& Character::getPos() const
@@ -61,9 +77,9 @@ Rectangle& Character::getPos() const
     return *m_position;
 }
 
-void Character::setPos(Rectangle * recPos)
+void Character::setPos(const Rectangle & recPos)
 {
-    m_position = recPos;
+    *m_position = recPos;
 }
 void Character::takeDamage(unsigned int damageToDeal,Character & enemy)
 {
