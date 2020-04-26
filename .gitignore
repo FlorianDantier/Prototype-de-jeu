@@ -1,5 +1,4 @@
 obj/
 bin/
-Makefile
 src/mainTest.cpp
 projet_lifap4.pro.user
