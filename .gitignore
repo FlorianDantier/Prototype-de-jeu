@@ -2,3 +2,4 @@ obj/
 bin/
 src/mainTest.cpp
 projet_lifap4.pro.user
+Makefile
