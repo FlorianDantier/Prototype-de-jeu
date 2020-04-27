@@ -104,9 +104,12 @@ void SDL_Game::render()
     {
         m_imageMap[g.getMapLoad()]->display(m_pRenderer);
         m_warrior[g.getPlayer().getOrientation()]->display(m_pRenderer);
-        for(int i = 0; i < 3; i++)
+        if (g.getMapLoad()==map_1)
         {
-            m_object[i]->display(m_pRenderer);
+            for(int i = 0; i < 3; i++)
+            {
+                m_object[i]->display(m_pRenderer);
+            }
         }
     }
     else if(g.getStatus() == GameStatus::standBy)
