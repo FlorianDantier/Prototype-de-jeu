@@ -43,7 +43,8 @@ private:
 
     // Joris
     Player * m_warrior;
-
+    //Enemy * m_tabEnemyMap1[4];
+    Object * m_tabObjectMap1[3];
 
 
 public:
@@ -71,13 +72,14 @@ public:
 
     // Joris
     Player& getPlayer() const;
-
+    Object& getObject(unsigned int indice) const;
 
     // Pour les touches ou click
     void touchZ();
     void touchQ();
     void touchS();
     void touchD();
+    void touchF();
     void mouseLeftClick(const Vec2<int> &mousePos);
 };
 

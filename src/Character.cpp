@@ -164,7 +164,6 @@ void Character::setRange(Rectangle * range)
 
 void Character::updatePlayerMoveRight(Character tabCharacter[],unsigned int sizeTab)
 {
-    move(Vec2<int>(5,0));
     if(testInOut())
     {
         crashWithEnemyOnRight(tabCharacter,sizeTab);
@@ -175,7 +174,6 @@ void Character::updatePlayerMoveRight(Character tabCharacter[],unsigned int size
 
 void Character::updatePlayerMoveLeft(Character tabCharacter[],unsigned int sizeTab)
 {
-    move(Vec2<int>(-5,0));
     if(testInOut())
     {
         crashWithEnemyOnLeft(tabCharacter,sizeTab);
@@ -186,7 +184,6 @@ void Character::updatePlayerMoveLeft(Character tabCharacter[],unsigned int sizeT
 
 void Character::updatePlayerMoveTop(Character tabCharacter[],unsigned int sizeTab)
 {
-    move(Vec2<int>(0,-5));
     if(testInOut())
     {
         crashWithEnemyOnTop(tabCharacter,sizeTab);
@@ -197,7 +194,6 @@ void Character::updatePlayerMoveTop(Character tabCharacter[],unsigned int sizeTa
 
 void Character::updatePlayerMoveBottom(Character tabCharacter[],unsigned int sizeTab)
 {
-    move(Vec2<int>(0,5));
     if(testInOut())
     {
         crashWithEnemyOnBottom(tabCharacter,sizeTab);
