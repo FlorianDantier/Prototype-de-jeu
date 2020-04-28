@@ -108,6 +108,8 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
 
     // =========Fin Ajout des ennemis dans les maps=========
 
+    Object o("test", ObjectType::armor, 0, Rectangle(0, 0, 0, 0), 0, true, false);
+    enn = new Enemy(EnemyType::sbire, EnemyRace::beast, Rectangle(100, 100, 200, 200), o, o, 100, 100, RoamingDirection::verticalTop, true);
 
 }
 
