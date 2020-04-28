@@ -48,4 +48,10 @@ private:
 
 };
 
+SDL_Rect SdlRect(const Rectangle & r)
+{
+    SDL_Rect r2 = {r.m_position.x, r.m_position.y, r.m_dimension.x, r.m_dimension.y};
+    return r2;
+}
+
 #endif // SDL_GAME_H

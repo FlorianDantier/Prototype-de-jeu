@@ -20,7 +20,6 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
     map[0] = new Map(17);
     assert(map[0] != nullptr);
 
-
     Rectangle statue1 = Rectangle(504, 552, 48, 48);
     Rectangle statue2 = Rectangle(655, 550, 48, 48);
 
@@ -42,27 +41,46 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
     mur[8] = Rectangle(0, 434, 52, 15);
     mur[9] = Rectangle(0, 717, 52, 10);
 
-    map[0]->setDecor(3, statue1);
-    map[0]->setDecor(4, statue2);
+    map[map_1]->setDecor(3, statue1);
+    map[map_1]->setDecor(4, statue2);
     for(int i = 0; i < 3; i++)
     {
-        map[0]->setDecor(i, temple[i]);
+        map[map_1]->setDecor(i, temple[i]);
     }
     for(int i = 0; i < 10; i++)
     {
-        map[0]->setDecor(i + 5, mur[i]);
+        map[map_1]->setDecor(i + 5, mur[i]);
     }
 
     Rectangle stone[2];
     stone[0] = Rectangle(727, 52, 73, 20);
     stone[1] = Rectangle(707, 0, 21, 51);
 
-    map[0]->setDecor(15, stone[0]);
-    map[0]->setDecor(16, stone[1]);
+    map[map_1]->setDecor(15, stone[0]);
+    map[map_1]->setDecor(16, stone[1]);
+
+    map[map_2] = new Map(15);
+    map[map_2]->setDecor(0, Rectangle(108, 344, 84, 48));
+    map[map_2]->setDecor(1, Rectangle(0, 0, 72, 72));
+    map[map_2]->setDecor(2, Rectangle(301, 100, 48, 48));
+    map[map_2]->setDecor(3, Rectangle(351, 123, 48, 48));
+    map[map_2]->setDecor(4, Rectangle(401, 98, 48, 48));
+    map[map_2]->setDecor(5, Rectangle(53, 503, 44, 44));
+    map[map_2]->setDecor(6, Rectangle(0, 730, 211, 28));
+    map[map_2]->setDecor(7, Rectangle(119, 331, 61, 13));
+
+    // Pierre bas gauche statue
+    map[map_2]->setDecor(8, Rectangle(236, 195, 80, 57));
+    map[map_2]->setDecor(9, Rectangle(236, 252, 41, 38));
+    map[map_2]->setDecor(10, Rectangle(277, 252, 19, 20));
+    map[map_2]->setDecor(11, Rectangle(246, 183, 68, 12));
 
 
-    map[1] = new Map(1);
-    map[1]->setDecor(0, Rectangle(102, 327, 95, 70));
+
+
+
+
+
     // =========Fin de création des maps================
 
 }

@@ -146,6 +146,15 @@ Rectangle Rectangle::getBas() const
     return  r;
 }
 
+DoubleRect Rectangle::coupe() const
+{
+    DoubleRect dr;
+    dr.r1 = Rectangle(m_position.x, m_position.y + m_dimension.y / 2, m_dimension.x / 2, m_dimension.y / 2);
+    dr.r2 = Rectangle(m_position.x + m_dimension.x / 2, m_position.y, m_dimension.x / 2, m_dimension.y / 2);
+
+    return dr;
+}
+
 
 
 
