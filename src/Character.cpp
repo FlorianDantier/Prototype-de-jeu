@@ -20,11 +20,7 @@ Character::Character()
 Character::Character(const Rectangle & pos, unsigned int health,
                      unsigned int level)
 {
-    m_position = new Rectangle;
-    m_position->m_position.x = pos.m_position.x;
-    m_position->m_position.y = pos.m_position.y;
-    m_position->m_dimension.x = pos.m_dimension.x;
-    m_position->m_dimension.y = pos.m_dimension.y;
+    m_position = new Rectangle(pos);
     m_range = new Rectangle;
     m_range->m_position.x = pos.m_position.x + pos.m_dimension.x;
     m_range->m_position.y = pos.m_position.y + (pos.m_dimension.y / 4);
