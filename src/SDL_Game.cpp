@@ -252,7 +252,6 @@ void SDL_Game::handleEvents()
                 g.getPlayer().levelup();
             }
     //=====Fin lvl up=====
-    SDL_Delay(100);
 }
 
 bool SDL_Game::getRunning()
