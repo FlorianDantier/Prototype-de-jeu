@@ -75,5 +75,6 @@ class Player : public Character
     //le joueur tue l'ennemi
     unsigned int getTimer() const;
     //retourne le temps de la dernière attaque
+    Player& operator=(const Player &copie);
 };
 #endif

@@ -43,7 +43,7 @@ private:
 
     // Joris
     Player * m_warrior;
-    //Enemy * m_tabEnemyMap1[4];
+    Enemy * m_tabEnemyMap1[4];
     Object * m_tabObjectMap1[3];
 
 
@@ -72,14 +72,17 @@ public:
 
     // Joris
     Player& getPlayer() const;
-    Object& getObject(unsigned int indice) const;
+    Object& getObject(unsigned int indice, MapLoad ml) const;
+    Enemy& getEnemy(unsigned int indice,MapLoad ml) const;
 
     // Pour les touches ou click
-    void touchZ();
-    void touchQ();
-    void touchS();
-    void touchD();
-    void touchF();
+    void touchZ(MapLoad ml);
+    void touchQ(MapLoad ml);
+    void touchS(MapLoad ml);
+    void touchD(MapLoad ml);
+    void touchF(MapLoad ml);
+    void touchC();
+    void touchSpace(MapLoad ml);
     void mouseLeftClick(const Vec2<int> &mousePos);
 };
 

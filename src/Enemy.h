@@ -16,9 +16,9 @@ class Enemy : public Character
 {
 private:
     bool m_hasLoot;
-    Object m_loot;
+    //Object m_loot;
     bool m_hasChest;
-    Object m_Chest;
+    //Object m_Chest;
     EnemyType m_type;
     EnemyRace m_race;
     unsigned int m_xpGiving;
@@ -31,7 +31,7 @@ public:
     Enemy();
     //constructeur par défaut
     Enemy(EnemyType type, EnemyRace race, const Rectangle & pos,
-          Object loot, Object Chest,
+          /*Object loot, Object Chest,*/
           const unsigned int health, const unsigned int level,
           RoamingDirection direction, bool hasLoot);
 
@@ -63,6 +63,7 @@ public:
     //retourne le loot dans le coffre du boss
     unsigned int getTimer() const;
     //retourne le temps de la dernière attaque
+    Enemy& operator=(const Enemy &copie);
 };
 
 #endif // ENEMY_H

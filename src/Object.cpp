@@ -125,6 +125,23 @@ void Object::setNameObject(const std::string &name)
     m_nameObject = name;
 }
 
+Object &Object::operator=(const Object &copie)
+{
+    if(this != &copie)
+    {
+        m_nameObject = copie.m_nameObject;
+        m_type = copie.m_type;
+        m_index = copie.m_index;
+        delete m_pos;
+        m_pos = new Rectangle(*(copie.m_pos));
+        m_value = copie.m_value;
+        m_isLooted = copie.m_isLooted;
+        m_isDestroyed = copie.m_isDestroyed;
+        m_isDropped = copie.m_isDropped;
+    }
+    return *this;
+}
+
 void Object::setDestroyed(bool destroyed)
 {
     m_isDestroyed = destroyed;

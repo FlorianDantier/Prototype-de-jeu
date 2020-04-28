@@ -278,3 +278,27 @@ unsigned int Player::getTimer() const
 {
     return m_timer;
 }
+
+Player &Player::operator=(const Player &copie)
+{
+    if(this != &copie)
+    {
+        m_xpCurrent = copie.m_xpCurrent;
+        m_xpMax = copie.m_xpMax;
+        for(unsigned int i=0;i<16;i++)
+        {
+            m_inventory.m_tabEquip[i] = copie.m_inventory.m_tabEquip[i];
+        }
+        m_armor.m_defense = copie.m_armor.m_defense;
+        m_tabEquipped[0] = copie.m_tabEquipped[0];
+        m_tabEquipped[1] = copie.m_tabEquipped[1];
+        m_inventory.m_numEmptySlot = copie.m_inventory.m_numEmptySlot;
+        m_name = copie.m_name;
+        m_class = copie.m_class;
+        m_strengh = copie.m_strengh;
+        m_health = copie.m_health;
+        m_maxHealth = copie.m_maxHealth;
+        m_timer=SDL_GetTicks();
+    }
+    return *this;
+}

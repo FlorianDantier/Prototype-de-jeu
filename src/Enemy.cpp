@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include <time.h>
 #include <math.h>
+#include "common.h"
 
 
 // On suppose a<b
@@ -11,9 +12,9 @@ int rand_a_b(int a, int b){
 Enemy::Enemy()
 {
     m_hasLoot = false;
-    m_loot = Object();
+    //m_loot = Object();
     m_hasChest = false;
-    m_Chest = Object();
+    //m_Chest = Object();
     m_type = sbire;
     m_race = beast;
     m_xpGiving = 0;
@@ -24,7 +25,7 @@ Enemy::Enemy()
 }
 
 Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
-             Object loot, Object Chest,
+             /*Object loot, Object Chest,*/
              const unsigned int health, const unsigned int level, RoamingDirection direction, bool hasLoot) :
     Character(pos,health,level)
 {
@@ -33,8 +34,8 @@ Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
     if(hasLoot)
     {
         m_hasLoot = true;
-        m_loot = loot;
-        m_loot.setDropped(false);
+       /* m_loot = loot;
+        m_loot.setDropped(false);*/
     }
     else
     {
@@ -43,8 +44,8 @@ Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
     if (type==boss)
     {
         m_hasChest = true;
-        m_Chest = Chest;
-        m_Chest.setDropped(false);
+       /* m_Chest = Chest;
+        m_Chest.setDropped(false);*/
         m_xpGiving = 1000 + (level * 100);
     }
     if(type==sbire)
@@ -64,22 +65,22 @@ Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
 
 void Enemy::moveRight()
 {
-    move(Vec2(2,0));
+    move(right);
     updateRangeRight();
 }
 void Enemy::moveLeft()
 {
-    move(Vec2(-2,0));
+    move(left);
     updateRangeLeft();
 }
 void Enemy::moveTop()
 {
-    move(Vec2(0,-2));
+    move(top);
     updateRangeTop();
 }
 void Enemy::moveBottom()
 {
-    move(Vec2(0,2));
+    move(bottom);
     updateRangeBottom();
 }
 
@@ -218,10 +219,10 @@ std::string Enemy::getEnemyType() const
 
 void Enemy::dropLoot()
 {
-    m_loot.setDropped(true);
+   /* m_loot.setDropped(true);
     m_loot.setPos(*m_position);
     m_Chest.setDropped(true);
-    m_Chest.setPos(*m_position);
+    m_Chest.setPos(*m_position);*/
 }
 
 std::string Enemy::getEnemyRace() const
@@ -261,10 +262,10 @@ void Enemy::die(Player & player)
     m_isLoaded = false;
     m_status=dead;
     giveXp(player);
-    dropLoot();
+    //dropLoot();
 }
 
-Object Enemy::getLoot() const
+/*Object Enemy::getLoot() const
 {
     return m_loot;
 }
@@ -272,9 +273,50 @@ Object Enemy::getLoot() const
 Object Enemy::getChest()
 {
     return m_Chest;
-}
+}*/
 
 unsigned int Enemy::getTimer() const
 {
     return m_waitingBeforeAttacking;
+}
+
+Enemy &Enemy::operator=(const Enemy &copie)
+{
+    if(this != &copie)
+    {
+        m_type = copie.m_type;
+        m_race = copie.m_race;
+        if(copie.m_hasLoot)
+        {
+            m_hasLoot = true;
+           /* m_loot = loot;
+            m_loot.setDropped(false);*/
+        }
+        else
+        {
+            m_hasLoot = false;
+        }
+        if (copie.m_type==boss)
+        {
+            m_hasChest = true;
+           /* m_Chest = Chest;
+            m_Chest.setDropped(false);*/
+            m_xpGiving = 1000 + (copie.m_level * 100);
+        }
+        if(copie.m_type==sbire)
+        {
+            m_xpGiving = 10 + (copie.m_level * 5);
+        }
+        if(copie.m_type==elite)
+        {
+            m_xpGiving = 100 + (copie.m_level * 10);
+        }
+        m_status = roaming;
+        m_direction = copie.m_direction;
+        delete m_posOrigin;
+        m_posOrigin = new Vec2<int>(*(copie.m_posOrigin));
+        m_isXpGiven = true;
+        m_waitingBeforeAttacking = 0;
+    }
+    return *this;
 }
