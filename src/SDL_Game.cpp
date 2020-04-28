@@ -84,10 +84,14 @@ void SDL_Game::loadAllImage()
     m_warrior[Orientation::west] = new Image("../data/player/linkGauche.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
     m_imageMap[map_1] = new Image("../data/map/map1.png", &r, windowSize ,m_pRenderer);
     m_imageMap[map_2] = new Image("../data/map/map2.png", &r, windowSize ,m_pRenderer);
-    m_object[0] = new Image("../data/healthpotion.png",&g.getObject(0).getPos(),windowSize,m_pRenderer);
-    m_object[1] = new Image("../data/hell's sword.png",&g.getObject(1).getPos(),windowSize,m_pRenderer);
-    m_object[2] = new Image("../data/hell's armor.png",&g.getObject(2).getPos(),windowSize,m_pRenderer);
+    m_object[0] = new Image("../data/healthpotion.png",&g.getObject(0,map_1).getPos(),windowSize,m_pRenderer);
+    m_object[1] = new Image("../data/hell's sword.png",&g.getObject(1,map_1).getPos(),windowSize,m_pRenderer);
+    m_object[2] = new Image("../data/hell's armor.png",&g.getObject(2,map_1).getPos(),windowSize,m_pRenderer);
     //m_slime = new Image(path + "slime.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
+    m_enemyMap1[0] = new Image("../data/knight.png",&g.getEnemy(0,map_1).getPos(),windowSize,m_pRenderer);
+    m_enemyMap1[1] = new Image("../data/knight.png",&g.getEnemy(1,map_1).getPos(),windowSize,m_pRenderer);
+    m_enemyMap1[2] = new Image("../data/knight.png",&g.getEnemy(2,map_1).getPos(),windowSize,m_pRenderer);
+    m_enemyMap1[3] = new Image("../data/knight.png",&g.getEnemy(3,map_1).getPos(),windowSize,m_pRenderer);
 }
 
 void SDL_Game::render()
@@ -104,12 +108,26 @@ void SDL_Game::render()
     else if(g.getStatus() == GameStatus::run)
     {
         m_imageMap[g.getMapLoad()]->display(m_pRenderer);
-        m_warrior[g.getPlayer().getOrientation()]->display(m_pRenderer);
+        if (g.getPlayer().isAlive())
+        {
+            m_warrior[g.getPlayer().getOrientation()]->display(m_pRenderer);
+        }
         if (g.getMapLoad()==map_1)
         {
             for(int i = 0; i < 3; i++)
             {
-                m_object[i]->display(m_pRenderer);
+                if(!g.getObject(i,map_1).isLooted())
+                {
+                    m_object[i]->display(m_pRenderer);
+                }
+            }
+
+            for(int i = 0; i < 4; i++)
+            {
+                if(g.getEnemy(i,map_1).isAlive())
+                {
+                    m_enemyMap1[i]->display(m_pRenderer);
+                }
             }
         }
     }
@@ -149,23 +167,37 @@ void SDL_Game::handleEvents()
             case SDL_KEYDOWN:
                 switch (event.key.keysym.sym)
                 {
+                if(g.getPlayer().isAlive())
+                {
 
                     case SDLK_z:
-                        g.touchZ();
+                        g.touchZ(g.getMapLoad());
                         break;
 
                     case SDLK_q:
-                        g.touchQ();
+                        g.touchQ(g.getMapLoad());
                         break;
 
                     case SDLK_s:
-                        g.touchS();
+                        g.touchS(g.getMapLoad());
                         break;
 
                     case SDLK_d:
-                        g.touchD();
+                        g.touchD(g.getMapLoad());
                         break;
 
+                    case SDLK_SPACE:
+                        g.touchSpace(g.getMapLoad());
+                        break;
+
+                    case SDLK_c:
+                        g.touchC();
+                        break;
+
+                    /*case SDLK_f:
+                        g.touchF(g.getMapLoad());
+                        break;*/
+                }
                         // Ne pas hésitez à rajouter des touches au besoin...
                         // Si rajout de touche, bien crée la fonction touch dans Game
 
@@ -196,6 +228,30 @@ void SDL_Game::handleEvents()
         }
 
     }
+    //=======ici les monstres bougent et tapent : IA========
+    switch(g.getMapLoad())
+    {
+    case 0:
+        for (int i=0;i<4;i++)
+        {
+            g.getEnemy(i,map_1).enemyPattern(g.getPlayer());
+        }
+        break;
+
+    case 1:
+
+        break;
+
+    default:
+        break;
+    }
+    //=====Fin IA=====
+    //=========Le joueur lvl up=========
+    if(g.getPlayer().getXpCurrent()>=g.getPlayer().getXpMax())
+            {
+                g.getPlayer().levelup();
+            }
+    //=====Fin lvl up=====
 }
 
 bool SDL_Game::getRunning()

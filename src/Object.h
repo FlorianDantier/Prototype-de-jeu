@@ -59,6 +59,7 @@ public:
     //retourne le type de l'objet sous forme de string
     void setNameObject(const std::string &name);
     //modifie le nom d'un objet
+    Object& operator=(const Object &copie);
 };
 
 

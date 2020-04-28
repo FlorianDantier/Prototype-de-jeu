@@ -128,6 +128,7 @@ class Character
     //vérifie que le character ne sort pas de l'écran
     void setOrientation(const Orientation orient);
     Orientation getOrientation() const;
+    Character& operator=(const Character &copie);
 };
 
 
