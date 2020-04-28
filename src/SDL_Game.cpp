@@ -20,7 +20,11 @@ SDL_Game::~SDL_Game()
         delete m_warrior[i];
         m_warrior[i] = nullptr;
     }
-    delete m_slime;
+    for(int i = 0; i < 3; i++)
+    {
+        delete m_object[i];
+        m_object[i] = nullptr;
+    }
 }
 
 bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos, unsigned int width, unsigned int height)
@@ -79,7 +83,9 @@ void SDL_Game::loadAllImage()
     m_warrior[Orientation::west] = new Image("../data/player/linkGauche.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
     m_imageMap[map_1] = new Image("../data/map/map1.png", &r, windowSize ,m_pRenderer);
     m_imageMap[map_2] = new Image("../data/map/map2.png", &r, windowSize ,m_pRenderer);
-
+    m_object[0] = new Image("../data/healthpotion.png",&g.getObject(0).getPos(),windowSize,m_pRenderer);
+    m_object[1] = new Image("../data/hell's sword.png",&g.getObject(1).getPos(),windowSize,m_pRenderer);
+    m_object[2] = new Image("../data/hell's armor.png",&g.getObject(2).getPos(),windowSize,m_pRenderer);
     //m_slime = new Image(path + "slime.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
 }
 
@@ -98,6 +104,13 @@ void SDL_Game::render()
     {
         m_imageMap[g.getMapLoad()]->display(m_pRenderer);
         m_warrior[g.getPlayer().getOrientation()]->display(m_pRenderer);
+        if (g.getMapLoad()==map_1)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                m_object[i]->display(m_pRenderer);
+            }
+        }
     }
     else if(g.getStatus() == GameStatus::standBy)
     {

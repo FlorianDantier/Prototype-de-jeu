@@ -83,6 +83,30 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
 
     // =========Fin de création des maps================
 
+    // =========Ajout des Objets dans les maps=========
+    //pour la map1
+    m_tabObjectMap1[0] = new Object("Health Potion",other,500,Rectangle(217,663,30,30),50,false,true);
+    m_tabObjectMap1[1] = new Object("Hell's Sword",weapon,500,Rectangle(600,574,30,30),50,false,true);
+    m_tabObjectMap1[2] = new Object("Hell's Armor",armor,500,Rectangle(475,310,30,30),20,false,true);
+    //Fin pour la map1
+
+    // =========Fin Ajout des objets dans les maps=========
+
+    // =========Ajout des ennemis dans les maps=========
+    //pour la map1
+    /*m_tabEnemyMap1[0] = new Enemy(sbire,humanoid,Rectangle(400,50,25,40),
+                                  *m_tabObjectMap1[0],*m_tabObjectMap1[2],150,1,horizontalLeft,false);
+    m_tabEnemyMap1[1] = new Enemy(sbire,humanoid,Rectangle(550,150,25,40),
+                                  *m_tabObjectMap1[0],*m_tabObjectMap1[2],150,1,horizontalLeft,false);
+    m_tabEnemyMap1[2] = new Enemy(elite,humanoid,Rectangle(180,460,25,40),
+                                  *m_tabObjectMap1[0],*m_tabObjectMap1[2],500,1,verticalBottom,true);
+    m_tabEnemyMap1[3] = new Enemy(sbire,humanoid,Rectangle(400,550,25,40),
+                                  *m_tabObjectMap1[0],*m_tabObjectMap1[0],200,1,verticalBottom,true);*/
+    //Fin pour la map1
+
+    // =========Fin Ajout des ennemis dans les maps=========
+
+
 }
 
 Game::~Game()
@@ -98,6 +122,16 @@ Game::~Game()
         delete map[i];
         map[i] = nullptr;
     }
+    /*for(unsigned int i = 0; i < 3; i++)
+    {
+        delete m_tabObjectMap1[i];
+        m_tabObjectMap1[i] = nullptr;
+    }
+    for(unsigned int i = 0; i < 4; i++)
+    {
+        delete m_tabEnemyMap1[i];
+        m_tabEnemyMap1[i] = nullptr;
+    }*/
 }
 
 Menu& Game::getHome() const
@@ -285,6 +319,11 @@ Player &Game::getPlayer() const
     return *m_warrior;
 }
 
+Object &Game::getObject(unsigned int indice) const
+{
+    return *m_tabObjectMap1[indice];
+}
+
 void Game::touchZ()
 {
     if(collisionManager(direction::top))
@@ -328,6 +367,7 @@ void Game::touchD()
     std::cout<<m_warrior->getPos().m_position.x<< " / "<<m_warrior->getPos().m_position.y<<std::endl;
     changeMapManager();
 }
+
 
 void Game::mouseLeftClick(const Vec2<int> &mousePos)
 {
