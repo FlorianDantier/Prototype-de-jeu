@@ -65,6 +65,7 @@ bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos, uns
     m_bRunning = true;
     // Si tout est ok on charge les images....
     loadAllImage();
+    frameLimit = SDL_GetTicks() + 16;
     return true;
 
 }
@@ -136,9 +137,10 @@ void SDL_Game::render()
     }
 
 
-    SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    limitFPS(frameLimit);
     //==========FIN AFFICHAGE=========
     SDL_RenderPresent(m_pRenderer);
+    frameLimit = SDL_GetTicks() + 16;
 }
 
 void SDL_Game::clean()
@@ -224,6 +226,7 @@ void SDL_Game::handleEvents()
         default:
             break;
         }
+
     }
     //=======ici les monstres bougent et tapent : IA========
     switch(g.getMapLoad())
@@ -255,6 +258,24 @@ void SDL_Game::handleEvents()
 bool SDL_Game::getRunning()
 {
     return m_bRunning;
+}
+
+void SDL_Game::limitFPS(unsigned int limit)
+{
+    unsigned int ticks = SDL_GetTicks();
+
+    if(limit < ticks)
+    {
+        return;
+    }
+    else if(limit > ticks + 16)
+    {
+        SDL_Delay(16);
+    }
+    else
+    {
+        SDL_Delay(limit - ticks);
+    }
 }
 
 

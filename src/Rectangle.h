@@ -4,6 +4,8 @@
 #include "Vec2.h"
 #include <iostream>
 
+
+struct DoubleRect;
 class Rectangle
 {
 public:
@@ -37,8 +39,13 @@ public:
     Rectangle getGauche() const;
     Rectangle getHaut() const;
     Rectangle getBas() const;
+    DoubleRect cut() const;
+};
 
-    void reSize(const float factor);
+struct DoubleRect
+{
+    Rectangle r1;
+    Rectangle r2;
 };
 
 #endif // RECTANGLE_H

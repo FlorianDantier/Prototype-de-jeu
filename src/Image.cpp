@@ -49,12 +49,11 @@ Image::Image() : m_source(0, 0, 0, 0)
     setDestination();
 }
 
-Image::Image(const std::string & cheminImage,Rectangle* destination, const Vec2<unsigned int> & dimFenetre, SDL_Renderer* rendu) : m_source(0, 0, 0, 0)
+Image::Image(const std::string & cheminImage,Rectangle* destination, const Vec2<unsigned int> & dimFenetre, SDL_Renderer* rendu)
+    : m_source(0, 0, 0, 0), m_destination(destination)
 {
     m_image = cheminImage;
     loadImage(rendu);
-
-    m_destination = destination;
     m_source.m_dimension.x = m_psurface->w;
     m_source.m_dimension.y = m_psurface->h;
     setSource();

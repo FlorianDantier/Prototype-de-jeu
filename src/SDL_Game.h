@@ -19,6 +19,7 @@ public:
     void handleEvents();
 
     bool getRunning();
+    void limitFPS(unsigned int limite);
 
 
 private:
@@ -31,6 +32,7 @@ private:
     SDL_Renderer* m_pRenderer;
     bool m_bRunning;
     Game g;
+    unsigned int frameLimit;
 
     // Florian
     Image* m_mainBackground;
@@ -48,5 +50,7 @@ private:
     Image* m_enemyMap1[4];
 
 };
+
+
 
 #endif // SDL_GAME_H
