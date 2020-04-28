@@ -39,9 +39,7 @@ public:
     Rectangle getGauche() const;
     Rectangle getHaut() const;
     Rectangle getBas() const;
-    DoubleRect coupe() const;
-
-
+    DoubleRect cut() const;
 };
 
 struct DoubleRect

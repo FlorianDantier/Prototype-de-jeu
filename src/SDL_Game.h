@@ -19,6 +19,7 @@ public:
     void handleEvents();
 
     bool getRunning();
+    void limitFPS(unsigned int limite);
 
 
 private:
@@ -31,6 +32,7 @@ private:
     SDL_Renderer* m_pRenderer;
     bool m_bRunning;
     Game g;
+    unsigned int frameLimit;
 
     // Florian
     Image* m_mainBackground;
@@ -48,10 +50,6 @@ private:
 
 };
 
-SDL_Rect SdlRect(const Rectangle & r)
-{
-    SDL_Rect r2 = {r.m_position.x, r.m_position.y, r.m_dimension.x, r.m_dimension.y};
-    return r2;
-}
+
 
 #endif // SDL_GAME_H

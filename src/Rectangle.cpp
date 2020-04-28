@@ -146,7 +146,7 @@ Rectangle Rectangle::getBas() const
     return  r;
 }
 
-DoubleRect Rectangle::coupe() const
+DoubleRect Rectangle::cut() const
 {
     DoubleRect dr;
     dr.r1 = Rectangle(m_position.x, m_position.y + m_dimension.y / 2, m_dimension.x / 2, m_dimension.y / 2);

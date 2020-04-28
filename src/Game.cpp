@@ -75,6 +75,8 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
     map[map_2]->setDecor(10, Rectangle(277, 252, 19, 20));
     map[map_2]->setDecor(11, Rectangle(246, 183, 68, 12));
 
+    Rectangle diago(122, 448, 78, 80);
+
 
 
 
