@@ -4,6 +4,7 @@
 class Player;
 #include "Player.h"
 #include "Object.h"
+#include <time.h>
 
 
 enum EnemyType {sbire,elite,boss};
@@ -25,7 +26,7 @@ private:
     EnemyStatus m_status;
     RoamingDirection m_direction;
     Vec2<int> * m_posOrigin;
-    unsigned int m_waitingBeforeAttacking;
+    time_t m_waitingBeforeAttacking;
 
 public:
     Enemy();
@@ -61,7 +62,7 @@ public:
     //retourne le loot
     Object getChest();
     //retourne le loot dans le coffre du boss
-    unsigned int getTimer() const;
+    time_t getTimer() const;
     //retourne le temps de la dernière attaque
     Enemy& operator=(const Enemy &copie);
 };

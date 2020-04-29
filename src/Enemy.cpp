@@ -1,5 +1,4 @@
 #include "Enemy.h"
-#include <time.h>
 #include <math.h>
 #include "common.h"
 
@@ -157,7 +156,8 @@ void Enemy::enemyPattern(Player & p)
         if(p.getPos().in(*(m_range)))
         {
             m_status = attacking;
-            m_waitingBeforeAttacking = SDL_GetTicks();
+            m_waitingBeforeAttacking = time(NULL);
+                    //SDL_GetTicks();
         }
         if(dx<0)
         {
@@ -185,10 +185,10 @@ void Enemy::enemyPattern(Player & p)
         {
             m_status = comingToPlayer;
         }
-        if((SDL_GetTicks()-m_waitingBeforeAttacking)>2000)
+        if((time(NULL)-m_waitingBeforeAttacking) > 2)
         {
             attack(p);
-            m_waitingBeforeAttacking=SDL_GetTicks();
+            m_waitingBeforeAttacking=time(NULL);
         }
         break;
 
@@ -278,7 +278,7 @@ Object Enemy::getChest()
     return m_Chest;
 }*/
 
-unsigned int Enemy::getTimer() const
+time_t Enemy::getTimer() const
 {
     return m_waitingBeforeAttacking;
 }
