@@ -12,8 +12,6 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
     Button notLoad(Rectangle(-1 ,-1, -1, -1), false);
     m_home = new Menu(1, true, true, notLoad, notLoad); // Le menu "home" est une exception dans le sens où il n'y aura pas de bouton pour ouvir ou fermer ce menu
     m_home->setChoice(Button (Rectangle  (50, 100, 550, 100), true), 0);
-    Rectangle warPos(windowSize.x / 2, windowSize.y / 2, 25, 34);
-    m_warrior = new Player("Bob", warrior, warPos, 100, 1);
 
     ml = map_1;
     //=============== Création des maps==================
@@ -60,27 +58,48 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
 
 
     // =========Fin de création des maps================
+    // =========Ajout du Player==========
+    Rectangle warPos(windowSize.x / 2, windowSize.y / 2, 25, 34);
+    m_warrior = new Player("Bob", warrior, warPos, 100, 1);
+
+    // =========Fin ajout du Player==========
 
     // =========Ajout des Objets dans les maps=========
     //pour la map1
-    m_tabObjectMap1[0] = new Object("Health Potion",other,500,Rectangle(217,663,30,30),50,false,true);
-    m_tabObjectMap1[1] = new Object("Hell's Sword",weapon,500,Rectangle(600,574,30,30),50,false,true);
-    m_tabObjectMap1[2] = new Object("Hell's Armor",armor,500,Rectangle(475,310,30,30),20,false,true);
+    m_tabObjectMap1[0] = new Object("Health Potion",other,500,Rectangle(217,663,20,20),50,false,true);
+    m_tabObjectMap1[1] = new Object("Hell's Sword",weapon,500,Rectangle(600,574,20,20),50,false,true);
+    m_tabObjectMap1[2] = new Object("Hell's Armor",armor,500,Rectangle(475,310,20,20),20,false,true);
     //Fin pour la map1
+
+    //pour la map2
+    m_tabObjectMap2[0] = new Object("Health Potion",other,500,Rectangle(570,50,20,20),50,false,true);
+    m_tabObjectMap2[1] = new Object("Health Potion",other,500,Rectangle(700,650,20,20),50,false,true);
+    //Fin pour la map2
 
     // =========Fin Ajout des objets dans les maps=========
 
     // =========Ajout des ennemis dans les maps=========
     //pour la map1
-    m_tabEnemyMap1[0] = new Enemy(sbire,humanoid,Rectangle(350,5,75,150),
+    m_tabEnemyMap1[0] = new Enemy(sbire,humanoid,Rectangle(350,5,25,50),
                                   150,1,horizontalLeft,false);
-    m_tabEnemyMap1[1] = new Enemy(sbire,humanoid,Rectangle(550,150,75,150),
+    m_tabEnemyMap1[1] = new Enemy(sbire,humanoid,Rectangle(550,150,25,50),
                                   150,1,horizontalRight,false);
-    m_tabEnemyMap1[2] = new Enemy(elite,humanoid,Rectangle(180,350,100,200),
-                                  500,1,verticalBottom,true);
-    m_tabEnemyMap1[3] = new Enemy(sbire,humanoid,Rectangle(400,550,75,150),
-                                  200,1,verticalTop,true);
+    m_tabEnemyMap1[2] = new Enemy(elite,humanoid,Rectangle(180,350,32,64),
+                                  500,1,verticalBottom,false);
+    m_tabEnemyMap1[3] = new Enemy(sbire,humanoid,Rectangle(400,550,25,50),
+                                  200,1,verticalTop,false);
     //Fin pour la map1
+
+    //pour la map2
+    m_tabEnemyMap2[0] = new Enemy(elite,humanoid,Rectangle(255,600,32,64),
+                                  500,1,verticalTop,false);
+    m_tabEnemyMap2[1] = new Enemy(elite,humanoid,Rectangle(550,370,32,64),
+                                  500,1,horizontalRight,false);
+    m_tabEnemyMap2[2] = new Enemy(boss,humanoid,Rectangle(500,600,50,100),
+                                  2000,1,horizontalLeft,false);
+    m_tabEnemyMap2[3] = new Enemy(sbire,humanoid,Rectangle(150,150,32,64),
+                                  200,1,horizontalLeft,false);
+    //Fin pour la map2
 
     // =========Fin Ajout des ennemis dans les maps=========
 
@@ -100,7 +119,7 @@ Game::~Game()
         delete map[i];
         map[i] = nullptr;
     }
-    /*for(unsigned int i = 0; i < 3; i++)
+    for(unsigned int i = 0; i < 3; i++)
     {
         delete m_tabObjectMap1[i];
         m_tabObjectMap1[i] = nullptr;
@@ -109,7 +128,17 @@ Game::~Game()
     {
         delete m_tabEnemyMap1[i];
         m_tabEnemyMap1[i] = nullptr;
-    }*/
+    }
+    for(unsigned int i = 0; i < 2; i++)
+    {
+        delete m_tabObjectMap2[i];
+        m_tabObjectMap2[i] = nullptr;
+    }
+    for(unsigned int i = 0; i < 4; i++)
+    {
+        delete m_tabEnemyMap2[i];
+        m_tabEnemyMap2[i] = nullptr;
+    }
 }
 
 Menu& Game::getHome() const
@@ -305,6 +334,7 @@ Object &Game::getObject(unsigned int indice,MapLoad ml) const
         return *m_tabObjectMap1[indice];
 
     case 1:
+        return *m_tabObjectMap2[indice];
         break;
 
     default:
@@ -320,6 +350,7 @@ Enemy &Game::getEnemy(unsigned int indice,MapLoad ml) const
         return *m_tabEnemyMap1[indice];
 
     case 1:
+        return *m_tabEnemyMap2[indice];
         break;
 
     default:
@@ -341,6 +372,7 @@ void Game::touchZ(MapLoad ml)
         m_warrior->updatePlayerMoveTop(*m_tabEnemyMap1,4);
         break;
     case 1:
+        m_warrior->updatePlayerMoveTop(*m_tabEnemyMap2,4);
         break;
     default:
         break;
@@ -363,6 +395,7 @@ void Game::touchQ(MapLoad ml)
         m_warrior->updatePlayerMoveLeft(*m_tabEnemyMap1,4);
         break;
     case 1:
+        m_warrior->updatePlayerMoveLeft(*m_tabEnemyMap2,4);
         break;
     default:
         break;
@@ -384,6 +417,7 @@ void Game::touchS(MapLoad ml)
         m_warrior->updatePlayerMoveBottom(*m_tabEnemyMap1,4);
         break;
     case 1:
+        m_warrior->updatePlayerMoveBottom(*m_tabEnemyMap2,4);
         break;
     default:
         break;
@@ -405,6 +439,7 @@ void Game::touchD(MapLoad ml)
         m_warrior->updatePlayerMoveRight(*m_tabEnemyMap1,4);
         break;
     case 1:
+        m_warrior->updatePlayerMoveRight(*m_tabEnemyMap2,4);
         break;
     default:
         break;
@@ -417,12 +452,10 @@ void Game::touchF(MapLoad ml)
     switch(ml)
     {
     case 0:
-        if (ml==map_1)
-        {
-            m_warrior->Loot(*m_tabObjectMap1,3);
-        }
+        m_warrior->Loot(*m_tabObjectMap1,3);
         break;
     case 1:
+        m_warrior->Loot(*m_tabObjectMap2,2);
         break;
     default:
         break;
@@ -444,6 +477,10 @@ void Game::touchSpace(MapLoad ml)
             m_warrior->attack(*m_tabEnemyMap1[i]);
         }
     case 1:
+        for(int i=0;i<4;i++)
+        {
+            m_warrior->attack(*m_tabEnemyMap2[i]);
+        }
         break;
     default:
         break;

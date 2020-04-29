@@ -22,8 +22,8 @@ SDL_Game::~SDL_Game()
     }
     for(int i = 0; i < 3; i++)
     {
-        delete m_object[i];
-        m_object[i] = nullptr;
+        delete m_objectMap1[i];
+        m_objectMap1[i] = nullptr;
     }
 }
 
@@ -84,14 +84,28 @@ void SDL_Game::loadAllImage()
     m_warrior[Orientation::west] = new Image("../data/player/linkGauche.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
     m_imageMap[map_1] = new Image("../data/map/map1.png", &r, windowSize ,m_pRenderer);
     m_imageMap[map_2] = new Image("../data/map/map2.png", &r, windowSize ,m_pRenderer);
-    m_object[0] = new Image("../data/healthpotion.png",&g.getObject(0,map_1).getPos(),windowSize,m_pRenderer);
-    m_object[1] = new Image("../data/hell's sword.png",&g.getObject(1,map_1).getPos(),windowSize,m_pRenderer);
-    m_object[2] = new Image("../data/hell's armor.png",&g.getObject(2,map_1).getPos(),windowSize,m_pRenderer);
-    //m_slime = new Image(path + "slime.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
+    //=========Image pour map1==========
+    //pour object map1
+    m_objectMap1[0] = new Image("../data/healthpotion.png",&g.getObject(0,map_1).getPos(),windowSize,m_pRenderer);
+    m_objectMap1[1] = new Image("../data/hell's sword.png",&g.getObject(1,map_1).getPos(),windowSize,m_pRenderer);
+    m_objectMap1[2] = new Image("../data/hell's armor.png",&g.getObject(2,map_1).getPos(),windowSize,m_pRenderer);
+    //pour enemy Map1
     m_enemyMap1[0] = new Image("../data/knight.png",&g.getEnemy(0,map_1).getPos(),windowSize,m_pRenderer);
     m_enemyMap1[1] = new Image("../data/knight.png",&g.getEnemy(1,map_1).getPos(),windowSize,m_pRenderer);
-    m_enemyMap1[2] = new Image("../data/knight.png",&g.getEnemy(2,map_1).getPos(),windowSize,m_pRenderer);
+    m_enemyMap1[2] = new Image("../data/eliteKnight.png",&g.getEnemy(2,map_1).getPos(),windowSize,m_pRenderer);
     m_enemyMap1[3] = new Image("../data/knight.png",&g.getEnemy(3,map_1).getPos(),windowSize,m_pRenderer);
+    //=========Fin Image map1=========
+
+    //=========Image pour map2=========
+    //pour object map2
+    m_objectMap2[0] = new Image("../data/healthpotion.png",&g.getObject(0,map_2).getPos(),windowSize,m_pRenderer);
+    m_objectMap2[1] = new Image("../data/healthpotion.png",&g.getObject(1,map_2).getPos(),windowSize,m_pRenderer);
+    //pour enemy map2
+    m_enemyMap2[0] = new Image("../data/eliteKnight.png",&g.getEnemy(0,map_2).getPos(),windowSize,m_pRenderer);
+    m_enemyMap2[1] = new Image("../data/eliteKnight.png",&g.getEnemy(1,map_2).getPos(),windowSize,m_pRenderer);
+    m_enemyMap2[2] = new Image("../data/skeletonJedi.png",&g.getEnemy(2,map_2).getPos(),windowSize,m_pRenderer);
+    m_enemyMap2[3] = new Image("../data/knight.png",&g.getEnemy(3,map_2).getPos(),windowSize,m_pRenderer);
+    //=========Fin Image map2=========
 }
 
 void SDL_Game::render()
@@ -112,13 +126,14 @@ void SDL_Game::render()
         {
             m_warrior[g.getPlayer().getOrientation()]->display(m_pRenderer);
         }
-        if (g.getMapLoad()==map_1)
+       switch(g.getMapLoad())
         {
+       case 0:
             for(int i = 0; i < 3; i++)
             {
                 if(!g.getObject(i,map_1).isLooted())
                 {
-                    m_object[i]->display(m_pRenderer);
+                    m_objectMap1[i]->display(m_pRenderer);
                 }
             }
 
@@ -129,6 +144,29 @@ void SDL_Game::render()
                     m_enemyMap1[i]->display(m_pRenderer);
                 }
             }
+           break;
+
+       case 1:
+           for(int i = 0; i < 2; i++)
+           {
+               if(!g.getObject(i,map_2).isLooted())
+               {
+                   m_objectMap2[i]->display(m_pRenderer);
+               }
+           }
+
+           for(int i = 0; i < 4; i++)
+           {
+               if(g.getEnemy(i,map_2).isAlive())
+               {
+                   m_enemyMap2[i]->display(m_pRenderer);
+               }
+           }
+           break;
+
+       default:
+           break;
+
         }
     }
     else if(g.getStatus() == GameStatus::standBy)
@@ -194,9 +232,9 @@ void SDL_Game::handleEvents()
                         g.touchC();
                         break;
 
-                    /*case SDLK_f:
+                    case SDLK_f:
                         g.touchF(g.getMapLoad());
-                        break;*/
+                        break;
                 }
                         // Ne pas hésitez à rajouter des touches au besoin...
                         // Si rajout de touche, bien crée la fonction touch dans Game
@@ -229,21 +267,27 @@ void SDL_Game::handleEvents()
 
     }
     //=======ici les monstres bougent et tapent : IA========
-    switch(g.getMapLoad())
+    if(g.getStatus() == GameStatus::run)
     {
-    case 0:
-        for (int i=0;i<4;i++)
+        switch(g.getMapLoad())
         {
-            g.getEnemy(i,map_1).enemyPattern(g.getPlayer());
+        case 0:
+            for (int i=0;i<4;i++)
+            {
+                g.getEnemy(i,map_1).enemyPattern(g.getPlayer());
+            }
+            break;
+
+        case 1:
+            for (int i=0;i<4;i++)
+            {
+                g.getEnemy(i,map_2).enemyPattern(g.getPlayer());
+            }
+            break;
+
+        default:
+            break;
         }
-        break;
-
-    case 1:
-
-        break;
-
-    default:
-        break;
     }
     //=====Fin IA=====
     //=========Le joueur lvl up=========

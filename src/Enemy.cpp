@@ -1,5 +1,4 @@
 #include "Enemy.h"
-#include <time.h>
 #include <math.h>
 #include "common.h"
 
@@ -58,29 +57,32 @@ Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
     }
     m_status = roaming;
     m_direction = direction;
+    delete m_posOrigin;
     m_posOrigin = new Vec2<int>(pos.m_position.x,pos.m_position.y);
+    std::cout<<"position enemy :"<<pos.m_position.x<<","<<pos.m_position.y<<std::endl;
+    std::cout<<"position enemy :"<<m_posOrigin->x<<","<<m_posOrigin->y<<std::endl;
     m_isXpGiven = true;
     m_waitingBeforeAttacking = 0;
 }
 
 void Enemy::moveRight()
 {
-    move(right);
+    move(Vec2<int>(2,0));
     updateRangeRight();
 }
 void Enemy::moveLeft()
 {
-    move(left);
+    move(Vec2<int>(-2,0));
     updateRangeLeft();
 }
 void Enemy::moveTop()
 {
-    move(top);
+    move(Vec2<int>(0,-2));
     updateRangeTop();
 }
 void Enemy::moveBottom()
 {
-    move(bottom);
+    move(Vec2<int>(0,2));
     updateRangeBottom();
 }
 
@@ -154,7 +156,8 @@ void Enemy::enemyPattern(Player & p)
         if(p.getPos().in(*(m_range)))
         {
             m_status = attacking;
-            m_waitingBeforeAttacking = SDL_GetTicks();
+            m_waitingBeforeAttacking = time(NULL);
+                    //SDL_GetTicks();
         }
         if(dx<0)
         {
@@ -182,10 +185,10 @@ void Enemy::enemyPattern(Player & p)
         {
             m_status = comingToPlayer;
         }
-        if((SDL_GetTicks()-m_waitingBeforeAttacking)>2000)
+        if((time(NULL)-m_waitingBeforeAttacking) > 2)
         {
             attack(p);
-            m_waitingBeforeAttacking=SDL_GetTicks();
+            m_waitingBeforeAttacking=time(NULL);
         }
         break;
 
@@ -275,7 +278,7 @@ Object Enemy::getChest()
     return m_Chest;
 }*/
 
-unsigned int Enemy::getTimer() const
+time_t Enemy::getTimer() const
 {
     return m_waitingBeforeAttacking;
 }

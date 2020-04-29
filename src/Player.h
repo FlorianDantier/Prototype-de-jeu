@@ -10,6 +10,7 @@
 class Enemy;
 #include "Enemy.h"
 #include "Object.h"
+#include <time.h>
 
 //structures à enlever après implémentation des classes en question
 /// eeee
@@ -34,7 +35,7 @@ class Player : public Character
     PlayerClass m_class;
     unsigned int m_xpCurrent;
     unsigned int m_xpMax;
-    unsigned int m_timer;
+    time_t m_timer;
     void deleteObject(unsigned int index);
     //supprimer un objet et réassemble l'inventaire sans "trous"
 

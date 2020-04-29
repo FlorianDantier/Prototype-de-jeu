@@ -44,7 +44,9 @@ private:
     // Joris
     Player * m_warrior;
     Enemy * m_tabEnemyMap1[4];
+    Enemy * m_tabEnemyMap2[4];
     Object * m_tabObjectMap1[3];
+    Object * m_tabObjectMap2[2];
 
 
 public:

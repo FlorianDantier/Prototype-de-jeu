@@ -16,7 +16,7 @@ Player::Player()
     m_tabEquipped[0] = Object("beginner weapon",weapon,0,getPos(),20,true,false);
     m_tabEquipped[1] = Object("beginner armor",armor,1,getPos(),10,true,false);
     m_inventory.m_numEmptySlot = 0;
-    m_timer=SDL_GetTicks();
+    m_timer=time(NULL);
 }
 
 Player::Player(const std::string & name,PlayerClass Class, const Rectangle & pos,
@@ -51,7 +51,7 @@ Player::Player(const std::string & name,PlayerClass Class, const Rectangle & pos
         m_health -= 10;
         m_maxHealth -= 10;
     }
-    m_timer=SDL_GetTicks();
+    m_timer=time(NULL);
 }
 
 unsigned int Player::getXpCurrent() const
@@ -247,7 +247,7 @@ void Player::attack(Enemy & enemy)
     {
         if (getRange().in(enemy.getPos()))
         {
-            if((SDL_GetTicks()-m_timer)>1000)
+            if((time(NULL)-m_timer)>1)
             {
                 std::cout<<"Le joueur attaque !"<<std::endl;
                 dealDamage(enemy);
@@ -255,7 +255,7 @@ void Player::attack(Enemy & enemy)
                         " touché ! Il perd de la vie ..."<<std::endl;
                 std::cout<<"Vie du "<<enemy.getEnemyRace()<<" "<<enemy.getEnemyType()<<
                            " restante : "<<enemy.getHealth()<<" HP"<<std::endl;
-                m_timer=SDL_GetTicks();
+                m_timer=time(NULL);
             }
         }
     }
@@ -298,7 +298,7 @@ Player &Player::operator=(const Player &copie)
         m_strengh = copie.m_strengh;
         m_health = copie.m_health;
         m_maxHealth = copie.m_maxHealth;
-        m_timer=SDL_GetTicks();
+        m_timer=copie.m_timer;
     }
     return *this;
 }
