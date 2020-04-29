@@ -92,7 +92,7 @@ void SDL_Game::loadAllImage()
     //pour enemy Map1
     m_enemyMap1[0] = new Image("../data/knight.png",&g.getEnemy(0,map_1).getPos(),windowSize,m_pRenderer);
     m_enemyMap1[1] = new Image("../data/knight.png",&g.getEnemy(1,map_1).getPos(),windowSize,m_pRenderer);
-    m_enemyMap1[2] = new Image("../data/knight.png",&g.getEnemy(2,map_1).getPos(),windowSize,m_pRenderer);
+    m_enemyMap1[2] = new Image("../data/eliteKnight.png",&g.getEnemy(2,map_1).getPos(),windowSize,m_pRenderer);
     m_enemyMap1[3] = new Image("../data/knight.png",&g.getEnemy(3,map_1).getPos(),windowSize,m_pRenderer);
     //=========Fin Image map1=========
 
@@ -101,9 +101,9 @@ void SDL_Game::loadAllImage()
     m_objectMap2[0] = new Image("../data/healthpotion.png",&g.getObject(0,map_2).getPos(),windowSize,m_pRenderer);
     m_objectMap2[1] = new Image("../data/healthpotion.png",&g.getObject(1,map_2).getPos(),windowSize,m_pRenderer);
     //pour enemy map2
-    m_enemyMap2[0] = new Image("../data/knight.png",&g.getEnemy(0,map_2).getPos(),windowSize,m_pRenderer);
-    m_enemyMap2[1] = new Image("../data/knight.png",&g.getEnemy(1,map_2).getPos(),windowSize,m_pRenderer);
-    m_enemyMap2[2] = new Image("../data/knight.png",&g.getEnemy(2,map_2).getPos(),windowSize,m_pRenderer);
+    m_enemyMap2[0] = new Image("../data/eliteKnight.png",&g.getEnemy(0,map_2).getPos(),windowSize,m_pRenderer);
+    m_enemyMap2[1] = new Image("../data/eliteKnight.png",&g.getEnemy(1,map_2).getPos(),windowSize,m_pRenderer);
+    m_enemyMap2[2] = new Image("../data/skeletonJedi.png",&g.getEnemy(2,map_2).getPos(),windowSize,m_pRenderer);
     m_enemyMap2[3] = new Image("../data/knight.png",&g.getEnemy(3,map_2).getPos(),windowSize,m_pRenderer);
     //=========Fin Image map2=========
 }
