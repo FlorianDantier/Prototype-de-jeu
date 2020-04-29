@@ -58,29 +58,32 @@ Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
     }
     m_status = roaming;
     m_direction = direction;
+    delete m_posOrigin;
     m_posOrigin = new Vec2<int>(pos.m_position.x,pos.m_position.y);
+    std::cout<<"position enemy :"<<pos.m_position.x<<","<<pos.m_position.y<<std::endl;
+    std::cout<<"position enemy :"<<m_posOrigin->x<<","<<m_posOrigin->y<<std::endl;
     m_isXpGiven = true;
     m_waitingBeforeAttacking = 0;
 }
 
 void Enemy::moveRight()
 {
-    move(right);
+    move(Vec2<int>(2,0));
     updateRangeRight();
 }
 void Enemy::moveLeft()
 {
-    move(left);
+    move(Vec2<int>(-2,0));
     updateRangeLeft();
 }
 void Enemy::moveTop()
 {
-    move(top);
+    move(Vec2<int>(0,-2));
     updateRangeTop();
 }
 void Enemy::moveBottom()
 {
-    move(bottom);
+    move(Vec2<int>(0,2));
     updateRangeBottom();
 }
 
