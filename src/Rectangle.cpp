@@ -146,13 +146,95 @@ Rectangle Rectangle::getBas() const
     return  r;
 }
 
-DoubleRect Rectangle::cut() const
+DoubleRect Rectangle::cutTwo() const
 {
     DoubleRect dr;
     dr.r1 = Rectangle(m_position.x, m_position.y + m_dimension.y / 2, m_dimension.x / 2, m_dimension.y / 2);
     dr.r2 = Rectangle(m_position.x + m_dimension.x / 2, m_position.y, m_dimension.x / 2, m_dimension.y / 2);
 
     return dr;
+}
+
+FourRect Rectangle::cutFour() const
+{
+    FourRect fr;
+    DoubleRect two = cutTwo();
+    fr.r1 = two.r1.cutTwo().r1;
+    fr.r2 = two.r1.cutTwo().r2;
+    fr.r3 = two.r2.cutTwo().r1;
+    fr.r4 = two.r2.cutTwo().r2;
+
+    return fr;
+}
+
+Rectangle* Rectangle::cutHeight() const
+{
+    Rectangle* tab = new Rectangle[8];
+    FourRect four = cutFour();
+
+    tab[0] = four.r1.cutTwo().r1;
+
+
+    tab[1] = four.r1.cutTwo().r2;
+
+
+    tab[2] = four.r2.cutTwo().r1;
+
+
+    tab[3] = four.r2.cutTwo().r2;
+
+
+    tab[4] = four.r3.cutTwo().r1;
+
+
+    tab[5] = four.r3.cutTwo().r2;
+
+
+    tab[6] = four.r4.cutTwo().r1;
+
+
+    tab[7] = four.r4.cutTwo().r2;
+
+
+    return tab;
+}
+
+DoubleRect Rectangle::cutTwoBis() const
+{
+    DoubleRect dr;
+    dr.r1 = Rectangle(m_position.x, m_position.y, m_dimension.x / 2, m_dimension.y / 2);
+    dr.r2 = Rectangle(m_position.x + m_dimension.x / 2, m_position.y + m_dimension.y / 2,
+                      m_dimension.x / 2, m_dimension.y / 2);
+
+    return  dr;
+}
+
+FourRect Rectangle::cutFourBis() const
+{
+    FourRect fr;
+    DoubleRect dr = cutTwoBis();
+    fr.r1 = dr.r1.cutTwoBis().r1;
+    fr.r2 = dr.r1.cutTwoBis().r2;
+    fr.r3 = dr.r2.cutTwoBis().r1;
+    fr.r4 = dr.r2.cutTwoBis().r2;
+
+    return fr;
+}
+
+Rectangle *Rectangle::cutHeightBis() const
+{
+    Rectangle *tab = new Rectangle[8];
+    FourRect fr = cutFourBis();
+    tab[0] = fr.r1.cutTwoBis().r1;
+    tab[1] = fr.r1.cutTwoBis().r2;
+    tab[2] = fr.r2.cutTwoBis().r1;
+    tab[3] = fr.r2.cutTwoBis().r2;
+    tab[4] = fr.r3.cutTwoBis().r1;
+    tab[5] = fr.r3.cutTwoBis().r2;
+    tab[6] = fr.r4.cutTwoBis().r1;
+    tab[7] = fr.r4.cutTwoBis().r2;
+
+    return  tab;
 }
 
 

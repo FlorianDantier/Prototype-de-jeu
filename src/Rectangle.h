@@ -6,6 +6,9 @@
 
 
 struct DoubleRect;
+struct FourRect;
+struct HeightRect;
+
 class Rectangle
 {
 public:
@@ -39,13 +42,33 @@ public:
     Rectangle getGauche() const;
     Rectangle getHaut() const;
     Rectangle getBas() const;
-    DoubleRect cut() const;
+    DoubleRect cutTwo() const;
+    FourRect cutFour() const;
+    Rectangle* cutHeight() const;
+
+    DoubleRect cutTwoBis() const;
+    FourRect cutFourBis() const;
+    Rectangle* cutHeightBis() const;
 };
 
 struct DoubleRect
 {
     Rectangle r1;
     Rectangle r2;
+};
+
+struct FourRect
+{
+    Rectangle r1;
+    Rectangle r2;
+    Rectangle r3;
+    Rectangle r4;
+};
+
+struct HeightRect
+{
+    FourRect fr1;
+    FourRect fr2;
 };
 
 #endif // RECTANGLE_H

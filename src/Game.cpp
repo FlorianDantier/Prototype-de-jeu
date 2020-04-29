@@ -17,65 +17,41 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
 
     ml = map_1;
     //=============== Création des maps==================
-    map[0] = new Map(17);
-    assert(map[0] != nullptr);
+    map[0] = new Map(73, 0);
 
-    Rectangle statue1 = Rectangle(504, 552, 48, 48);
-    Rectangle statue2 = Rectangle(655, 550, 48, 48);
-
-    Rectangle temple[3];
-    temple[0] = Rectangle(553, 276, 99, 110);
-    temple[1] = Rectangle(554, 276, 24, 224);
-    temple[2] = Rectangle(628, 276, 24, 224);
+    assert(map[map_1] != nullptr);
 
 
-    Rectangle mur[10];
-    mur[0] = Rectangle(0, 758, 256, 27);
-    mur[1] = Rectangle(300, 707, 136, 27);
-    mur[2] = Rectangle(476, 657, 178, 27);
-    mur[3] = Rectangle(723, 732, 77, 28);
-    mur[4] = Rectangle(120, 550, 26, 83);
-    mur[5] = Rectangle(105, 197, 40, 157);
-    mur[6] = Rectangle(225, 0, 21, 103);
-    mur[7] = Rectangle(0, 482, 78, 26);
-    mur[8] = Rectangle(0, 434, 52, 15);
-    mur[9] = Rectangle(0, 717, 52, 10);
+    map[map_2] = new Map(104, 1);
+    assert(map[map_2] != nullptr);
 
-    map[map_1]->setDecor(3, statue1);
-    map[map_1]->setDecor(4, statue2);
-    for(int i = 0; i < 3; i++)
-    {
-        map[map_1]->setDecor(i, temple[i]);
-    }
-    for(int i = 0; i < 10; i++)
-    {
-        map[map_1]->setDecor(i + 5, mur[i]);
-    }
 
-    Rectangle stone[2];
-    stone[0] = Rectangle(727, 52, 73, 20);
-    stone[1] = Rectangle(707, 0, 21, 51);
 
-    map[map_1]->setDecor(15, stone[0]);
-    map[map_1]->setDecor(16, stone[1]);
 
-    map[map_2] = new Map(15);
-    map[map_2]->setDecor(0, Rectangle(108, 344, 84, 48));
-    map[map_2]->setDecor(1, Rectangle(0, 0, 72, 72));
-    map[map_2]->setDecor(2, Rectangle(301, 100, 48, 48));
-    map[map_2]->setDecor(3, Rectangle(351, 123, 48, 48));
-    map[map_2]->setDecor(4, Rectangle(401, 98, 48, 48));
-    map[map_2]->setDecor(5, Rectangle(53, 503, 44, 44));
-    map[map_2]->setDecor(6, Rectangle(0, 730, 211, 28));
-    map[map_2]->setDecor(7, Rectangle(119, 331, 61, 13));
 
-    // Pierre bas gauche statue
-    map[map_2]->setDecor(8, Rectangle(236, 195, 80, 57));
-    map[map_2]->setDecor(9, Rectangle(236, 252, 41, 38));
-    map[map_2]->setDecor(10, Rectangle(277, 252, 19, 20));
-    map[map_2]->setDecor(11, Rectangle(246, 183, 68, 12));
 
-    Rectangle diago(122, 448, 78, 80);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -108,8 +84,6 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
 
     // =========Fin Ajout des ennemis dans les maps=========
 
-    Object o("test", ObjectType::armor, 0, Rectangle(0, 0, 0, 0), 0, true, false);
-    enn = new Enemy(EnemyType::sbire, EnemyRace::beast, Rectangle(100, 100, 200, 200), o, o, 100, 100, RoamingDirection::verticalTop, true);
 
 }
 
