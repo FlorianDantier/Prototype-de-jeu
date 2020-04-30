@@ -25,6 +25,21 @@ SDL_Game::~SDL_Game()
         delete m_objectMap1[i];
         m_objectMap1[i] = nullptr;
     }
+    for(int i = 0; i < 2; i++)
+    {
+        delete m_objectMap2[i];
+        m_objectMap2[i] = nullptr;
+    }
+    for(int i = 0; i < 4; i++)
+    {
+        delete m_enemyMap1[i];
+        m_enemyMap1[i] = nullptr;
+    }
+    for(int i = 0; i < 4; i++)
+    {
+        delete m_enemyMap2[i];
+        m_enemyMap2[i] = nullptr;
+    }
 }
 
 bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos, unsigned int width, unsigned int height)
@@ -266,6 +281,7 @@ void SDL_Game::handleEvents()
         }
 
     }
+
     //=======ici les monstres bougent et tapent : IA========
     if(g.getStatus() == GameStatus::run)
     {

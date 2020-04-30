@@ -259,8 +259,9 @@ void Character::attack(Character & enemy)
         if (getRange().in(enemy.getPos()))
         {
             dealDamage(enemy);
-            std::cout<<"entite touche ! elle perd de la vie ..."<<std::endl;
-            std::cout<<"Vie de l'entite restante : "<<enemy.getHealth()<<" HP"<<std::endl;
+            std::cout<<"Un ennemi attaque !"<<std::endl;
+            std::cout<<"joueur touche ! il perd de la vie ..."<<std::endl;
+            std::cout<<"Vie du joueur restante : "<<enemy.getHealth()<<" HP"<<std::endl;
         }
     }
 }

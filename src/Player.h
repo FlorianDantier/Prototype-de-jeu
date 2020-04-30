@@ -74,7 +74,7 @@ class Player : public Character
     //inflige des dégats à l'ennemi
     void kill(Enemy &enemy);
     //le joueur tue l'ennemi
-    unsigned int getTimer() const;
+    time_t getTimer() const;
     //retourne le temps de la dernière attaque
     Player& operator=(const Player &copie);
 };
