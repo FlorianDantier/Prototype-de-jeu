@@ -40,6 +40,16 @@ SDL_Game::~SDL_Game()
         delete m_enemyMap2[i];
         m_enemyMap2[i] = nullptr;
     }
+    for(int i = 0; i < 4; i++)
+    {
+        delete m_enemyInstance[i];
+        m_enemyInstance[i] = nullptr;
+    }
+    for(int i = 0; i < 4; i++)
+    {
+        delete m_sword[i];
+        m_sword[i] = nullptr;
+    }
     for(unsigned int i = 0; i < g.getNbMap(); i++)
     {
         delete m_imageMap[i];
@@ -98,10 +108,18 @@ void SDL_Game::loadAllImage()
     m_mainHomeBtn = new Image("../data/button.png", &g.getHome().getChoice(0).getPosition(), windowSize, m_pRenderer);
     static Rectangle r(0, 0, windowSize.x, windowSize.y);
     m_mainBackground = new Image("../data/background.png", &r, windowSize, m_pRenderer);
+    //=========Image joueur warrior=========
     m_warrior[Orientation::south] = new Image("../data/player/link.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
     m_warrior[Orientation::north] = new Image("../data/player/linkDos.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
     m_warrior[Orientation::east] = new Image("../data/player/linkDroit.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
     m_warrior[Orientation::west] = new Image("../data/player/linkGauche.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
+    //=========Fin image warrior============
+    //=========Image épée===========
+    m_sword[Orientation::south] = new Image("../data/sword/swordBottom.png",&g.getPlayer().getRange(),windowSize,m_pRenderer);
+    m_sword[Orientation::north] = new Image("../data/sword/swordTop.png",&g.getPlayer().getRange(),windowSize,m_pRenderer);
+    m_sword[Orientation::east] = new Image("../data/sword/swordRight.png",&g.getPlayer().getRange(),windowSize,m_pRenderer);
+    m_sword[Orientation::west] = new Image("../data/sword/swordLeft.png",&g.getPlayer().getRange(),windowSize,m_pRenderer);
+    //=========Fin image épée=======
     m_imageMap[map_1] = new Image("../data/map/map1.png", &r, windowSize ,m_pRenderer);
     m_imageMap[map_2] = new Image("../data/map/map2.png", &r, windowSize ,m_pRenderer);
     m_imageMap[instance1] = new Image("../data/map/instance.png", &r, windowSize, m_pRenderer);
@@ -127,6 +145,13 @@ void SDL_Game::loadAllImage()
     m_enemyMap2[2] = new Image("../data/skeletonJedi.png",&g.getEnemy(2,map_2).getPos(),windowSize,m_pRenderer);
     m_enemyMap2[3] = new Image("../data/knight.png",&g.getEnemy(3,map_2).getPos(),windowSize,m_pRenderer);
     //=========Fin Image map2=========
+
+    //=========Image pour Instance1=======
+    m_enemyInstance[0] = new Image("../data/dragon.png",&g.getEnemy(0,instance1).getPos(),windowSize,m_pRenderer);
+    m_enemyInstance[1] = new Image("../data/cyclop.png",&g.getEnemy(1,instance1).getPos(),windowSize,m_pRenderer);
+    m_enemyInstance[2] = new Image("../data/cyclop.png",&g.getEnemy(2,instance1).getPos(),windowSize,m_pRenderer);
+    m_enemyInstance[3] = new Image("../data/cyclop.png",&g.getEnemy(3,instance1).getPos(),windowSize,m_pRenderer);
+    //=========Fin image pour instance1===
 }
 
 void SDL_Game::render()
@@ -184,6 +209,14 @@ void SDL_Game::render()
                }
            }
            break;
+       case 2:
+           for(int i = 0; i < 4; i++)
+           {
+               if(g.getEnemy(i,instance1).isAlive())
+               {
+                   m_enemyInstance[i]->display(m_pRenderer);
+               }
+           }
 
        default:
            break;
@@ -230,22 +263,23 @@ void SDL_Game::handleEvents()
                 {
 
                     case SDLK_z:
-                        g.touchZ(g.getMapLoad());
+                        g.touchZ();
                         break;
 
                     case SDLK_q:
-                        g.touchQ(g.getMapLoad());
+                        g.touchQ();
                         break;
 
                     case SDLK_s:
-                        g.touchS(g.getMapLoad());
+                        g.touchS();
                         break;
 
                     case SDLK_d:
-                        g.touchD(g.getMapLoad());
+                        g.touchD();
                         break;
 
                     case SDLK_SPACE:
+                        m_sword[g.getPlayer().getOrientation()]->display(m_pRenderer);
                         g.touchSpace(g.getMapLoad());
                         break;
 
@@ -306,6 +340,11 @@ void SDL_Game::handleEvents()
                 g.getEnemy(i,map_2).enemyPattern(g.getPlayer());
             }
             break;
+        case 2:
+            for (int i=0;i<4;i++)
+            {
+                g.getEnemy(i,instance1).enemyPattern(g.getPlayer());
+            }
 
         default:
             break;
