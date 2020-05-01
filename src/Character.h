@@ -11,8 +11,10 @@ enum Orientation
     north = 0,
     west,
     south,
-    east
+    east,
 };
+
+
 
 
 struct Weapon

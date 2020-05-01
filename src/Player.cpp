@@ -249,13 +249,13 @@ void Player::attack(Enemy & enemy)
         {
             if((time(NULL)-m_timer)>1)
             {
-                std::cout<<"Le joueur attaque !"<<std::endl;
-                dealDamage(enemy);
-                std::cout<<enemy.getEnemyRace()<<" "<<enemy.getEnemyType()<<
-                        " touché ! Il perd de la vie ..."<<std::endl;
-                std::cout<<"Vie du "<<enemy.getEnemyRace()<<" "<<enemy.getEnemyType()<<
-                           " restante : "<<enemy.getHealth()<<" HP"<<std::endl;
-                m_timer=time(NULL);
+            std::cout<<getNameClass()<<" "<<getName()<<" attaque !"<<std::endl;
+            dealDamage(enemy);
+            std::cout<<enemy.getEnemyRace()<<" "<<enemy.getEnemyType()<<
+                    " touché ! Il perd de la vie ..."<<std::endl;
+            std::cout<<"Vie du "<<enemy.getEnemyRace()<<" "<<enemy.getEnemyType()<<
+                       " restante : "<<enemy.getHealth()<<" HP"<<std::endl;
+            m_timer=time(NULL);
             }
         }
     }
@@ -274,7 +274,7 @@ void Player::kill(Enemy &enemy)
     enemy.die(*this);
 }
 
-unsigned int Player::getTimer() const
+time_t Player::getTimer() const
 {
     return m_timer;
 }
