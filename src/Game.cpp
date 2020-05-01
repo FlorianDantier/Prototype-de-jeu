@@ -21,7 +21,7 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
     m_map[map_2] = new Map(104, 1, map_2);
     assert(m_map[map_2] != nullptr);
 
-    m_map[instance1] = new Map(3, 1, instance1);
+    m_map[instance1] = new Map(60, 2, instance1);
     assert(m_map[instance1] != nullptr);
     // =========Fin de création des maps================
     // =========Ajout du Player==========
