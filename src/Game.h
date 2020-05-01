@@ -24,6 +24,7 @@ enum MapLoad
 {
     map_1 = 0,
     map_2,
+    instance1,
 };
 
 
@@ -32,10 +33,10 @@ class Game
 private:
     // Florian
     Menu* m_home;
-    Map* map[2];
-    unsigned int nbMap;
+    Map* m_map[2];
+    unsigned int m_nbMap;
     GameStatus m_status;
-    MapLoad ml;
+    MapLoad m_ml;
 
     // Franklin
 
@@ -61,12 +62,13 @@ public:
     void controlePos();
     Map &getMap1(unsigned int indice) const;
     void eventManagers();
-    bool collisionManager(const direction::Type d);
+    bool collisionManager(Rectangle &pos, const direction::Type d);
     void launchGame(const GameStatus gs);
     direction::Type isAtTheEdge(const Rectangle & rect);
     void changeMapManager();
     void setMapLoad(const MapLoad m);
     MapLoad getMapLoad() const;
+    void loadNewZone();
 
     // Franklin
 

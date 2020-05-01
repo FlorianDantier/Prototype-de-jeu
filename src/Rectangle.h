@@ -17,8 +17,8 @@ public:
     Rectangle();
     Rectangle(const int x, const int y, const int w, const int h);
     Rectangle(const Vec2<int> &position, const Vec2<int> & dimension);
-    bool in(const Vec2<int> &point);
-    bool in(const Rectangle & rect);
+    bool in(const Vec2<int> &point) const;
+    bool in(const Rectangle & rect) const;
     Vec2<int> centre();
     void setCentre(const Vec2<int> &c);
 

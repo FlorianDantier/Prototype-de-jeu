@@ -9,7 +9,7 @@ Rectangle::Rectangle(const int x, const int y, const int w, const int h) : m_pos
 Rectangle::Rectangle(const Vec2<int> &position, const Vec2<int> &dimension) : m_position(position), m_dimension(dimension)
 {}
 
-bool Rectangle::in(const Vec2<int> & point)
+bool Rectangle::in(const Vec2<int> & point) const
 {
     if(point.x > m_position.x && point.y > m_position.y
             && point.x < m_position.x + m_dimension.x
@@ -19,7 +19,7 @@ bool Rectangle::in(const Vec2<int> & point)
         return false;
 }
 
-bool Rectangle::in(const Rectangle &rect)
+bool Rectangle::in(const Rectangle &rect) const
 {
     if((m_position.x >= rect.m_position.x + rect.m_dimension.x)      // trop à droite
         || (m_position.x + m_dimension.x <= rect.m_position.x)       // trop à gauche

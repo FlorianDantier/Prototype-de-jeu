@@ -3,60 +3,23 @@
 
 Game::Game() : m_home(nullptr), m_status(GameStatus::home)
 {
-    nbMap = 2;
-    for(unsigned int i = 0; i < nbMap; i++)
+    m_nbMap = 2;
+    for(unsigned int i = 0; i < m_nbMap; i++)
     {
-        map[i] = nullptr;
+        m_map[i] = nullptr;
     }
     ptrOnLauchGame = &Game::launchGame;
     Button notLoad(Rectangle(-1 ,-1, -1, -1), false);
     m_home = new Menu(1, true, true, notLoad, notLoad); // Le menu "home" est une exception dans le sens où il n'y aura pas de bouton pour ouvir ou fermer ce menu
     m_home->setChoice(Button (Rectangle  (50, 100, 550, 100), true), 0);
 
-    ml = map_1;
+    m_ml = map_1;
     //=============== Création des maps==================
-    map[0] = new Map(73, 0);
+    m_map[0] = new Map(73, 2, 0);
 
-    assert(map[map_1] != nullptr);
-
-
-    map[map_2] = new Map(104, 1);
-    assert(map[map_2] != nullptr);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    assert(m_map[map_1] != nullptr);
+    m_map[map_2] = new Map(104, 1, 1);
+    assert(m_map[map_2] != nullptr);
     // =========Fin de création des maps================
     // =========Ajout du Player==========
     Rectangle warPos(windowSize.x / 2, windowSize.y / 2, 25, 34);
@@ -114,10 +77,10 @@ Game::~Game()
     delete m_warrior;
     m_warrior = nullptr;
 
-    for(unsigned int i = 0; i < nbMap; i++)
+    for(unsigned int i = 0; i < m_nbMap; i++)
     {
-        delete map[i];
-        map[i] = nullptr;
+        delete m_map[i];
+        m_map[i] = nullptr;
     }
     for(unsigned int i = 0; i < 3; i++)
     {
@@ -189,16 +152,16 @@ direction::Type Game::isAtTheEdge(const Rectangle &rect)
 
 void Game::changeMapManager()
 {
-   if(isAtTheEdge(m_warrior->getPos()) == direction::right && ml == map_1)
+   if(isAtTheEdge(m_warrior->getPos()) == direction::right && m_ml == map_1)
    {
-        ml = map_2;
+        m_ml = map_2;
         Rectangle r = m_warrior->getPos();
         r.m_position.x = -15;
         m_warrior->setPos(r);
    }
-   else if(isAtTheEdge(m_warrior->getPos()) == direction::left && ml == map_2)
+   else if(isAtTheEdge(m_warrior->getPos()) == direction::left && m_ml == map_2)
    {
-        ml = map_1;
+        m_ml = map_1;
         Rectangle r = m_warrior->getPos();
         r.m_position.x = 790;
         m_warrior->setPos(r);
@@ -207,17 +170,26 @@ void Game::changeMapManager()
 
 void Game::setMapLoad(const MapLoad m)
 {
-    ml = m;
+   m_ml = m;
 }
 
 MapLoad Game::getMapLoad() const
 {
-    return ml;
+    return m_ml;
+}
+
+void Game::loadNewZone()
+{
+    if(m_map[0]->isInOutZone(m_warrior->getPos(), 0))
+    {
+        std::cout<<"Marche"<<std::endl;
+        //m_ml = instance1;
+    }
 }
 
 Map &Game::getMap1(unsigned int indice) const
 {
-    return *map[indice];
+    return *m_map[indice];
 }
 
 void Game::eventManagers()
@@ -236,16 +208,16 @@ void Game::eventManagers()
     }
 }
 
-bool Game::collisionManager(const direction::Type d)
+bool Game::collisionManager(Rectangle & pos, const direction::Type d)
 {
     bool isNotInDecor = true;
     unsigned int indice = 0;
-    Rectangle temp = m_warrior->getPos();
+    Rectangle temp = pos;
     temp.m_position.y += 2 * temp.m_dimension.y / 3;
     temp.m_dimension.y /= 3;
-    for(unsigned int i = 0; i < map[ml]->getNbDecor() && isNotInDecor; i++)
+    for(unsigned int i = 0; i < m_map[m_ml]->getNbDecor() && isNotInDecor; i++)
     {
-        if(temp.in(map[ml]->getDecor(i)))
+        if(temp.in(m_map[m_ml]->getDecor(i)))
         {
             isNotInDecor = false;
             indice = i;
@@ -257,65 +229,65 @@ bool Game::collisionManager(const direction::Type d)
     }
     else
     {
-        Rectangle r = m_warrior->getPos();
+        Rectangle r = pos;
         switch (d)
         {
             case direction::top:
                 r.m_position += bottom;
-                m_warrior->setPos(r);
+                pos = r;
                 break;
 
             case direction::left:
                 r.m_position += right;
-                m_warrior->setPos(r);
+                pos = r;
                 break;
 
             case direction::bottom:
                 r.m_position += top;
-                m_warrior->setPos(r);
+                pos = r;
                 break;
 
             case direction::right:
                 r.m_position += left;
-                m_warrior->setPos(r);
+                pos = r;
                 break;
         }
-        while (temp.in(map[ml]->getDecor(indice)))
+        while (temp.in(m_map[m_ml]->getDecor(indice)))
         {
             switch (d)
             {
                 case direction::top:
                     r.m_position += bottom;
-                    m_warrior->setPos(r);
+                    pos = r;
 
                     break;
 
                 case direction::left:
                     r.m_position += right;
-                    m_warrior->setPos(r);
+                    pos = r;
                     break;
 
                 case direction::bottom:
                     r.m_position += top;
-                    m_warrior->setPos(r);
+                    pos = r;
                     break;
 
                 case direction::right:
                     r.m_position += left;
-                    m_warrior->setPos(r);
+                    pos = r;
                     break;
             }
-            temp.m_position = m_warrior->getPos().m_position;
+            temp.m_position = pos.m_position;
         }
         if(d == direction::top) // Pour "contrer" un bug, corriger le bug si le temps à la place de ce bricolage
         {
-            Vec2<int> v = m_warrior->getPos().m_dimension;
+            Vec2<int> v = pos.m_dimension;
             v.y /= 3;
             v.y *= 2; // On divise par 2/3
             v.x = 0;
-            Rectangle r = m_warrior->getPos();
+            Rectangle r = pos;
             r.m_position -= v;
-            m_warrior->setPos(r);
+            pos = r;
         }
         return false;
     }
@@ -360,12 +332,11 @@ Enemy &Game::getEnemy(unsigned int indice,MapLoad ml) const
 
 void Game::touchZ(MapLoad ml)
 {
-    if(collisionManager(direction::top))
+    if(collisionManager(m_warrior->getPos() ,direction::top))
     {
         m_warrior->move(top);
     }
-    collisionManager(direction::top);
-    std::cout<<m_warrior->getPos().m_position.x<< " / "<<m_warrior->getPos().m_position.y<<std::endl;
+    collisionManager(m_warrior->getPos() ,direction::top);
     switch(ml)
     {
     case 0:
@@ -383,12 +354,11 @@ void Game::touchZ(MapLoad ml)
 
 void Game::touchQ(MapLoad ml)
 {
-    if(collisionManager(direction::left)) // On test une avant de bouger si ok alors on bouge
+    if(collisionManager(m_warrior->getPos() ,direction::left)) // On test une avant de bouger si ok alors on bouge
     {
         m_warrior->move(left);
     }
-    collisionManager(direction::left); // Puis on restest après avoir bouger, car il est possible d'être dans le décor après le déplacement
-    std::cout<<m_warrior->getPos().m_position.x<< " / "<<m_warrior->getPos().m_position.y<<std::endl;
+    collisionManager(m_warrior->getPos() ,direction::left); // Puis on restest après avoir bouger, car il est possible d'être dans le décor après le déplacement
     switch(ml)
     {
     case 0:
@@ -405,12 +375,11 @@ void Game::touchQ(MapLoad ml)
 
 void Game::touchS(MapLoad ml)
 {
-    if(collisionManager(direction::bottom))
+    if(collisionManager(m_warrior->getPos() ,direction::bottom))
     {
         m_warrior->move(bottom);
     }
-    collisionManager(direction::bottom);
-    std::cout<<m_warrior->getPos().m_position.x<< " / "<<m_warrior->getPos().m_position.y<<std::endl;
+    collisionManager(m_warrior->getPos() ,direction::bottom);
     switch(ml)
     {
     case 0:
@@ -427,12 +396,11 @@ void Game::touchS(MapLoad ml)
 
 void Game::touchD(MapLoad ml)
 {
-    if(collisionManager(direction::right))
+    if(collisionManager(m_warrior->getPos() ,direction::right))
     {
         m_warrior->move(right);
     }
-    collisionManager(direction::right);
-    std::cout<<m_warrior->getPos().m_position.x<< " / "<<m_warrior->getPos().m_position.y<<std::endl;
+    collisionManager(m_warrior->getPos() ,direction::right);
     switch(ml)
     {
     case 0:

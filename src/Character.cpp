@@ -162,28 +162,28 @@ void Character::updatePlayerMoveRight(Character tabCharacter[],unsigned int size
 {
         crashWithEnemyOnRight(tabCharacter,sizeTab);
         updateRangeRight();
-        std::cout<<"touche d appuyée : le joueur va a droite"<<std::endl;
+        //std::cout<<"touche d appuyée : le joueur va a droite"<<std::endl;
 }
 
 void Character::updatePlayerMoveLeft(Character tabCharacter[],unsigned int sizeTab)
 {
         crashWithEnemyOnLeft(tabCharacter,sizeTab);
         updateRangeLeft();
-        std::cout<<"touche q appuyée : le joueur va a gauche"<<std::endl;
+        //std::cout<<"touche q appuyée : le joueur va a gauche"<<std::endl;
 }
 
 void Character::updatePlayerMoveTop(Character tabCharacter[],unsigned int sizeTab)
 {
         crashWithEnemyOnTop(tabCharacter,sizeTab);
         updateRangeTop();
-        std::cout<<"touche z appuyée : le joueur monte"<<std::endl;
+        //std::cout<<"touche z appuyée : le joueur monte"<<std::endl;
 }
 
 void Character::updatePlayerMoveBottom(Character tabCharacter[],unsigned int sizeTab)
 {
         crashWithEnemyOnBottom(tabCharacter,sizeTab);
         updateRangeBottom();
-        std::cout<<"touche s appuyée : le joueur descend"<<std::endl;
+        //std::cout<<"touche s appuyée : le joueur descend"<<std::endl;
 }
 
 void Character::display()
