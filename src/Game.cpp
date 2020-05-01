@@ -3,7 +3,7 @@
 
 Game::Game() : m_home(nullptr), m_status(GameStatus::home)
 {
-    m_nbMap = 2;
+    m_nbMap = 3;
     for(unsigned int i = 0; i < m_nbMap; i++)
     {
         m_map[i] = nullptr;
@@ -15,11 +15,14 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
 
     m_ml = map_1;
     //=============== Création des maps==================
-    m_map[0] = new Map(73, 2, 0);
-
+    m_map[map_1] = new Map(73, 2, map_1);
     assert(m_map[map_1] != nullptr);
-    m_map[map_2] = new Map(104, 1, 1);
+
+    m_map[map_2] = new Map(104, 1, map_2);
     assert(m_map[map_2] != nullptr);
+
+    m_map[instance1] = new Map(3, 1, instance1);
+    assert(m_map[instance1] != nullptr);
     // =========Fin de création des maps================
     // =========Ajout du Player==========
     Rectangle warPos(windowSize.x / 2, windowSize.y / 2, 25, 34);
@@ -166,6 +169,10 @@ void Game::changeMapManager()
         r.m_position.x = 790;
         m_warrior->setPos(r);
    }
+   else
+   {
+       loadNewZone();
+   }
 }
 
 void Game::setMapLoad(const MapLoad m)
@@ -180,11 +187,26 @@ MapLoad Game::getMapLoad() const
 
 void Game::loadNewZone()
 {
-    if(m_map[0]->isInOutZone(m_warrior->getPos(), 0))
+    if(m_map[map_1]->isInOutZone(m_warrior->getPos(), 0) && m_ml == map_1)
     {
-        std::cout<<"Marche"<<std::endl;
-        //m_ml = instance1;
+        m_ml = instance1;
+        Rectangle r = m_warrior->getPos();
+        r.m_position = Vec2<int>(389, 684);
+        m_warrior->setPos(r);
     }
+    if(m_map[instance1]->isInOutZone(m_warrior->getPos(), 0) && m_ml == instance1)
+    {
+        m_ml = map_1;
+        Rectangle r = m_warrior->getPos();
+        r.m_position = Vec2<int>(591, 405);
+        m_warrior->setPos(r);
+    }
+
+}
+
+unsigned int Game::getNbMap() const
+{
+    return m_nbMap;
 }
 
 Map &Game::getMap1(unsigned int indice) const

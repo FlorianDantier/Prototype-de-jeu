@@ -21,6 +21,10 @@ Map::Map(unsigned int nbDecor, unsigned int nbOutZone ,unsigned int map) : m_dec
     {
         initMap2();
     }
+    else if (map == 2)
+    {
+        initInstance1();
+    }
 
 }
 Map::~Map()
@@ -81,7 +85,8 @@ void Map::initMap1()
     setDecorDiago(57, Rectangle(46, 351, 102, 100), TopLeft);
     setDecorDiago(65, Rectangle(142, 97, 107, 106), TopLeft);
 
-    m_tabOutZones[0] = Rectangle(588, 375, 32, 25);
+    m_tabOutZones = new Rectangle[1]; // On alloue un tableau car on peut avoir plusieur "zone de sortie" sur une map et donc on détruit l'objet comme un tableau
+    m_tabOutZones[0] = Rectangle(588, 370, 32, 25);
 }
 
 void Map::initMap2()
@@ -120,6 +125,12 @@ void Map::initMap2()
     setDecorDiago(80, Rectangle(421, 224, 79, 77), TopLeft);
     setDecorDiago(88, Rectangle(295, 406, 31, 68), TopRight);
     setDecorDiago(96, Rectangle(655, 49, 49, 47), BottomLeft);
+}
+
+void Map::initInstance1()
+{
+    m_tabOutZones = new Rectangle[1];
+    m_tabOutZones[0] = Rectangle(382, 728, 37, 25);
 }
 
 

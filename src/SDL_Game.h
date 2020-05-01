@@ -38,7 +38,7 @@ private:
     Image* m_mainBackground;
     Image* m_mainHomeBtn;
 
-    Image* m_imageMap[2];
+    Image* m_imageMap[3];
 
 
     // Franklin

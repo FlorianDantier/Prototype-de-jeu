@@ -23,6 +23,8 @@ private:
 
     void initMap1();
     void initMap2();
+
+    void initInstance1();
 public:
     Map();
     Map(const unsigned int nbDecor, unsigned int nbOutZone, unsigned int map);

@@ -33,7 +33,7 @@ class Game
 private:
     // Florian
     Menu* m_home;
-    Map* m_map[2];
+    Map* m_map[3];
     unsigned int m_nbMap;
     GameStatus m_status;
     MapLoad m_ml;
@@ -69,6 +69,8 @@ public:
     void setMapLoad(const MapLoad m);
     MapLoad getMapLoad() const;
     void loadNewZone();
+
+    unsigned int getNbMap() const;
 
     // Franklin
 

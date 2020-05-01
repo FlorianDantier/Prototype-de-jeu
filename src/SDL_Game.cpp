@@ -40,6 +40,11 @@ SDL_Game::~SDL_Game()
         delete m_enemyMap2[i];
         m_enemyMap2[i] = nullptr;
     }
+    for(unsigned int i = 0; i < g.getNbMap(); i++)
+    {
+        delete m_imageMap[i];
+        m_imageMap[i] = nullptr;
+    }
 }
 
 bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos, unsigned int width, unsigned int height)
@@ -99,6 +104,7 @@ void SDL_Game::loadAllImage()
     m_warrior[Orientation::west] = new Image("../data/player/linkGauche.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
     m_imageMap[map_1] = new Image("../data/map/map1.png", &r, windowSize ,m_pRenderer);
     m_imageMap[map_2] = new Image("../data/map/map2.png", &r, windowSize ,m_pRenderer);
+    m_imageMap[instance1] = new Image("../data/map/instance.png", &r, windowSize, m_pRenderer);
     //=========Image pour map1==========
     //pour object map1
     m_objectMap1[0] = new Image("../data/healthpotion.png",&g.getObject(0,map_1).getPos(),windowSize,m_pRenderer);
@@ -308,9 +314,9 @@ void SDL_Game::handleEvents()
     //=====Fin IA=====
     //=========Le joueur lvl up=========
     if(g.getPlayer().getXpCurrent()>=g.getPlayer().getXpMax())
-            {
-                g.getPlayer().levelup();
-            }
+    {
+        g.getPlayer().levelup();
+    }
     //=====Fin lvl up=====
 }
 
