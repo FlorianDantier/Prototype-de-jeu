@@ -129,10 +129,56 @@ void Map::initMap2()
 
 void Map::initInstance1()
 {
-    m_tabOutZones = new Rectangle[1];
-    m_tabOutZones[0] = Rectangle(382, 728, 37, 25);
-}
+    setOutZone(0, Rectangle(382, 728, 37, 25));
 
+    // Torches à l'entrée
+    setDecor(0, Rectangle(318, 664, 27, 22));
+    setDecor(1, Rectangle(318, 608, 27, 22));
+    setDecor(2, Rectangle(318, 552, 27, 22));
+    setDecor(3, Rectangle(457, 664, 27, 22));
+    setDecor(4, Rectangle(457, 608, 27, 22));
+    setDecor(5, Rectangle(457, 552, 27, 22));
+    setDecor(58, Rectangle(318, 497, 27, 22));
+    setDecor(59, Rectangle(457, 497, 27, 22));
+
+    // Mur en contour en bas des escaliers
+    setDecor(6, Rectangle(198, 527, 63, 222));
+    setDecor(7, Rectangle(121, 527, 77, 51));
+    setDecor(8, Rectangle(24, 253, 44, 216));
+    setDecor(9, Rectangle(24, 206, 72, 58));
+    setDecor(10, Rectangle(151, 218, 57, 47));
+    setDecor(11, Rectangle(151, 81, 56, 36));
+    setDecor(12, Rectangle(206, 81, 165, 58));
+    setDecor(13, Rectangle(428, 81, 223, 56));
+    setDecor(14, Rectangle(594, 137, 57, 127));
+    setDecor(15, Rectangle(706, 206, 69, 56));
+    setDecor(16, Rectangle(734, 262, 41, 220));
+    setDecor(17, Rectangle(540, 526, 139, 76));
+    setDecor(18, Rectangle(540, 602, 77, 172));
+    setDecor(19, Rectangle(420, 720, 120, 19));
+    setDecor(20, Rectangle(261, 720, 120, 19));
+
+    // Mur en contour en haut des escaliers
+    setDecor(21, Rectangle(0, 116, 27, 89));
+    setDecor(22, Rectangle(108, 0, 266, 43));
+    setDecor(23, Rectangle(428, 0, 266, 43));
+    setDecor(24, Rectangle(774, 123, 27, 89));
+
+
+
+
+
+
+    // Mur en diagonale
+    setDecorDiago(25, Rectangle(65, 467, 58, 64), BottomLeft);
+    setDecorDiago(33, Rectangle(24, 41, 98, 97), TopLeft);
+    setDecorDiago(41, Rectangle(677, 41, 100, 97), TopRight);
+    setDecorDiago(49, Rectangle(675, 470, 61, 58), BottomRight);
+
+    // Porte qui s'ouvrira une fois le boss vaincu
+    setDecor(57, Rectangle(372, 0, 59, 43));
+    setOutZone(1, Rectangle(382, 12, 38, 23));
+}
 
 void Map::setDecor(const unsigned int indice, const Rectangle &r)
 {
@@ -198,6 +244,18 @@ Rectangle &Map::getDecor(const unsigned int indice) const
 Rectangle *Map::getAllDecor() const
 {
     return m_decorTab;
+}
+
+void Map::setOutZone(const unsigned int indice, const Rectangle &r)
+{
+    assert(indice >= 0 && indice < m_nbOutZone && "Erreur dans setOutZone");
+    m_tabOutZones[indice] = r;
+}
+
+Rectangle &Map::getOutZone(unsigned int indice) const
+{
+    assert(indice >= 0 && indice < m_nbOutZone && "Erreur dans setOutZone");
+    return m_tabOutZones[indice];
 }
 
 bool Map::isInOutZone(const Rectangle &r, unsigned int indice)
