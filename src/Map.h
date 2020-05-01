@@ -3,7 +3,8 @@
 
 #include "Rectangle.h"
 
-enum Decal{
+enum Decal
+{
     TopRight = 0,
     TopLeft,
     BottomRight,
@@ -29,6 +30,7 @@ public:
     void setDecor(const unsigned int indice, const Rectangle &r);
     void setDecorDiago(const unsigned int start, const Rectangle &diago, const Decal & d);
     Rectangle &getDecor(const unsigned int indice) const;
+    Rectangle *getAllDecor() const;
     bool isInOutZone(const Rectangle & r, unsigned int indice);
     unsigned int getNbDecor() const;
 

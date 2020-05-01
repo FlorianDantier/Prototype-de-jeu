@@ -184,6 +184,11 @@ Rectangle &Map::getDecor(const unsigned int indice) const
     return m_decorTab[indice];
 }
 
+Rectangle *Map::getAllDecor() const
+{
+    return m_decorTab;
+}
+
 bool Map::isInOutZone(const Rectangle &r, unsigned int indice)
 {
     assert(indice >= 0 && indice < m_nbOutZone && "Indice trop grand/petit dans isOutZone de Map");

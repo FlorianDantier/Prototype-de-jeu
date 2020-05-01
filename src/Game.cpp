@@ -208,16 +208,16 @@ void Game::eventManagers()
     }
 }
 
-bool Game::collisionManager(Rectangle & pos, const direction::Type d)
+bool Game::collisionManager(Rectangle & posToModif, const Rectangle* tabPosobstacle, const unsigned int sizeTab, const direction::Type d)
 {
     bool isNotInDecor = true;
     unsigned int indice = 0;
-    Rectangle temp = pos;
+    Rectangle temp = posToModif;
     temp.m_position.y += 2 * temp.m_dimension.y / 3;
     temp.m_dimension.y /= 3;
-    for(unsigned int i = 0; i < m_map[m_ml]->getNbDecor() && isNotInDecor; i++)
+    for(unsigned int i = 0; i < sizeTab && isNotInDecor; i++)
     {
-        if(temp.in(m_map[m_ml]->getDecor(i)))
+        if(temp.in(tabPosobstacle[i]))
         {
             isNotInDecor = false;
             indice = i;
@@ -229,65 +229,65 @@ bool Game::collisionManager(Rectangle & pos, const direction::Type d)
     }
     else
     {
-        Rectangle r = pos;
+        Rectangle r = posToModif;
         switch (d)
         {
             case direction::top:
                 r.m_position += bottom;
-                pos = r;
+                posToModif = r;
                 break;
 
             case direction::left:
                 r.m_position += right;
-                pos = r;
+                posToModif = r;
                 break;
 
             case direction::bottom:
                 r.m_position += top;
-                pos = r;
+                posToModif = r;
                 break;
 
             case direction::right:
                 r.m_position += left;
-                pos = r;
+                posToModif = r;
                 break;
         }
-        while (temp.in(m_map[m_ml]->getDecor(indice)))
+        while (temp.in(tabPosobstacle[indice]))
         {
             switch (d)
             {
                 case direction::top:
                     r.m_position += bottom;
-                    pos = r;
+                    posToModif = r;
 
                     break;
 
                 case direction::left:
                     r.m_position += right;
-                    pos = r;
+                    posToModif = r;
                     break;
 
                 case direction::bottom:
                     r.m_position += top;
-                    pos = r;
+                    posToModif = r;
                     break;
 
                 case direction::right:
                     r.m_position += left;
-                    pos = r;
+                    posToModif = r;
                     break;
             }
-            temp.m_position = pos.m_position;
+            temp.m_position = posToModif.m_position;
         }
         if(d == direction::top) // Pour "contrer" un bug, corriger le bug si le temps à la place de ce bricolage
         {
-            Vec2<int> v = pos.m_dimension;
+            Vec2<int> v = posToModif.m_dimension;
             v.y /= 3;
             v.y *= 2; // On divise par 2/3
             v.x = 0;
-            Rectangle r = pos;
+            Rectangle r = posToModif;
             r.m_position -= v;
-            pos = r;
+            posToModif = r;
         }
         return false;
     }
@@ -332,11 +332,11 @@ Enemy &Game::getEnemy(unsigned int indice,MapLoad ml) const
 
 void Game::touchZ(MapLoad ml)
 {
-    if(collisionManager(m_warrior->getPos() ,direction::top))
+    if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::top))
     {
         m_warrior->move(top);
     }
-    collisionManager(m_warrior->getPos() ,direction::top);
+    collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::top);
     switch(ml)
     {
     case 0:
@@ -354,11 +354,11 @@ void Game::touchZ(MapLoad ml)
 
 void Game::touchQ(MapLoad ml)
 {
-    if(collisionManager(m_warrior->getPos() ,direction::left)) // On test une avant de bouger si ok alors on bouge
+    if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::left)) // On test une avant de bouger si ok alors on bouge
     {
         m_warrior->move(left);
     }
-    collisionManager(m_warrior->getPos() ,direction::left); // Puis on restest après avoir bouger, car il est possible d'être dans le décor après le déplacement
+    collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::left); // Puis on restest après avoir bouger, car il est possible d'être dans le décor après le déplacement
     switch(ml)
     {
     case 0:
@@ -375,11 +375,11 @@ void Game::touchQ(MapLoad ml)
 
 void Game::touchS(MapLoad ml)
 {
-    if(collisionManager(m_warrior->getPos() ,direction::bottom))
+    if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::bottom))
     {
         m_warrior->move(bottom);
     }
-    collisionManager(m_warrior->getPos() ,direction::bottom);
+    collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::bottom);
     switch(ml)
     {
     case 0:
@@ -396,11 +396,11 @@ void Game::touchS(MapLoad ml)
 
 void Game::touchD(MapLoad ml)
 {
-    if(collisionManager(m_warrior->getPos() ,direction::right))
+    if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::right))
     {
         m_warrior->move(right);
     }
-    collisionManager(m_warrior->getPos() ,direction::right);
+    collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::right);
     switch(ml)
     {
     case 0:
