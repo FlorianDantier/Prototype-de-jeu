@@ -63,7 +63,7 @@ public:
     void setStatus(const GameStatus gs);
     void controlePos();
     Map &getMap1(unsigned int indice) const;
-    void eventManagers();
+    void eventManagers(const char touch);
     bool collisionManager(Rectangle &pos, const Rectangle *tabPos, const unsigned int sizeTab, const direction::Type d);
     void collisionManagerTest(Rectangle &posToModif, const Rectangle & obstacle, const direction::Type d);
     void launchGame(const GameStatus gs);
@@ -72,6 +72,8 @@ public:
     void setMapLoad(const MapLoad m);
     MapLoad getMapLoad() const;
     void loadNewZone();
+    void eventTouch(const char touch);
+    void ennemyManager();
 
     unsigned int getNbMap() const;
 
@@ -93,9 +95,9 @@ public:
     void touchQ();
     void touchS();
     void touchD();
-    void touchF(MapLoad ml);
+    void touchF();
     void touchC();
-    void touchSpace(MapLoad ml);
+    void touchSpace();
     void mouseLeftClick(const Vec2<int> &mousePos);
 };
 

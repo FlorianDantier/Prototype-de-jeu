@@ -263,32 +263,32 @@ void SDL_Game::handleEvents()
                 {
 
                     case SDLK_z:
-                        g.touchZ();
+                        g.eventTouch('z');
                         break;
 
                     case SDLK_q:
-                        g.touchQ();
+                        g.eventTouch('q');
                         break;
 
                     case SDLK_s:
-                        g.touchS();
+                        g.eventTouch('s');
                         break;
 
                     case SDLK_d:
-                        g.touchD();
+                        g.eventTouch('d');
                         break;
 
                     case SDLK_SPACE:
                         m_sword[g.getPlayer().getOrientation()]->display(m_pRenderer);
-                        g.touchSpace(g.getMapLoad());
+                        g.eventTouch(' ');
                         break;
 
                     case SDLK_c:
-                        g.touchC();
+                        g.eventTouch('c');
                         break;
 
                     case SDLK_f:
-                        g.touchF(g.getMapLoad());
+                        g.eventTouch('f');
                         break;
                 }
                         // Ne pas hésitez à rajouter des touches au besoin...
@@ -323,33 +323,7 @@ void SDL_Game::handleEvents()
     }
 
     //=======ici les monstres bougent et tapent : IA========
-    if(g.getStatus() == GameStatus::run)
-    {
-        switch(g.getMapLoad())
-        {
-        case 0:
-            for (int i=0;i<4;i++)
-            {
-                g.getEnemy(i,map_1).enemyPattern(g.getPlayer());
-            }
-            break;
-
-        case 1:
-            for (int i=0;i<4;i++)
-            {
-                g.getEnemy(i,map_2).enemyPattern(g.getPlayer());
-            }
-            break;
-        case 2:
-            for (int i=0;i<4;i++)
-            {
-                g.getEnemy(i,instance1).enemyPattern(g.getPlayer());
-            }
-
-        default:
-            break;
-        }
-    }
+    g.ennemyManager();
     //=====Fin IA=====
     //=========Le joueur lvl up=========
     if(g.getPlayer().getXpCurrent()>=g.getPlayer().getXpMax())

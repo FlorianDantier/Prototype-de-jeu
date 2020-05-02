@@ -221,6 +221,72 @@ void Game::loadNewZone()
 
 }
 
+void Game::eventTouch(const char touch)
+{
+    if(m_status == run)
+    {
+        switch (touch)
+        {
+            case 'z' :
+                touchZ();
+                break;
+
+            case 'q' :
+                touchQ();
+                break;
+
+            case 's' :
+                touchS();
+                break;
+
+            case 'd' :
+                touchD();
+                break;
+
+            case 'f':
+                touchF();
+                break;
+
+            case 'c':
+                touchC();
+                break;
+
+            case ' ':
+                touchSpace();
+                break;
+        }
+    }
+
+}
+
+void Game::ennemyManager()
+{
+    switch (m_ml)
+    {
+    case map_1:
+        for (int i=0;i<4;i++)
+        {
+            getEnemy(i,map_1).enemyPattern(getPlayer());
+        }
+        break;
+
+    case map_2:
+        for (int i=0;i<4;i++)
+        {
+            getEnemy(i,map_2).enemyPattern(getPlayer());
+        }
+        break;
+    case instance1:
+        for (int i=0;i<4;i++)
+        {
+            getEnemy(i,instance1).enemyPattern(getPlayer());
+        }
+
+    default:
+        break;
+    }
+}
+
 unsigned int Game::getNbMap() const
 {
     return m_nbMap;
@@ -230,23 +296,6 @@ Map &Game::getMap1(unsigned int indice) const
 {
     return *m_map[indice];
 }
-
-void Game::eventManagers()
-{
-    if(m_status == GameStatus::run) // En partie "classique"
-    {
-
-    }
-    else if(m_status == GameStatus::home) // Au lancement du jeu, sur le menu d'accueil
-    {
-
-    }
-    else if(m_status == GameStatus::standBy) // Jeu en pause, par exemple si l'on ouvre l'inventaire
-    {
-
-    }
-}
-
 
 
 bool Game::collisionManager(Rectangle & posToModif, const Rectangle* tabPosobstacle, const unsigned int sizeTab, const direction::Type d)
@@ -445,9 +494,9 @@ void Game::touchD()
     changeMapManager();
 }
 
-void Game::touchF(MapLoad ml)
+void Game::touchF()
 {
-    switch(ml)
+    switch(m_ml)
     {
     case 0:
         m_warrior->Loot(*m_tabObjectMap1,3);
@@ -465,9 +514,9 @@ void Game::touchC()
     m_warrior->getPlayerStats();
 }
 
-void Game::touchSpace(MapLoad ml)
+void Game::touchSpace()
 {
-    switch(ml)
+    switch(m_ml)
     {
     case 0:
         for(int i=0;i<4;i++)
