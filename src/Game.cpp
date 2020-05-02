@@ -230,6 +230,8 @@ void Game::eventManagers()
     }
 }
 
+
+
 bool Game::collisionManager(Rectangle & posToModif, const Rectangle* tabPosobstacle, const unsigned int sizeTab, const direction::Type d)
 {
     bool isNotInDecor = true;
@@ -314,6 +316,7 @@ bool Game::collisionManager(Rectangle & posToModif, const Rectangle* tabPosobsta
         return false;
     }
 }
+
 
 Player &Game::getPlayer() const
 {
@@ -418,6 +421,7 @@ void Game::touchS(MapLoad ml)
 
 void Game::touchD(MapLoad ml)
 {
+
     if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::right))
     {
         m_warrior->move(right);

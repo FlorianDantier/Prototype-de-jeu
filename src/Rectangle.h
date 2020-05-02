@@ -81,6 +81,9 @@ public:
      */
     bool in(const Rectangle & rect) const;
 
+    // Retoune -1 si pas de collision sinon retourne l'indice du tableaux avec lequel il y a collision
+    int collision(const Rectangle* tabPos, const unsigned int sizeTab) const;
+
     /**
      * @brief      Get the center position of this rectangle
      *
@@ -241,10 +244,5 @@ struct FourRect
     Rectangle r4;
 };
 
-struct HeightRect
-{
-    FourRect fr1;
-    FourRect fr2;
-};
 
 #endif // RECTANGLE_H

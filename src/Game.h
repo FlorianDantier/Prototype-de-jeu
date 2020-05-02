@@ -63,6 +63,7 @@ public:
     Map &getMap1(unsigned int indice) const;
     void eventManagers();
     bool collisionManager(Rectangle &pos, const Rectangle *tabPos, const unsigned int sizeTab, const direction::Type d);
+    void collisionManagerTest(Rectangle &posToModif, const Rectangle & obstacle, const direction::Type d);
     void launchGame(const GameStatus gs);
     direction::Type isAtTheEdge(const Rectangle & rect);
     void changeMapManager();

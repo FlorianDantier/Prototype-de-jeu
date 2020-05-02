@@ -27,7 +27,19 @@ bool Rectangle::in(const Rectangle &rect) const
         || (m_position.y + m_dimension.y <= rect.m_position.y))      // trop en haut
               return false;
        else
-              return true;
+        return true;
+}
+
+int Rectangle::collision(const Rectangle *tabPos, const unsigned int sizeTab) const
+{
+    for(unsigned int i = 0; i < sizeTab; i++)
+    {
+        if(in(tabPos[i]))
+        {
+            return i;
+        }
+     }
+     return -1;
 }
 
 Vec2<int> Rectangle::centre()

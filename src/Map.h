@@ -18,8 +18,8 @@ private:
     Rectangle* m_decorTab;
     unsigned int m_nbDecor;
 
-     Rectangle *m_tabOutZones;
-     unsigned int m_nbOutZone;
+    Rectangle *m_tabOutZones;
+    unsigned int m_nbOutZone;
 
     void initMap1();
     void initMap2();
