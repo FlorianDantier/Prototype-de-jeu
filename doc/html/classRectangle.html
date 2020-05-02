@@ -87,12 +87,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aafe360b240c736bddba1294934818e9b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRectangle.html#aafe360b240c736bddba1294934818e9b">Rectangle</a> (const Vec2&lt; int &gt; &amp;position, const Vec2&lt; int &gt; &amp;dimension)</td></tr>
 <tr class="memdesc:aafe360b240c736bddba1294934818e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new instance of <a class="el" href="classRectangle.html" title="This class describes a rectangle.">Rectangle</a>.  <a href="classRectangle.html#aafe360b240c736bddba1294934818e9b">More...</a><br /></td></tr>
 <tr class="separator:aafe360b240c736bddba1294934818e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a301bb01d73061d309cac84c8973f7a6c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRectangle.html#a301bb01d73061d309cac84c8973f7a6c">in</a> (const Vec2&lt; int &gt; &amp;point)</td></tr>
-<tr class="memdesc:a301bb01d73061d309cac84c8973f7a6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests the collision between a point and this rectangle.  <a href="classRectangle.html#a301bb01d73061d309cac84c8973f7a6c">More...</a><br /></td></tr>
-<tr class="separator:a301bb01d73061d309cac84c8973f7a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5154fe7bc86b030027ffb107feeb675"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRectangle.html#ae5154fe7bc86b030027ffb107feeb675">in</a> (const <a class="el" href="classRectangle.html">Rectangle</a> &amp;rect)</td></tr>
-<tr class="memdesc:ae5154fe7bc86b030027ffb107feeb675"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests the collision between a rectangle and this rectangle.  <a href="classRectangle.html#ae5154fe7bc86b030027ffb107feeb675">More...</a><br /></td></tr>
-<tr class="separator:ae5154fe7bc86b030027ffb107feeb675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53b23c39718e6b408ba7f5c92aef9ce6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRectangle.html#a53b23c39718e6b408ba7f5c92aef9ce6">in</a> (const Vec2&lt; int &gt; &amp;point) const</td></tr>
+<tr class="memdesc:a53b23c39718e6b408ba7f5c92aef9ce6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests the collision between a point and this rectangle.  <a href="classRectangle.html#a53b23c39718e6b408ba7f5c92aef9ce6">More...</a><br /></td></tr>
+<tr class="separator:a53b23c39718e6b408ba7f5c92aef9ce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a680bdb6ce876a003480425abaeb42849"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRectangle.html#a680bdb6ce876a003480425abaeb42849">in</a> (const <a class="el" href="classRectangle.html">Rectangle</a> &amp;rect) const</td></tr>
+<tr class="memdesc:a680bdb6ce876a003480425abaeb42849"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests the collision between a rectangle and this rectangle.  <a href="classRectangle.html#a680bdb6ce876a003480425abaeb42849">More...</a><br /></td></tr>
+<tr class="separator:a680bdb6ce876a003480425abaeb42849"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae74b12eff25cdb383f93f1f08ac6cebf"><td class="memItemLeft" align="right" valign="top"><a id="ae74b12eff25cdb383f93f1f08ac6cebf"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>collision</b> (const <a class="el" href="classRectangle.html">Rectangle</a> *tabPos, const unsigned int sizeTab) const</td></tr>
+<tr class="separator:ae74b12eff25cdb383f93f1f08ac6cebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d1af89538ba0d417f9bd424adda5eef"><td class="memItemLeft" align="right" valign="top">Vec2&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRectangle.html#a8d1af89538ba0d417f9bd424adda5eef">centre</a> ()</td></tr>
 <tr class="memdesc:a8d1af89538ba0d417f9bd424adda5eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the center position of this rectangle.  <a href="classRectangle.html#a8d1af89538ba0d417f9bd424adda5eef">More...</a><br /></td></tr>
 <tr class="separator:a8d1af89538ba0d417f9bd424adda5eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,9 +150,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a05db9d10815652d37610ad8e583c300c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRectangle.html">Rectangle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRectangle.html#a05db9d10815652d37610ad8e583c300c">getBas</a> () const</td></tr>
 <tr class="memdesc:a05db9d10815652d37610ad8e583c300c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the bottom border of the rectangle.  <a href="classRectangle.html#a05db9d10815652d37610ad8e583c300c">More...</a><br /></td></tr>
 <tr class="separator:a05db9d10815652d37610ad8e583c300c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a723f708cefd6a5046139f76847316968"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structDoubleRect.html">DoubleRect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRectangle.html#a723f708cefd6a5046139f76847316968">cut</a> () const</td></tr>
-<tr class="memdesc:a723f708cefd6a5046139f76847316968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cut this rectangle in two rectangles whith a dimension divided by 2.  <a href="classRectangle.html#a723f708cefd6a5046139f76847316968">More...</a><br /></td></tr>
-<tr class="separator:a723f708cefd6a5046139f76847316968"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f36290cf0b7d5247d651764403ee10d"><td class="memItemLeft" align="right" valign="top"><a id="a5f36290cf0b7d5247d651764403ee10d"></a>
+<a class="el" href="structDoubleRect.html">DoubleRect</a>&#160;</td><td class="memItemRight" valign="bottom"><b>cutTwo</b> () const</td></tr>
+<tr class="separator:a5f36290cf0b7d5247d651764403ee10d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bdf1e98d2325653dd4da818177b62d6"><td class="memItemLeft" align="right" valign="top"><a id="a8bdf1e98d2325653dd4da818177b62d6"></a>
+<a class="el" href="structFourRect.html">FourRect</a>&#160;</td><td class="memItemRight" valign="bottom"><b>cutFour</b> () const</td></tr>
+<tr class="separator:a8bdf1e98d2325653dd4da818177b62d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a665b04b7f19ee0b6f5b1c8e7777de9d0"><td class="memItemLeft" align="right" valign="top"><a id="a665b04b7f19ee0b6f5b1c8e7777de9d0"></a>
+<a class="el" href="classRectangle.html">Rectangle</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>cutHeight</b> () const</td></tr>
+<tr class="separator:a665b04b7f19ee0b6f5b1c8e7777de9d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46e3bd1ddc5acd33896c05f849cd4965"><td class="memItemLeft" align="right" valign="top"><a id="a46e3bd1ddc5acd33896c05f849cd4965"></a>
+<a class="el" href="structDoubleRect.html">DoubleRect</a>&#160;</td><td class="memItemRight" valign="bottom"><b>cutTwoBis</b> () const</td></tr>
+<tr class="separator:a46e3bd1ddc5acd33896c05f849cd4965"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a301c00f93244a7c65366102784d0af63"><td class="memItemLeft" align="right" valign="top"><a id="a301c00f93244a7c65366102784d0af63"></a>
+<a class="el" href="structFourRect.html">FourRect</a>&#160;</td><td class="memItemRight" valign="bottom"><b>cutFourBis</b> () const</td></tr>
+<tr class="separator:a301c00f93244a7c65366102784d0af63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f937dc3a3475b680a97f387f9e54c58"><td class="memItemLeft" align="right" valign="top"><a id="a5f937dc3a3475b680a97f387f9e54c58"></a>
+<a class="el" href="classRectangle.html">Rectangle</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>cutHeightBis</b> () const</td></tr>
+<tr class="separator:a5f937dc3a3475b680a97f387f9e54c58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -277,27 +295,6 @@ Public Attributes</h2></td></tr>
 
 <p>Get the center position of this rectangle. </p>
 <dl class="section return"><dt>Returns</dt><dd>the position </dd></dl>
-
-</div>
-</div>
-<a id="a723f708cefd6a5046139f76847316968"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a723f708cefd6a5046139f76847316968">&#9670;&nbsp;</a></span>cut()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structDoubleRect.html">DoubleRect</a> Rectangle::cut </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Cut this rectangle in two rectangles whith a dimension divided by 2. </p>
-<p>The first rectangle is located near from the top left of this rectangle. The second rectangle is located near from the bottom right of this rectangle.</p>
-<dl class="section return"><dt>Returns</dt><dd>A double rectangle </dd></dl>
 
 </div>
 </div>
@@ -501,8 +498,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae5154fe7bc86b030027ffb107feeb675"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5154fe7bc86b030027ffb107feeb675">&#9670;&nbsp;</a></span>in() <span class="overload">[1/2]</span></h2>
+<a id="a680bdb6ce876a003480425abaeb42849"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a680bdb6ce876a003480425abaeb42849">&#9670;&nbsp;</a></span>in() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -512,7 +509,7 @@ Public Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classRectangle.html">Rectangle</a> &amp;&#160;</td>
           <td class="paramname"><em>rect</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -528,8 +525,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a301bb01d73061d309cac84c8973f7a6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a301bb01d73061d309cac84c8973f7a6c">&#9670;&nbsp;</a></span>in() <span class="overload">[2/2]</span></h2>
+<a id="a53b23c39718e6b408ba7f5c92aef9ce6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53b23c39718e6b408ba7f5c92aef9ce6">&#9670;&nbsp;</a></span>in() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -539,7 +536,7 @@ Public Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const Vec2&lt; int &gt; &amp;&#160;</td>
           <td class="paramname"><em>point</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -772,7 +769,7 @@ Public Attributes</h2></td></tr>
 <li>src/<a class="el" href="Rectangle_8h_source.html">Rectangle.h</a></li>
 </ul>
 </div><!-- contents -->
-<div class="ttc" id="aclassRectangle_html"><div class="ttname"><a href="classRectangle.html">Rectangle</a></div><div class="ttdoc">This class describes a rectangle.</div><div class="ttdef"><b>Definition:</b> Rectangle.h:28</div></div>
+<div class="ttc" id="aclassRectangle_html"><div class="ttname"><a href="classRectangle.html">Rectangle</a></div><div class="ttdoc">This class describes a rectangle.</div><div class="ttdef"><b>Definition:</b> Rectangle.h:30</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
