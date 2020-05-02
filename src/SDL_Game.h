@@ -46,10 +46,12 @@ private:
 
     // Joris
     Image* m_warrior[4];
+    Image* m_sword[4];
     Image* m_objectMap1[3];
     Image* m_enemyMap1[4];
     Image* m_objectMap2[2];
     Image* m_enemyMap2[4];
+    Image* m_enemyInstance[4];
 
 };
 

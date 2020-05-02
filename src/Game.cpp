@@ -56,15 +56,27 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
                                   200,1,verticalTop,false);
     //Fin pour la map1
 
+    //pour l'instance 1
+    m_tabEnemyInstance[0] = new Enemy(boss,beast,Rectangle(340,120,100,150),
+                                  3000,3,horizontalLeft,false);
+    m_tabEnemyInstance[1] = new Enemy(elite,beast,Rectangle(140,370,40,80),
+                                  500,3,verticalBottom,false);
+    m_tabEnemyInstance[2] = new Enemy(elite,beast,Rectangle(375,475,40,80),
+                                  500,3,verticalBottom,false);
+    m_tabEnemyInstance[3] = new Enemy(elite,beast,Rectangle(630,350,40,80),
+                                  500,3,verticalTop,false);
+    //Fin pour l'instance 1
+
+
     //pour la map2
     m_tabEnemyMap2[0] = new Enemy(elite,humanoid,Rectangle(255,600,32,64),
-                                  500,1,verticalTop,false);
+                                  500,2,verticalTop,false);
     m_tabEnemyMap2[1] = new Enemy(elite,humanoid,Rectangle(550,370,32,64),
-                                  500,1,horizontalRight,false);
+                                  500,2,horizontalRight,false);
     m_tabEnemyMap2[2] = new Enemy(boss,humanoid,Rectangle(500,600,50,100),
-                                  2000,1,horizontalLeft,false);
+                                  2000,2,horizontalLeft,false);
     m_tabEnemyMap2[3] = new Enemy(sbire,humanoid,Rectangle(150,150,32,64),
-                                  200,1,horizontalLeft,false);
+                                  200,2,horizontalLeft,false);
     //Fin pour la map2
 
     // =========Fin Ajout des ennemis dans les maps=========
@@ -104,6 +116,11 @@ Game::~Game()
     {
         delete m_tabEnemyMap2[i];
         m_tabEnemyMap2[i] = nullptr;
+    }
+    for(unsigned int i = 0; i < 4; i++)
+    {
+        delete m_tabEnemyInstance[i];
+        m_tabEnemyInstance[i] = nullptr;
     }
 }
 
@@ -349,77 +366,74 @@ Enemy &Game::getEnemy(unsigned int indice,MapLoad ml) const
     case 1:
         return *m_tabEnemyMap2[indice];
         break;
-
+    case 2:
+        return *m_tabEnemyInstance[indice];
+        break;
     default:
         break;
     }
 }
 
-void Game::touchZ(MapLoad ml)
+Rectangle &Game::getAllEnemyPos(const Enemy *tabEnemy, unsigned int sizeTab)
+{
+    delete m_tabPosEnemy;
+    m_tabPosEnemy = new Rectangle[sizeTab];
+    for (unsigned int i=0;i<sizeTab;i++)
+    {
+        m_tabPosEnemy[i] = Rectangle(tabEnemy->getPos());
+    }
+    return *m_tabPosEnemy;
+}
+
+Enemy *Game::getAllEnemy(MapLoad ml) const
+{
+    switch(ml)
+    {
+    case 0:
+        return *m_tabEnemyMap1;
+        break;
+    case 1:
+        return *m_tabEnemyMap2;
+        break;
+    default:
+        break;
+    }
+}
+
+void Game::touchZ()
 {
     if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::top))
     {
         m_warrior->move(top);
     }
     collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::top);
-    switch(ml)
-    {
-    case 0:
-        m_warrior->updatePlayerMoveTop(*m_tabEnemyMap1,4);
-        break;
-    case 1:
-        m_warrior->updatePlayerMoveTop(*m_tabEnemyMap2,4);
-        break;
-    default:
-        break;
-    }
-
+    m_warrior->updateRangeTop();
     changeMapManager();
 }
 
-void Game::touchQ(MapLoad ml)
+void Game::touchQ()
 {
     if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::left)) // On test une avant de bouger si ok alors on bouge
     {
         m_warrior->move(left);
     }
     collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::left); // Puis on restest après avoir bouger, car il est possible d'être dans le décor après le déplacement
-    switch(ml)
-    {
-    case 0:
-        m_warrior->updatePlayerMoveLeft(*m_tabEnemyMap1,4);
-        break;
-    case 1:
-        m_warrior->updatePlayerMoveLeft(*m_tabEnemyMap2,4);
-        break;
-    default:
-        break;
-    }
+    m_warrior->updateRangeLeft();
     changeMapManager();
 }
 
-void Game::touchS(MapLoad ml)
+void Game::touchS()
 {
     if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::bottom))
     {
         m_warrior->move(bottom);
     }
     collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::bottom);
-    switch(ml)
-    {
-    case 0:
-        m_warrior->updatePlayerMoveBottom(*m_tabEnemyMap1,4);
-        break;
-    case 1:
-        m_warrior->updatePlayerMoveBottom(*m_tabEnemyMap2,4);
-        break;
-    default:
-        break;
-    }
+    m_warrior->updateRangeBottom();
     changeMapManager();
 }
 
-void Game::touchD(MapLoad ml)
+void Game::touchD()
 {
 
     if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::right))
@@ -427,17 +441,7 @@ void Game::touchD(MapLoad ml)
         m_warrior->move(right);
     }
     collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::right);
-    switch(ml)
-    {
-    case 0:
-        m_warrior->updatePlayerMoveRight(*m_tabEnemyMap1,4);
-        break;
-    case 1:
-        m_warrior->updatePlayerMoveRight(*m_tabEnemyMap2,4);
-        break;
-    default:
-        break;
-    }
+    m_warrior->updateRangeRight();
     changeMapManager();
 }
 
@@ -476,6 +480,11 @@ void Game::touchSpace(MapLoad ml)
             m_warrior->attack(*m_tabEnemyMap2[i]);
         }
         break;
+    case 2:
+        for(int i=0;i<4;i++)
+        {
+            m_warrior->attack(*m_tabEnemyInstance[i]);
+        }
     default:
         break;
     }

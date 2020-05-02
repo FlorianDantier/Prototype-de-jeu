@@ -48,6 +48,8 @@ private:
     Enemy * m_tabEnemyMap2[4];
     Object * m_tabObjectMap1[3];
     Object * m_tabObjectMap2[2];
+    Enemy * m_tabEnemyInstance[4];
+    Rectangle * m_tabPosEnemy;
 
 
 public:
@@ -81,12 +83,16 @@ public:
     Player& getPlayer() const;
     Object& getObject(unsigned int indice, MapLoad ml) const;
     Enemy& getEnemy(unsigned int indice,MapLoad ml) const;
+    Rectangle& getAllEnemyPos(const Enemy *tabEnemy,unsigned int sizeTab);
+    //retourne un tableau avec toutes les positions des ennemis
+    Enemy* getAllEnemy(MapLoad ml) const;
+    //retourne le tableau des ennemis
 
     // Pour les touches ou click
-    void touchZ(MapLoad ml);
-    void touchQ(MapLoad ml);
-    void touchS(MapLoad ml);
-    void touchD(MapLoad ml);
+    void touchZ();
+    void touchQ();
+    void touchS();
+    void touchD();
     void touchF(MapLoad ml);
     void touchC();
     void touchSpace(MapLoad ml);
