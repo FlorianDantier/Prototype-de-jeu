@@ -37,9 +37,11 @@ private:
     // Florian
     Image* m_mainBackground;
     Image* m_mainHomeBtn;
-
     Image* m_imageMap[3];
-
+    Image* m_imInventory;
+    Image* m_closeInv;
+    Image* m_openInv;
+    Image* m_healButton;
 
     // Franklin
 

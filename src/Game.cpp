@@ -9,8 +9,9 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
         m_map[i] = nullptr;
     }
     ptrOnLauchGame = &Game::launchGame;
+    ptrOnHeal = &Game::heal;
     Button notLoad(Rectangle(-1 ,-1, -1, -1), false);
-    m_home = new Menu(1, true, true, notLoad, notLoad); // Le menu "home" est une exception dans le sens où il n'y aura pas de bouton pour ouvir ou fermer ce menu
+    m_home = new Menu(1, Rectangle(0, 0, windowSize.x, windowSize.y), true, true, notLoad, notLoad); // Le menu "home" est une exception dans le sens où il n'y aura pas de bouton pour ouvir ou fermer ce menu
     m_home->setChoice(Button (Rectangle  (50, 100, 550, 100), true), 0);
 
     m_ml = map_1;
@@ -81,7 +82,13 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
 
     // =========Fin Ajout des ennemis dans les maps=========
 
-
+    // Inventaire (pseudo)
+    Rectangle posInv(320, 185, 200, 275);
+    Button close(Rectangle(320, 185, 25, 24), false);
+    Button open(Rectangle(732, 755, 66, 45), false);
+    m_inventory = new Menu(1, posInv, false, false, open, close);
+    Button health(Rectangle(385, 300, 75, 71), false);
+    m_inventory->setChoice(health, 0);
 }
 
 Game::~Game()
@@ -122,6 +129,9 @@ Game::~Game()
         delete m_tabEnemyInstance[i];
         m_tabEnemyInstance[i] = nullptr;
     }
+
+    delete m_inventory;
+    m_inventory = nullptr;
 }
 
 Menu& Game::getHome() const
@@ -144,6 +154,7 @@ void Game::launchGame(const GameStatus gs)
     std::cout<<"marche"<<std::endl;
     setStatus(gs);
     m_home->getChoice(0).setIsLoad(false);
+    m_inventory->setIsLoad(true);
 }
 
 direction::Type Game::isAtTheEdge(const Rectangle &rect)
@@ -290,6 +301,19 @@ void Game::ennemyManager()
 unsigned int Game::getNbMap() const
 {
     return m_nbMap;
+}
+
+Menu &Game::getInventory() const
+{
+    return *m_inventory;
+}
+
+void Game::heal()
+{
+    unsigned int temp =  m_warrior->getHealth();
+    temp += 10;
+    m_warrior->setHealth(temp);
+    std::cout<<"presssssssss"<<std::endl;
 }
 
 Map &Game::getMap1(unsigned int indice) const
@@ -543,6 +567,11 @@ void Game::touchSpace()
 void Game::mouseLeftClick(const Vec2<int> &mousePos)
 {
     getHome().listenEvent(0, ptrOnLauchGame, *this, GameStatus::run, mousePos);
+    m_inventory->open(mousePos, m_status);
+    m_inventory->close(mousePos, m_status);
+    m_inventory->listenEvent(0, ptrOnHeal, *this, mousePos);
+    std::cout<<m_warrior->getHealth()<<std::endl;
+    std::cout<<m_inventory->getChoice(0).getIsLoad()<<std::endl;
 }
 
 

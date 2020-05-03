@@ -7,7 +7,7 @@ void Menu::isLoadButton()
     {
         if(m_isOpen)
         {
-            for(unsigned int i = 0; i-1 < m_nbChoices; i++)
+            for(unsigned int i = 0; i < m_nbChoices; i++)
             {
                 m_choices[i].setIsLoad(true);
             }
@@ -42,7 +42,9 @@ Menu& Menu::operator=(const Menu &copie)
         delete [] m_choices;
         delete m_openButton;
         delete m_closeButton;
+        delete m_position;
 
+        m_position = new Rectangle(*(copie.m_position));
         m_openButton = new Button(*(copie.m_openButton));
         m_closeButton = new Button(*(copie.m_closeButton));
         m_choices = new Button[copie.m_nbChoices];
@@ -75,8 +77,11 @@ Menu::Menu()
     m_nbChoices = 0;
 }
 
-Menu::Menu(unsigned int nbButton, bool isOpen, bool isLoad, const Button &open, const Button &close) : m_openButton(nullptr), m_closeButton(nullptr)
+Menu::Menu(unsigned int nbButton, const Rectangle & position, bool isOpen, bool isLoad,
+           const Button &open, const Button &close) : m_openButton(nullptr), m_closeButton(nullptr), m_position(nullptr)
 {
+    m_position = new Rectangle(position);
+    assert(m_position != nullptr);
     m_isOpen = isOpen;
     m_isLoad = isLoad;
     assert(nbButton > 0);
@@ -89,29 +94,25 @@ Menu::Menu(unsigned int nbButton, bool isOpen, bool isLoad, const Button &open, 
     isLoadButton();
 }
 
-void Menu::mouseLeftClick(const Vec2<int> & leftClick)
-{
-    open(leftClick);
-    close(leftClick);
-}
-
-void Menu::open(const Vec2<int> & leftClick)
+void Menu::open(const Vec2<int> & leftClick, GameStatus & gs)
 {
    if(m_isOpen == false && m_openButton->isPressed(leftClick))
    {
        m_isOpen = true;
        std::cout<<"open pressed\n";
        isLoadButton();
+       gs = standBy;
    }
 }
 
-void Menu::close(const Vec2<int> & leftClick)
+void Menu::close(const Vec2<int> & leftClick, GameStatus & gs)
 {
     if(m_isOpen == true && m_closeButton->isPressed(leftClick))
     {
         m_isOpen = false;
         std::cout<<"close pressed\n";
         isLoadButton();
+        gs = run;
     }
 }
 
@@ -163,6 +164,11 @@ void Menu::setIsLoad(const bool isLoad)
 {
     m_isLoad = isLoad;
     isLoadButton();
+}
+
+Rectangle &Menu::getPosition() const
+{
+    return *m_position;
 }
 
 bool Menu::getIsLoad() const

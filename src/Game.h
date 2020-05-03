@@ -5,7 +5,6 @@
 #include "common.h"
 #include "Player.h"
 #include "Enemy.h"
-
 #include "Map.h"
 
 namespace direction
@@ -37,6 +36,7 @@ private:
     unsigned int m_nbMap;
     GameStatus m_status;
     MapLoad m_ml;
+    Menu* m_inventory;
 
     // Franklin
 
@@ -65,7 +65,6 @@ public:
     Map &getMap1(unsigned int indice) const;
     void eventManagers(const char touch);
     bool collisionManager(Rectangle &pos, const Rectangle *tabPos, const unsigned int sizeTab, const direction::Type d);
-    void collisionManagerTest(Rectangle &posToModif, const Rectangle & obstacle, const direction::Type d);
     void launchGame(const GameStatus gs);
     direction::Type isAtTheEdge(const Rectangle & rect);
     void changeMapManager();
@@ -74,9 +73,11 @@ public:
     void loadNewZone();
     void eventTouch(const char touch);
     void ennemyManager();
-
     unsigned int getNbMap() const;
+    Menu &getInventory() const;
 
+    void heal();
+    void(Game::*ptrOnHeal)();
     // Franklin
 
 

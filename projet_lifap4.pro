@@ -8,7 +8,6 @@ OBJECTS_DIR = obj/
 
 HEADERS += \
     src/Map.h \
-    src/Inventory.h \
     src/common.h \
     src/Button.h \
     src/Game.h \
@@ -26,7 +25,6 @@ SOURCES += \
     src/Map.cpp \
     src/Button.cpp \
     src/Game.cpp \
-    src/Inventory.cpp \
     src/Menu.cpp \
     src/Rectangle.cpp \
     src/Image.cpp \

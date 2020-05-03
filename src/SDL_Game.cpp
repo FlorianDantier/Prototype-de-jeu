@@ -55,6 +55,18 @@ SDL_Game::~SDL_Game()
         delete m_imageMap[i];
         m_imageMap[i] = nullptr;
     }
+    delete m_closeInv;
+    m_closeInv = nullptr;
+
+    delete m_imInventory;
+    m_imInventory = nullptr;
+
+    delete m_openInv;
+    m_openInv = nullptr;
+
+    delete m_healButton;
+    m_healButton = nullptr;
+
 }
 
 bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos, unsigned int width, unsigned int height)
@@ -152,6 +164,13 @@ void SDL_Game::loadAllImage()
     m_enemyInstance[2] = new Image("../data/cyclop.png",&g.getEnemy(2,instance1).getPos(),windowSize,m_pRenderer);
     m_enemyInstance[3] = new Image("../data/cyclop.png",&g.getEnemy(3,instance1).getPos(),windowSize,m_pRenderer);
     //=========Fin image pour instance1===
+
+    Rectangle r5(200, 200, 100, 100);
+    m_imInventory = new Image("../data/inventaire.png", &g.getInventory().getPosition(), windowSize, m_pRenderer);
+    m_openInv = new Image("../data/open.png", &g.getInventory().getOpenButton().getPosition(), windowSize, m_pRenderer);
+    m_closeInv = new Image("../data/close.png", &g.getInventory().getCloseButton().getPosition(), windowSize, m_pRenderer);
+    m_healButton = new Image("../data/healthpotion.png", &g.getInventory().getChoice(0).getPosition(), windowSize, m_pRenderer);
+
 }
 
 void SDL_Game::render()
@@ -160,12 +179,13 @@ void SDL_Game::render()
 
     // Ici tous les affichage des images
 
+
     if(g.getStatus() == GameStatus::home)
     {
         m_mainBackground->display(m_pRenderer);
         m_mainHomeBtn->display(m_pRenderer);
     }
-    else if(g.getStatus() == GameStatus::run)
+    else if(g.getStatus() == GameStatus::run || g.getStatus() == GameStatus::standBy)
     {
         m_imageMap[g.getMapLoad()]->display(m_pRenderer);
         if (g.getPlayer().isAlive())
@@ -222,6 +242,21 @@ void SDL_Game::render()
            break;
 
         }
+
+       if(g.getInventory().getIsLoad())
+       {
+           if(g.getInventory().getIsOpen())
+           {
+               m_imInventory->display(m_pRenderer);
+               m_closeInv->display(m_pRenderer);
+               m_healButton->display(m_pRenderer);
+               SDL_SetRenderDrawColor(m_pRenderer, 50, 200, 20, SDL_ALPHA_OPAQUE);
+           }
+           else
+           {
+               m_openInv->display(m_pRenderer);
+           }
+       }
     }
     else if(g.getStatus() == GameStatus::standBy)
     {

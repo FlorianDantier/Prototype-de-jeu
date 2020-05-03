@@ -5,6 +5,8 @@
 
 class Inventory : public Menu
 {
+private:
+
 public:
     Inventory();
 };

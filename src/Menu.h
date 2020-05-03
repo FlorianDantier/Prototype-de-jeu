@@ -30,27 +30,13 @@ class Menu
 {
 protected:
     unsigned int m_nbChoices;
-    Rectangle m_position;
+    Rectangle* m_position;
     Button* m_choices;
     bool m_isLoad;
     bool m_isOpen;
     Button* m_openButton;
     Button* m_closeButton; // Cette ligne modifié .... A finir ...
 
-
-    /**
-     * @brief      Open the menu
-     *
-     * @param[in]  leftClick  The left click position
-     */
-    void open(const Vec2<int> & leftClick);
-
-    /**
-     * @brief      Close the menu
-     *
-     * @param[in]  leftClick  The left click position
-     */
-    void close(const Vec2<int> & leftClick);
 
     /**
      * @brief      Sets the close button and the open button as loaded or not
@@ -85,7 +71,7 @@ public:
      * @param[in]  open      The open button
      * @param[in]  close     The close button
      */
-    Menu(unsigned int nbButton, bool isOpen , bool isLoad, const Button &open, const Button &close);
+    Menu(unsigned int nbButton, const Rectangle & pos, bool isOpen , bool isLoad, const Button &open, const Button &close);
     
 
     /**
@@ -102,6 +88,7 @@ public:
      */
     void setIsLoad(const bool isLoad);
 
+    Rectangle& getPosition() const;
     /**
      * @brief      Gets the choice.
      *
@@ -171,7 +158,20 @@ public:
      */
     void mouseLeftClick(const Vec2<int> &leftClick);
     //===============FIN EVENEMENT===============
-    //void display(SDL_Renderer* renderer);
+
+    /**
+     * @brief      Open the menu
+     *
+     * @param[in]  leftClick  The left click position
+     */
+    void open(const Vec2<int> & leftClick, GameStatus &gs);
+
+    /**
+     * @brief      Close the menu
+     *
+     * @param[in]  leftClick  The left click position
+     */
+    void close(const Vec2<int> & leftClick, GameStatus &gs);
 
     //Button& listenEvent(const unsigned int indice);
 
