@@ -21,22 +21,24 @@ public:
 
     bool init(std::string title, unsigned int xPos, unsigned int yPos,
               unsigned int width, unsigned int height);
-
     void render();
-    void handleEvents();
-
     bool getRunning();
-    void limitFPS(unsigned int limite);
-    bool m_PlayerIsAttacking;
-    time_t m_timerAnimSword;
+    void handleEvents();
 
 
 private:
     // Méthodes privées
+    void limitFPS(unsigned int limite);
+
+
     void loadAllImage();
     void clean();
     void loadAllSounds();
     void loadAllMusics();
+
+    void renderEnnemysAndObjects();
+    void renderMap();
+    void renderInventory();
 
     // Membre SDL
     SDL_Window* m_pWindow;
@@ -72,6 +74,8 @@ private:
     Image* m_objectMap2[2];
     Image* m_enemyMap2[4];
     Image* m_enemyInstance[4];
+    bool m_PlayerIsAttacking;
+    time_t m_timerAnimSword;
 
 };
 

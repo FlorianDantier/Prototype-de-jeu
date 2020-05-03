@@ -324,7 +324,6 @@ void Game::heal()
     unsigned int temp =  m_warrior->getHealth();
     temp += 10;
     m_warrior->setHealth(temp);
-    std::cout<<"presssssssss"<<std::endl;
 }
 
 Map &Game::getMap1(unsigned int indice) const
