@@ -13,31 +13,97 @@ enum Music
     techno,
 };
 
+
+/**
+ * @brief      This class describes a sdl game.
+ */
 class SDL_Game
 {
 public:
+    /**
+     * @brief      Constructs a new instance of SDL_Game
+     */
     SDL_Game();
+
+    /**
+     * @brief      Destroys the object
+     */
     ~SDL_Game();
 
+    /**
+     * @brief      Init the SDL library
+     *
+     * @param[in]  title   The window title
+     * @param[in]  xPos    The x-coordinate of the window
+     * @param[in]  yPos    The y-coordinate of the window
+     * @param[in]  width   The window width
+     * @param[in]  height  The window height
+     *
+     * @return     false if it failed, otherwise it returns true
+     */
     bool init(std::string title, unsigned int xPos, unsigned int yPos,
               unsigned int width, unsigned int height);
+
+    /**
+     * @brief      render on the screen
+     */
     void render();
+
+    /**
+     * @brief      true if the game is running
+     *
+     * @return     The running.
+     */
     bool getRunning();
+
+    /**
+     * @brief      handle the events
+     */
     void handleEvents();
 
 
 private:
-    // Méthodes privées
+    /**
+     * @brief      gives a limit to the number of frames per second
+     *
+     * @param[in]  limite  The fps limit
+     */
     void limitFPS(unsigned int limite);
 
-
+    /**
+     * @brief      Loads all images
+     */
     void loadAllImage();
+
+    /**
+     * @brief      clean the resources
+     */
     void clean();
+
+    /**
+     * @brief      Loads all sounds
+     */
     void loadAllSounds();
+
+    /**
+     * @brief      Loads all musics.
+     */
     void loadAllMusics();
 
+
+    /**
+     * @brief      displays all enemies and objects
+     */
     void renderEnnemysAndObjects();
+
+    /**
+     * @brief      displays the map
+     */
     void renderMap();
+
+    /**
+     * @brief      displays the player inventory
+     */
     void renderInventory();
 
     // Membre SDL

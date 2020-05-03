@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['image_30',['Image',['../classImage.html',1,'']]],
-  ['inventory_31',['Inventory',['../classInventory.html',1,'']]]
+  ['image_215',['Image',['../classImage.html',1,'']]],
+  ['inventory_216',['Inventory',['../structInventory.html',1,'']]]
 ];

@@ -211,12 +211,58 @@ public:
     Rectangle getBas() const;
 
 
+    /**
+     * @brief      Cut this rectangle is two rectangle
+     *
+     * This the first version of a function that cuts a rectangle in two
+     *
+     * @return     an element composed of two rectangles
+     */
     DoubleRect cutTwo() const;
+
+    /**
+     * @brief      Cut this rectangle in four rectangles
+     * 
+     * This is the first version of a function that cuts a rectangle in four
+     *
+     * @return     Four rectangle.
+     */
     FourRect cutFour() const;
+
+    /**
+     * @brief      Cut this rectangle in height rectangles
+     * 
+     * This is the first version of a function that cuts a rectangle in height
+     *
+     * @return     one dimension array of height rectangles
+     */
     Rectangle* cutHeight() const;
 
+    /**
+     * @brief      Cut this rectangle in two rectangle
+     * 
+     * This is the second version of a function that cuts a rectangle in two
+     *
+     * @return     an element composed of two rectangles
+     */
     DoubleRect cutTwoBis() const;
+
+    /**
+     * @brief      Cut this rectangle in four rectangles
+     *
+     * This is the second version of a function that cuts a rectangle in four
+     *
+     * @return     an element composed of four rectangles
+     */
     FourRect cutFourBis() const;
+
+    /**
+     * @brief      Cut this rectangle in height rectangles
+     * 
+     * This is the second version of a function that cuts a rectangle in height 
+     *
+     * @return     one dimension array of height rectangles
+     */
     Rectangle* cutHeightBis() const;
 };
 
@@ -236,6 +282,9 @@ struct DoubleRect
     Rectangle r2;
 };
 
+/**
+ * @brief      Basic structure composed of four rectangles
+ */
 struct FourRect
 {
     Rectangle r1;

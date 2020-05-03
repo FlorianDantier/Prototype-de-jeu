@@ -834,6 +834,13 @@ INPUT                  = ./src/Image.h       \
                          ./src/Menu.h        \
                          ./src/Button.h      \
                          ./src/Map.h         \
+                         ./src/Game.h        \
+                         ./src/SDL_Game.h    \
+                         ./src/Vec2.h        \
+                         ./src/Enemy.h       \
+                         ./src/Player.h      \
+                         ./src/Object.h      \
+                         ./src/Character.h   \
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
