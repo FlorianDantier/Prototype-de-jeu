@@ -27,6 +27,8 @@ public:
 
     bool getRunning();
     void limitFPS(unsigned int limite);
+    bool m_PlayerIsAttacking;
+    time_t m_timerAnimSword;
 
 
 private:

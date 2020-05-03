@@ -8,6 +8,8 @@ SDL_Game::SDL_Game() : m_mainHomeBtn(nullptr), m_mainBackground(nullptr)
     m_pWindow = NULL;
     m_pRenderer = NULL;
     m_bRunning = true;
+    m_PlayerIsAttacking=false;
+    m_timerAnimSword = 0;
 }
 
 SDL_Game::~SDL_Game()
@@ -275,6 +277,10 @@ void SDL_Game::render()
         if (g.getPlayer().isAlive())
         {
             m_warrior[g.getPlayer().getOrientation()]->display(m_pRenderer);
+            if (m_PlayerIsAttacking)
+            {
+                m_sword[g.getPlayer().getOrientation()]->display(m_pRenderer);
+            }
         }
        switch(g.getMapLoad())
         {
@@ -417,9 +423,9 @@ void SDL_Game::handleEvents()
                         break;
 
                     case SDLK_SPACE:
-                        m_sword[g.getPlayer().getOrientation()]
-                                ->display(m_pRenderer);
                         g.eventTouch(' ');
+                        m_PlayerIsAttacking=true;
+                        m_timerAnimSword = time(NULL);
                         Mix_PlayChannel(1,m_attackSound,0);
                         break;
 
@@ -462,6 +468,12 @@ void SDL_Game::handleEvents()
         }
 
     }
+    //====ici le timer pour l'animation de l'épée========
+    if((m_PlayerIsAttacking==true)&&((time(NULL)-m_timerAnimSword) + 0.3 > 1))
+    {
+        m_PlayerIsAttacking=false;
+    }
+    //====fin animation épée=============================
     //=======ici les musiques suivant la map=========
         if(g.getStatus() == GameStatus::run)
         {
