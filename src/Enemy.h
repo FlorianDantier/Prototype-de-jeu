@@ -33,6 +33,7 @@ private:
     RoamingDirection m_direction;
     Vec2<int> * m_posOrigin;
     time_t m_waitingBeforeAttacking;
+    bool m_soundDeath;
 
 public:
     Enemy();
@@ -72,6 +73,9 @@ public:
     time_t getTimer() const;
     //retourne le temps de la dernière attaque
     Enemy& operator=(const Enemy &copie);
+    bool getSoundDeath() const;
+    //retourne s'il on doit émetter le son de mort de l'ennemi
+    void setSoundDeath(const bool EmitSoundDeath);
 };
 
 #endif // ENEMY_H

@@ -27,6 +27,8 @@ public:
 
     bool getRunning();
     void limitFPS(unsigned int limite);
+    bool m_PlayerIsAttacking;
+    time_t m_timerAnimSword;
 
 
 private:
@@ -48,6 +50,7 @@ private:
     Mix_Chunk *m_attackSound;
     Mix_Chunk *m_levelupSound;
     Mix_Chunk *m_menuClicSound;
+    Mix_Chunk *m_MonsterDeathSound;
 
     // Florian
     Image* m_mainBackground;
