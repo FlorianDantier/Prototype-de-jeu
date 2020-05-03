@@ -31,10 +31,12 @@ private:
     void actionOnClick(returnType (nameClass::*ptr)(), nameClass & object);
 
     template<typename nameClass, typename returnType, typename arg>
-    void actionOnClick(returnType (nameClass::*ptr)(arg*), nameClass & object, arg* argumentPtrFct);
+    void actionOnClick(returnType (nameClass::*ptr)(arg*), nameClass & object,
+                       arg* argumentPtrFct);
 
     template<typename nameClass, typename returnType, typename arg>
-    void actionOnClick(returnType (nameClass::*ptr)(arg), nameClass & object, const arg & argumentPtrFct);
+    void actionOnClick(returnType (nameClass::*ptr)(arg), nameClass & object,
+                       const arg & argumentPtrFct);
 
 public:
     /**
@@ -106,13 +108,16 @@ public:
     bool isPressed(const Vec2<int> &mousePos);
 
     template<typename nameClass, typename returnType>
-    void eventButton(returnType (nameClass::*ptr)(), nameClass & object, const Vec2<int> &mousePos);
+    void eventButton(returnType (nameClass::*ptr)(), nameClass & object,
+                     const Vec2<int> &mousePos);
 
     template<typename nameClass, typename returnType, typename arg>
-    void eventButton(returnType (nameClass::*ptr)(arg), nameClass & object, const arg & argumentPtrFct , const Vec2<int> &mousePos);
+    void eventButton(returnType (nameClass::*ptr)(arg), nameClass & object,
+                     const arg & argumentPtrFct , const Vec2<int> &mousePos);
 
     template<typename nameClass, typename returnType, typename arg>
-    void eventButton(returnType (nameClass::*ptr)(arg*), nameClass & object,arg* argumentPtrFct , const Vec2<int> &mousePos);
+    void eventButton(returnType (nameClass::*ptr)(arg*), nameClass & object,
+                     arg* argumentPtrFct , const Vec2<int> &mousePos);
 };
 
 template<typename nameClass, typename returnType>
@@ -123,21 +128,24 @@ void Button::actionOnClick(returnType (nameClass::*ptr)(), nameClass & object)
 }
 
 template<typename nameClass, typename returnType, typename arg>
-void Button::actionOnClick(returnType (nameClass::*ptr)(arg*), nameClass & object, arg* argumentPtrFct)
+void Button::actionOnClick(returnType (nameClass::*ptr)(arg*),
+                           nameClass & object, arg* argumentPtrFct)
 {
      if(m_isLoad)
         (object.*ptr)(argumentPtrFct);
 }
 
 template<typename nameClass, typename returnType, typename arg>
-void Button::actionOnClick(returnType (nameClass::*ptr)(arg), nameClass & object, const arg & argumentPtrFct)
+void Button::actionOnClick(returnType (nameClass::*ptr)(arg),
+                           nameClass & object, const arg & argumentPtrFct)
 {
     if(m_isLoad)
         (object.*ptr)(argumentPtrFct);
 }
 
 template<typename nameClass, typename returnType>
-void Button::eventButton(returnType (nameClass::*ptr)(), nameClass & object, const Vec2<int> &mousePos)
+void Button::eventButton(returnType (nameClass::*ptr)(), nameClass & object,
+                         const Vec2<int> &mousePos)
 {
     if(isPressed(mousePos))
     {
@@ -147,7 +155,8 @@ void Button::eventButton(returnType (nameClass::*ptr)(), nameClass & object, con
 
 
 template<typename nameClass, typename returnType, typename arg>
-void Button::eventButton(returnType (nameClass::*ptr)(arg), nameClass & object, const arg & argumentPtrFct , const Vec2<int> &mousePos)
+void Button::eventButton(returnType (nameClass::*ptr)(arg), nameClass & object,
+                         const arg & argumentPtrFct , const Vec2<int> &mousePos)
 {
     if(isPressed(mousePos))
     {
@@ -157,7 +166,8 @@ void Button::eventButton(returnType (nameClass::*ptr)(arg), nameClass & object, 
 
 
 template<typename nameClass, typename returnType, typename arg>
-void Button::eventButton(returnType (nameClass::*ptr)(arg*), nameClass & object,arg* argumentPtrFct, const Vec2<int> &mousePos)
+void Button::eventButton(returnType (nameClass::*ptr)(arg*), nameClass & object,
+                         arg* argumentPtrFct, const Vec2<int> &mousePos)
 {
     if(isPressed(mousePos))
     {

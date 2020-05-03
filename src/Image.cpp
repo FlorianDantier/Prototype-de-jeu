@@ -49,7 +49,8 @@ Image::Image() : m_source(0, 0, 0, 0)
     setDestination();
 }
 
-Image::Image(const std::string & cheminImage,Rectangle* destination, const Vec2<unsigned int> & dimFenetre, SDL_Renderer* rendu)
+Image::Image(const std::string & cheminImage,Rectangle* destination,
+             const Vec2<unsigned int> & dimFenetre, SDL_Renderer* rendu)
     : m_source(0, 0, 0, 0), m_destination(destination)
 {
     m_image = cheminImage;
@@ -64,7 +65,9 @@ Image::Image(const std::string & cheminImage,Rectangle* destination, const Vec2<
     m_psurface = nullptr;
 }
 
-Image::Image(const std::string & cheminImage, const Rectangle & source, Rectangle* destination, const Vec2<unsigned int> & dimFenetre, SDL_Renderer *rendu)
+Image::Image(const std::string & cheminImage, const Rectangle & source,
+             Rectangle* destination, const Vec2<unsigned int> & dimFenetre,
+             SDL_Renderer *rendu)
 {
     m_image = cheminImage;
     m_source = source;
@@ -98,15 +101,6 @@ void Image::testInOut(const Vec2<unsigned int> &dimFenetre)
         m_destination->m_position.y = 0;
     }
 }
-
-// ========================================A finnir====================================================
-//void Image::rotate(SDL_RendererFlip flip, float angle, const Vec2<int> & centre, SDL_Renderer* rendu)
-//{
-//    SDL_Point temp = {centre.x, centre.y};
-//    SDL_RenderClear(rendu);
-//    SDL_RenderCopyEx(rendu, m_ptexture, &m_SDL_source, &m_SDL_destination, angle, &temp, flip);
-//    SDL_RenderPresent(rendu);
-//}
 
 void Image::display(SDL_Renderer* rendu)
 {

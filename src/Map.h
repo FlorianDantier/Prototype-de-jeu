@@ -62,7 +62,8 @@ public:
      * @param[in]  diago  The diago
      * @param[in]  d      The new value
      */
-    void setDecorDiago(const unsigned int start, const Rectangle &diago, const Decal & d);
+    void setDecorDiago(const unsigned int start, const Rectangle &diago,
+                       const Decal & d);
 
     /**
      * @brief      Gets the decor.

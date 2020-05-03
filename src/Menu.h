@@ -71,7 +71,8 @@ public:
      * @param[in]  open      The open button
      * @param[in]  close     The close button
      */
-    Menu(unsigned int nbButton, const Rectangle & pos, bool isOpen , bool isLoad, const Button &open, const Button &close);
+    Menu(unsigned int nbButton, const Rectangle & pos, bool isOpen, bool isLoad,
+         const Button &open, const Button &close);
     
 
     /**
@@ -177,13 +178,16 @@ public:
 
     
     template<typename nameClass, typename returnType>
-    void listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(), nameClass & object, const Vec2<int> &mousePos);
+    void listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(),
+                     nameClass & object, const Vec2<int> &mousePos);
 
     template<typename nameClass, typename returnType, typename arg>
-    void listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(arg), nameClass & object, const arg & argumentPtrFct , const Vec2<int> &mousePos);
+    void listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(arg),
+                     nameClass & object, const arg & argumentPtrFct , const Vec2<int> &mousePos);
 
     template<typename nameClass, typename returnType, typename arg>
-    void listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(arg*), nameClass & object,arg* argumentPtrFct , const Vec2<int> &mousePos);
+    void listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(arg*),
+                     nameClass & object,arg* argumentPtrFct , const Vec2<int> &mousePos);
 
 
 
@@ -192,21 +196,24 @@ public:
 };
 
 template<typename nameClass, typename returnType>
-void Menu::listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(), nameClass & object, const Vec2<int> &mousePos)
+void Menu::listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(),
+                       nameClass & object, const Vec2<int> &mousePos)
 {
     assert(indice >= 0 && indice < m_nbChoices);
     m_choices->eventButton(ptr, object, mousePos);
 }
 
 template<typename nameClass, typename returnType, typename arg>
-void Menu::listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(arg), nameClass & object, const arg & argumentPtrFct , const Vec2<int> &mousePos)
+void Menu::listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(arg),
+                       nameClass & object, const arg & argumentPtrFct, const Vec2<int> &mousePos)
 {
     assert(indice >= 0 && indice < m_nbChoices);
     m_choices[indice].eventButton(ptr, object, argumentPtrFct, mousePos);
 }
 
 template<typename nameClass, typename returnType, typename arg>
-void Menu::listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(arg*), nameClass & object,arg* argumentPtrFct , const Vec2<int> &mousePos)
+void Menu::listenEvent(const unsigned int indice, returnType (nameClass::*ptr)(arg*),
+                       nameClass & object,arg* argumentPtrFct , const Vec2<int> &mousePos)
 {
     assert(indice >= 0 && indice < m_nbChoices);
 

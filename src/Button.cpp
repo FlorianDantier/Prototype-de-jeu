@@ -6,12 +6,14 @@ Button::Button() : m_position(nullptr), m_isLoad(false)
 
 }
 
-Button::Button(const Rectangle & position, bool isLoad) : m_position(nullptr), m_isLoad(isLoad)
+Button::Button(const Rectangle & position, bool isLoad)
+    : m_position(nullptr), m_isLoad(isLoad)
 {
     m_position = new Rectangle(position);
 }
 
-Button::Button(const Button &copie) : m_position(nullptr), m_isLoad(copie.m_isLoad)
+Button::Button(const Button &copie)
+    : m_position(nullptr), m_isLoad(copie.m_isLoad)
 {
     m_position = new Rectangle(*(copie.m_position));
 }
