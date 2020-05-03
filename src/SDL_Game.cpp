@@ -96,7 +96,7 @@ bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos,
                                 {
                                     std::cout<<"SDL Mixer opened"<<std::endl;
                                     m_whichMusic = cool;
-                                    Mix_AllocateChannels(3);// création canneaux pour les sons
+                                    Mix_AllocateChannels(4);// création canneaux pour les sons
                                     std::cout<<"Channels creation success"
                                             <<std::endl;
 
@@ -380,6 +380,7 @@ void SDL_Game::loadAllSounds()
     m_attackSound = Mix_LoadWAV("../data/sound/swish.wav");
     m_levelupSound = Mix_LoadWAV("../data/sound/levelup.wav");
     m_menuClicSound = Mix_LoadWAV("../data/sound/menu_clic.wav");
+    m_MonsterDeathSound = Mix_LoadWAV("../data/sound/monsterDeath.wav");
 }
 
 void SDL_Game::loadAllMusics()
@@ -526,6 +527,44 @@ void SDL_Game::handleEvents()
     {
         g.ennemyManager();
     }
+    //===== ici les sons de leur morts======
+    switch (g.getMapLoad())
+    {
+    case map_1:
+        for (int i=0;i<4;i++)
+        {
+            if(g.getEnemy(i,map_1).getSoundDeath())
+            {
+               Mix_PlayChannel(3,m_MonsterDeathSound,0);
+               g. getEnemy(i,map_1).setSoundDeath(false);
+            }
+        }
+        break;
+
+    case map_2:
+        for (int i=0;i<4;i++)
+        {
+            if(g.getEnemy(i,map_2).getSoundDeath())
+            {
+                Mix_PlayChannel(3,m_MonsterDeathSound,0);
+                g.getEnemy(i,map_2).setSoundDeath(false);
+            }
+        }
+        break;
+    case instance1:
+        for (int i=0;i<4;i++)
+        {
+            if(g.getEnemy(i,instance1).getSoundDeath())
+            {
+                Mix_PlayChannel(3,m_MonsterDeathSound,0);
+                g.getEnemy(i,instance1).setSoundDeath(false);
+            }
+        }
+
+    default:
+        break;
+    }
+    //=====Fin sons mort monstres========
     //=====Fin IA=====
     //=========Le joueur lvl up=========
     if(g.getPlayer().getXpCurrent()>=g.getPlayer().getXpMax())

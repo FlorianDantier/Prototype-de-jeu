@@ -21,6 +21,7 @@ Enemy::Enemy()
     m_direction = horizontalRight;
     m_waitingBeforeAttacking = 0;
     m_posOrigin = nullptr;
+    m_soundDeath = false;
 }
 
 Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
@@ -66,6 +67,7 @@ Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
             <<m_posOrigin->y<<std::endl;
     m_isXpGiven = true;
     m_waitingBeforeAttacking = 0;
+    m_soundDeath = false;
 }
 
 void Enemy::moveRight()
@@ -269,6 +271,7 @@ void Enemy::die(Player & player)
     m_isLoaded = false;
     m_status=dead;
     giveXp(player);
+    m_soundDeath=true;
     //dropLoot();
 }
 
@@ -326,4 +329,14 @@ Enemy &Enemy::operator=(const Enemy &copie)
         m_waitingBeforeAttacking = 0;
     }
     return *this;
+}
+
+bool Enemy::getSoundDeath() const
+{
+    return m_soundDeath;
+}
+
+void Enemy::setSoundDeath(const bool emitSoundDeath)
+{
+    m_soundDeath = emitSoundDeath;
 }
