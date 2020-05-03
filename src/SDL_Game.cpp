@@ -83,6 +83,18 @@ bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos, uns
             if(m_pRenderer != NULL)
             {
                 std::cout << "renderer creation success\n";
+                if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) //Initialisation de l'API Mixer
+                                   {
+                                      printf("%s", Mix_GetError());
+                                   }
+                                else
+                                {
+                                    std::cout<<"SDL Mixer opened"<<std::endl;
+                                    m_whichMusic = cool;
+                                    Mix_AllocateChannels(3);// création canneaux pour les sons
+                                    std::cout<<"Channels creation success"<<std::endl;
+
+                                }
             }
             else
             {
@@ -107,7 +119,11 @@ bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos, uns
     m_bRunning = true;
     // Si tout est ok on charge les images....
     loadAllImage();
+    loadAllSounds();
+    loadAllMusics();
     frameLimit = SDL_GetTicks() + 16;
+    Mix_PlayMusic(m_cool_music, -1);
+    Mix_PauseMusic();
     return true;
 
 }
@@ -273,10 +289,28 @@ void SDL_Game::render()
 void SDL_Game::clean()
 {
     std::cout << "cleaning game\n";
+    Mix_FreeChunk(m_attackSound);
+    Mix_FreeChunk(m_levelupSound);
+    Mix_FreeChunk(m_menuClicSound);
+    Mix_FreeMusic(m_cool_music);
+    Mix_FreeMusic(m_techno_music);
+    Mix_CloseAudio();// fermeture Api Mixer
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
     SDL_Quit();
     std::cout<<"called clean"<<std::endl;
+}
+void SDL_Game::loadAllSounds()
+{
+    m_attackSound = Mix_LoadWAV("../data/sound/swish.wav");
+    m_levelupSound = Mix_LoadWAV("../data/sound/levelup.wav");
+    m_menuClicSound = Mix_LoadWAV("../data/sound/menu_clic.wav");
+}
+
+void SDL_Game::loadAllMusics()
+{
+    m_cool_music = Mix_LoadMUS("../data/music/cool.mp3");
+    m_techno_music = Mix_LoadMUS("../data/music/techno.mp3");
 }
 
 void SDL_Game::handleEvents()
@@ -316,6 +350,7 @@ void SDL_Game::handleEvents()
                     case SDLK_SPACE:
                         m_sword[g.getPlayer().getOrientation()]->display(m_pRenderer);
                         g.eventTouch(' ');
+                        Mix_PlayChannel(1,m_attackSound,0);
                         break;
 
                     case SDLK_c:
@@ -342,6 +377,7 @@ void SDL_Game::handleEvents()
         case SDL_MOUSEBUTTONDOWN:
             if(event.button.button == SDL_BUTTON_LEFT) // Click gauche
             {
+                 Mix_PlayChannel(2,m_menuClicSound,0);
                  g.mouseLeftClick(Vec2<int>(event.button.x, event.button.y));
             }
             else if(event.button.button == SDL_BUTTON_RIGHT)
@@ -356,6 +392,52 @@ void SDL_Game::handleEvents()
         }
 
     }
+    //=======ici les musiques suivant la map=========
+        if(g.getStatus() == GameStatus::run)
+        {
+            switch(g.getMapLoad())
+            {
+            case 0:
+                if((Mix_PlayingMusic()==1)&& m_whichMusic==techno)
+                {
+                    Mix_HaltMusic();
+                    Mix_RewindMusic();
+                    Mix_PlayMusic(m_cool_music,-1);
+                    m_whichMusic = cool;
+                }
+                else if((Mix_PausedMusic()==1)&& m_whichMusic==cool)
+                {
+                    Mix_ResumeMusic();
+                }
+                break;
+            case 1:
+                if((Mix_PlayingMusic()==1)&& m_whichMusic==techno)
+                {
+                    Mix_HaltMusic();
+                    Mix_RewindMusic();
+                    Mix_PlayMusic(m_cool_music,-1);
+                    m_whichMusic = cool;
+                }
+                else if((Mix_PausedMusic()==1)&& m_whichMusic==cool)
+                {
+                    Mix_ResumeMusic();
+                }
+                break;
+            case 2:
+                if((Mix_PlayingMusic()==1)&& m_whichMusic==cool)
+                {
+                    Mix_HaltMusic();
+                    Mix_RewindMusic();
+                    Mix_PlayMusic(m_techno_music,-1);
+                    m_whichMusic = techno;
+                }
+                break;
+            default:
+                break;
+            }
+        }
+
+        //=======Fin musiques============================
 
     //=======ici les monstres bougent et tapent : IA========
     g.ennemyManager();
@@ -364,6 +446,7 @@ void SDL_Game::handleEvents()
     if(g.getPlayer().getXpCurrent()>=g.getPlayer().getXpMax())
     {
         g.getPlayer().levelup();
+        Mix_PlayChannel(2,m_levelupSound,0);
     }
     //=====Fin lvl up=====
 }

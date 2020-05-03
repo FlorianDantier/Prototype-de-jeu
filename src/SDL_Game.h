@@ -2,10 +2,16 @@
 #define SDL_GAME_H
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include "Game.h"
 #include "Image.h"
 #include <string>
 
+enum Music
+{
+    cool,
+    techno,
+};
 
 class SDL_Game
 {
@@ -26,6 +32,8 @@ private:
     // Méthodes privées
     void loadAllImage();
     void clean();
+    void loadAllSounds();
+    void loadAllMusics();
 
     // Membre SDL
     SDL_Window* m_pWindow;
@@ -33,6 +41,12 @@ private:
     bool m_bRunning;
     Game g;
     unsigned int frameLimit;
+    Music m_whichMusic;
+    Mix_Music *m_cool_music;
+    Mix_Music *m_techno_music;
+    Mix_Chunk *m_attackSound;
+    Mix_Chunk *m_levelupSound;
+    Mix_Chunk *m_menuClicSound;
 
     // Florian
     Image* m_mainBackground;

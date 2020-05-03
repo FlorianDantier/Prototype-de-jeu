@@ -68,25 +68,350 @@ $(function() {
 <div class="title">Map Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This class describes a map.  
+ <a href="classMap.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Map_8h_source.html">Map.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0372de3ffc3c3a6e4db7e230e158504e"><td class="memItemLeft" align="right" valign="top"><a id="a0372de3ffc3c3a6e4db7e230e158504e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Map</b> (const unsigned int nbDecor)</td></tr>
-<tr class="separator:a0372de3ffc3c3a6e4db7e230e158504e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88062dca03c82769c768005c4a713182"><td class="memItemLeft" align="right" valign="top"><a id="a88062dca03c82769c768005c4a713182"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setDecor</b> (const unsigned int indice, const <a class="el" href="classRectangle.html">Rectangle</a> &amp;r)</td></tr>
+<tr class="memitem:a0f5ad0fd4563497b4214038cbca8b582"><td class="memItemLeft" align="right" valign="top"><a id="a0f5ad0fd4563497b4214038cbca8b582"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#a0f5ad0fd4563497b4214038cbca8b582">Map</a> ()</td></tr>
+<tr class="memdesc:a0f5ad0fd4563497b4214038cbca8b582"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new instance of map. <br /></td></tr>
+<tr class="separator:a0f5ad0fd4563497b4214038cbca8b582"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a4498ba7803bef894f8cc852180645a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#a3a4498ba7803bef894f8cc852180645a">Map</a> (const unsigned int nbDecor, unsigned int nbOutZone, unsigned int map)</td></tr>
+<tr class="memdesc:a3a4498ba7803bef894f8cc852180645a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new instance of map.  <a href="classMap.html#a3a4498ba7803bef894f8cc852180645a">More...</a><br /></td></tr>
+<tr class="separator:a3a4498ba7803bef894f8cc852180645a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa403fbe09394ccf39747588f5168e3b2"><td class="memItemLeft" align="right" valign="top"><a id="aa403fbe09394ccf39747588f5168e3b2"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#aa403fbe09394ccf39747588f5168e3b2">~Map</a> ()</td></tr>
+<tr class="memdesc:aa403fbe09394ccf39747588f5168e3b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the object. <br /></td></tr>
+<tr class="separator:aa403fbe09394ccf39747588f5168e3b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88062dca03c82769c768005c4a713182"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#a88062dca03c82769c768005c4a713182">setDecor</a> (const unsigned int indice, const <a class="el" href="classRectangle.html">Rectangle</a> &amp;r)</td></tr>
+<tr class="memdesc:a88062dca03c82769c768005c4a713182"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the decor.  <a href="classMap.html#a88062dca03c82769c768005c4a713182">More...</a><br /></td></tr>
 <tr class="separator:a88062dca03c82769c768005c4a713182"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a365dc49c6d0f4bb8a7ae8ddc58ff6e3d"><td class="memItemLeft" align="right" valign="top"><a id="a365dc49c6d0f4bb8a7ae8ddc58ff6e3d"></a>
-<a class="el" href="classRectangle.html">Rectangle</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getDecor</b> (const unsigned int indice) const</td></tr>
-<tr class="separator:a365dc49c6d0f4bb8a7ae8ddc58ff6e3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1895293e8f4d3ae03e9cc3bcb45fcea8"><td class="memItemLeft" align="right" valign="top"><a id="a1895293e8f4d3ae03e9cc3bcb45fcea8"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>getNbDecor</b> () const</td></tr>
+<tr class="memitem:a6f4ce8b6572363ad515ca72e4a69d8ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#a6f4ce8b6572363ad515ca72e4a69d8ee">setDecorDiago</a> (const unsigned int start, const <a class="el" href="classRectangle.html">Rectangle</a> &amp;diago, const Decal &amp;d)</td></tr>
+<tr class="memdesc:a6f4ce8b6572363ad515ca72e4a69d8ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the decor diago.  <a href="classMap.html#a6f4ce8b6572363ad515ca72e4a69d8ee">More...</a><br /></td></tr>
+<tr class="separator:a6f4ce8b6572363ad515ca72e4a69d8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7c6c2291908e1808fbe1f0a75d1617d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRectangle.html">Rectangle</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#ac7c6c2291908e1808fbe1f0a75d1617d">getDecor</a> (const unsigned int indice) const</td></tr>
+<tr class="memdesc:ac7c6c2291908e1808fbe1f0a75d1617d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the decor.  <a href="classMap.html#ac7c6c2291908e1808fbe1f0a75d1617d">More...</a><br /></td></tr>
+<tr class="separator:ac7c6c2291908e1808fbe1f0a75d1617d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc36953687761454dd15f0c957d05681"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRectangle.html">Rectangle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#abc36953687761454dd15f0c957d05681">getAllDecor</a> () const</td></tr>
+<tr class="memdesc:abc36953687761454dd15f0c957d05681"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all decor.  <a href="classMap.html#abc36953687761454dd15f0c957d05681">More...</a><br /></td></tr>
+<tr class="separator:abc36953687761454dd15f0c957d05681"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19eb9d783e3f89f0723d5e08fc1ff62d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#a19eb9d783e3f89f0723d5e08fc1ff62d">setOutZone</a> (const unsigned int indice, const <a class="el" href="classRectangle.html">Rectangle</a> &amp;r)</td></tr>
+<tr class="memdesc:a19eb9d783e3f89f0723d5e08fc1ff62d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the out zone.  <a href="classMap.html#a19eb9d783e3f89f0723d5e08fc1ff62d">More...</a><br /></td></tr>
+<tr class="separator:a19eb9d783e3f89f0723d5e08fc1ff62d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add6fafad34ea4bc140a42fb0e6192bf4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRectangle.html">Rectangle</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#add6fafad34ea4bc140a42fb0e6192bf4">getOutZone</a> (unsigned int indice) const</td></tr>
+<tr class="memdesc:add6fafad34ea4bc140a42fb0e6192bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the out zone.  <a href="classMap.html#add6fafad34ea4bc140a42fb0e6192bf4">More...</a><br /></td></tr>
+<tr class="separator:add6fafad34ea4bc140a42fb0e6192bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadb49ae4da23027b0ee78e9f69acf208"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#aadb49ae4da23027b0ee78e9f69acf208">isInOutZone</a> (const <a class="el" href="classRectangle.html">Rectangle</a> &amp;r, unsigned int indice)</td></tr>
+<tr class="memdesc:aadb49ae4da23027b0ee78e9f69acf208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if in out zone.  <a href="classMap.html#aadb49ae4da23027b0ee78e9f69acf208">More...</a><br /></td></tr>
+<tr class="separator:aadb49ae4da23027b0ee78e9f69acf208"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1895293e8f4d3ae03e9cc3bcb45fcea8"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMap.html#a1895293e8f4d3ae03e9cc3bcb45fcea8">getNbDecor</a> () const</td></tr>
+<tr class="memdesc:a1895293e8f4d3ae03e9cc3bcb45fcea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of decor.  <a href="classMap.html#a1895293e8f4d3ae03e9cc3bcb45fcea8">More...</a><br /></td></tr>
 <tr class="separator:a1895293e8f4d3ae03e9cc3bcb45fcea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class describes a map. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3a4498ba7803bef894f8cc852180645a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a4498ba7803bef894f8cc852180645a">&#9670;&nbsp;</a></span>Map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Map::Map </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>nbDecor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>nbOutZone</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructs a new instance of map. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nbDecor</td><td>The number of decor </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nbOutZone</td><td>The number of out zone </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">map</td><td>The map </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="abc36953687761454dd15f0c957d05681"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc36953687761454dd15f0c957d05681">&#9670;&nbsp;</a></span>getAllDecor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRectangle.html">Rectangle</a>* Map::getAllDecor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets all decor. </p>
+<dl class="section return"><dt>Returns</dt><dd>All decor. </dd></dl>
+
+</div>
+</div>
+<a id="ac7c6c2291908e1808fbe1f0a75d1617d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7c6c2291908e1808fbe1f0a75d1617d">&#9670;&nbsp;</a></span>getDecor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRectangle.html">Rectangle</a>&amp; Map::getDecor </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>indice</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the decor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">indice</td><td>The indice</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the decor which is a reference to a rectangle </dd></dl>
+
+</div>
+</div>
+<a id="a1895293e8f4d3ae03e9cc3bcb45fcea8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1895293e8f4d3ae03e9cc3bcb45fcea8">&#9670;&nbsp;</a></span>getNbDecor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Map::getNbDecor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the number of decor. </p>
+<dl class="section return"><dt>Returns</dt><dd>The number of decor. </dd></dl>
+
+</div>
+</div>
+<a id="add6fafad34ea4bc140a42fb0e6192bf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add6fafad34ea4bc140a42fb0e6192bf4">&#9670;&nbsp;</a></span>getOutZone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRectangle.html">Rectangle</a>&amp; Map::getOutZone </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>indice</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the out zone. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">indice</td><td>The indice</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The out zone. </dd></dl>
+
+</div>
+</div>
+<a id="aadb49ae4da23027b0ee78e9f69acf208"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadb49ae4da23027b0ee78e9f69acf208">&#9670;&nbsp;</a></span>isInOutZone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Map::isInOutZone </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classRectangle.html">Rectangle</a> &amp;&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>indice</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determines if in out zone. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">r</td><td>{ parameter_description } </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">indice</td><td>The indice</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if in out zone, False otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a88062dca03c82769c768005c4a713182"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88062dca03c82769c768005c4a713182">&#9670;&nbsp;</a></span>setDecor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Map::setDecor </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>indice</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classRectangle.html">Rectangle</a> &amp;&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the decor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">indice</td><td>The indice </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">r</td><td>The new value </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6f4ce8b6572363ad515ca72e4a69d8ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f4ce8b6572363ad515ca72e4a69d8ee">&#9670;&nbsp;</a></span>setDecorDiago()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Map::setDecorDiago </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classRectangle.html">Rectangle</a> &amp;&#160;</td>
+          <td class="paramname"><em>diago</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Decal &amp;&#160;</td>
+          <td class="paramname"><em>d</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the decor diago. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">start</td><td>The start </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">diago</td><td>The diago </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">d</td><td>The new value </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a19eb9d783e3f89f0723d5e08fc1ff62d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19eb9d783e3f89f0723d5e08fc1ff62d">&#9670;&nbsp;</a></span>setOutZone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Map::setOutZone </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>indice</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classRectangle.html">Rectangle</a> &amp;&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the out zone. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">indice</td><td>The indice </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">r</td><td>The new value </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/<a class="el" href="Map_8h_source.html">Map.h</a></li>
-<li>src/Map.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
