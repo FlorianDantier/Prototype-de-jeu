@@ -274,86 +274,21 @@ void SDL_Game::render()
             || g.getStatus() == GameStatus::standBy)
     {
         m_imageMap[g.getMapLoad()]->display(m_pRenderer);
+        renderEnnemysAndObjects();
+
+        // RenderPlayer ci-dessous pas mis dans une procédure car très court
         if (g.getPlayer().isAlive())
         {
             m_warrior[g.getPlayer().getOrientation()]->display(m_pRenderer);
-            if (m_PlayerIsAttacking)
-            {
-                m_sword[g.getPlayer().getOrientation()]->display(m_pRenderer);
-            }
         }
-       switch(g.getMapLoad())
-        {
-       case 0:
-            for(int i = 0; i < 3; i++)
-            {
-                if(!g.getObject(i,map_1).isLooted())
-                {
-                    m_objectMap1[i]->display(m_pRenderer);
-                }
-            }
+       renderInventory();
 
-            for(int i = 0; i < 4; i++)
-            {
-                if(g.getEnemy(i,map_1).isAlive())
-                {
-                    m_enemyMap1[i]->display(m_pRenderer);
-                }
-            }
-           break;
-
-       case 1:
-           for(int i = 0; i < 2; i++)
-           {
-               if(!g.getObject(i,map_2).isLooted())
-               {
-                   m_objectMap2[i]->display(m_pRenderer);
-               }
-           }
-
-           for(int i = 0; i < 4; i++)
-           {
-               if(g.getEnemy(i,map_2).isAlive())
-               {
-                   m_enemyMap2[i]->display(m_pRenderer);
-               }
-           }
-           break;
-       case 2:
-           for(int i = 0; i < 4; i++)
-           {
-               if(g.getEnemy(i,instance1).isAlive())
-               {
-                   m_enemyInstance[i]->display(m_pRenderer);
-               }
-           }
-
-       default:
-           break;
-
-        }
-
-       if(g.getInventory().getIsLoad())
+       // RenderSword ci-dessous pas de procédure pour les même raisons que player
+       if (g.getPlayer().isAlive() && m_PlayerIsAttacking)
        {
-           if(g.getInventory().getIsOpen())
-           {
-               m_imInventory->display(m_pRenderer);
-               m_closeInv->display(m_pRenderer);
-               m_healButton->display(m_pRenderer);
-               SDL_SetRenderDrawColor(m_pRenderer, 50, 200, 20,
-                                      SDL_ALPHA_OPAQUE);
-           }
-           else
-           {
-               m_openInv->display(m_pRenderer);
-           }
+          m_sword[g.getPlayer().getOrientation()]->display(m_pRenderer);
        }
     }
-    else if(g.getStatus() == GameStatus::standBy)
-    {
-
-    }
-
 
     limitFPS(frameLimit);
     //==========FIN AFFICHAGE=========
@@ -387,6 +322,79 @@ void SDL_Game::loadAllMusics()
 {
     m_cool_music = Mix_LoadMUS("../data/music/cool.mp3");
     m_techno_music = Mix_LoadMUS("../data/music/techno.mp3");
+}
+
+void SDL_Game::renderEnnemysAndObjects()
+{
+    switch(g.getMapLoad())
+     {
+    case 0:
+         for(int i = 0; i < 3; i++)
+         {
+             if(!g.getObject(i,map_1).isLooted())
+             {
+                 m_objectMap1[i]->display(m_pRenderer);
+             }
+         }
+
+         for(int i = 0; i < 4; i++)
+         {
+             if(g.getEnemy(i,map_1).isAlive())
+             {
+                 m_enemyMap1[i]->display(m_pRenderer);
+             }
+         }
+        break;
+
+    case 1:
+        for(int i = 0; i < 2; i++)
+        {
+            if(!g.getObject(i,map_2).isLooted())
+            {
+                m_objectMap2[i]->display(m_pRenderer);
+            }
+        }
+
+        for(int i = 0; i < 4; i++)
+        {
+            if(g.getEnemy(i,map_2).isAlive())
+            {
+                m_enemyMap2[i]->display(m_pRenderer);
+            }
+        }
+        break;
+    case 2:
+        for(int i = 0; i < 4; i++)
+        {
+            if(g.getEnemy(i,instance1).isAlive())
+            {
+                m_enemyInstance[i]->display(m_pRenderer);
+            }
+        }
+
+    default:
+        break;
+
+     }
+}
+
+void SDL_Game::renderInventory()
+{
+    if(g.getInventory().getIsLoad())
+    {
+        if(g.getInventory().getIsOpen())
+        {
+            m_imInventory->display(m_pRenderer);
+            m_closeInv->display(m_pRenderer);
+            m_healButton->display(m_pRenderer);
+            SDL_SetRenderDrawColor(m_pRenderer, 50, 200, 20,
+                                   SDL_ALPHA_OPAQUE);
+        }
+        else
+        {
+            m_openInv->display(m_pRenderer);
+        }
+    }
 }
 
 void SDL_Game::handleEvents()
