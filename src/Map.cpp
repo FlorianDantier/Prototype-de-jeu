@@ -4,7 +4,8 @@
 Map::Map() : m_decorTab(nullptr), m_nbDecor(0)
 {}
 
-Map::Map(unsigned int nbDecor, unsigned int nbOutZone ,unsigned int map) : m_decorTab(nullptr)
+Map::Map(unsigned int nbDecor, unsigned int nbOutZone ,unsigned int map)
+    : m_decorTab(nullptr)
 {
     assert(nbDecor > 0);
     assert(nbOutZone > 0);
@@ -85,7 +86,8 @@ void Map::initMap1()
     setDecorDiago(57, Rectangle(46, 351, 102, 100), TopLeft);
     setDecorDiago(65, Rectangle(142, 97, 107, 106), TopLeft);
 
-    m_tabOutZones = new Rectangle[1]; // On alloue un tableau car on peut avoir plusieur "zone de sortie" sur une map et donc on détruit l'objet comme un tableau
+    m_tabOutZones = new Rectangle[1];
+    // On alloue un tableau car on peut avoir plusieur "zone de sortie" sur une map et donc on détruit l'objet comme un tableau
     m_tabOutZones[0] = Rectangle(588, 370, 32, 25);
 }
 
@@ -260,7 +262,8 @@ Rectangle &Map::getOutZone(unsigned int indice) const
 
 bool Map::isInOutZone(const Rectangle &r, unsigned int indice)
 {
-    assert(indice >= 0 && indice < m_nbOutZone && "Indice trop grand/petit dans isOutZone de Map");
+    assert(indice >= 0 && indice < m_nbOutZone
+           && "Indice trop grand/petit dans isOutZone de Map");
     return r.in(m_tabOutZones[indice]);
 }
 

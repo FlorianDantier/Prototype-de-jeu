@@ -56,7 +56,8 @@ public:
      * @param[in]  dimFenetre   window dimensions
      * @param      rendu        the renderer
      */
-    Image(const std::string & cheminImage, Rectangle* destination, const Vec2<unsigned int> & dimFenetre, SDL_Renderer* rendu); // Ici on choisis les dimesion et la pos
+    Image(const std::string & cheminImage, Rectangle* destination,
+          const Vec2<unsigned int> & dimFenetre, SDL_Renderer* rendu);
 
     /**
      * @brief      Constructs a new instance of Image
@@ -67,17 +68,10 @@ public:
      * @param[in]  dimFenetre   window dimensions
      * @param      rendu        the renderer
      */
-    Image(const std::string & cheminImage, const Rectangle & source, Rectangle* destination , const Vec2<unsigned int> & dimFenetre, SDL_Renderer *rendu);
+    Image(const std::string & cheminImage, const Rectangle & source,
+          Rectangle* destination , const Vec2<unsigned int> & dimFenetre,
+          SDL_Renderer *rendu);
 
-    /**
-     * @brief      Rotate the image
-     *
-     * @param[in]  flip    The flip
-     * @param[in]  angle   The angle
-     * @param[in]  centre  The rotation center
-     * @param      rendu   The renderer
-     */
-    void rotate(SDL_RendererFlip flip, float angle, const Vec2<int> & centre, SDL_Renderer* rendu);
 
     /*------ " DRAW " -------*/
     /**

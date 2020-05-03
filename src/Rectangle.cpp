@@ -3,10 +3,12 @@
 Rectangle::Rectangle()
 {}
 
-Rectangle::Rectangle(const int x, const int y, const int w, const int h) : m_position(x, y), m_dimension(w, h)
+Rectangle::Rectangle(const int x, const int y, const int w, const int h)
+    : m_position(x, y), m_dimension(w, h)
 {}
 
-Rectangle::Rectangle(const Vec2<int> &position, const Vec2<int> &dimension) : m_position(position), m_dimension(dimension)
+Rectangle::Rectangle(const Vec2<int> &position, const Vec2<int> &dimension)
+    : m_position(position), m_dimension(dimension)
 {}
 
 bool Rectangle::in(const Vec2<int> & point) const
@@ -248,7 +250,3 @@ Rectangle *Rectangle::cutHeightBis() const
 
     return  tab;
 }
-
-
-
-

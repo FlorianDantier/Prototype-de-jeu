@@ -78,7 +78,8 @@ Menu::Menu()
 }
 
 Menu::Menu(unsigned int nbButton, const Rectangle & position, bool isOpen, bool isLoad,
-           const Button &open, const Button &close) : m_openButton(nullptr), m_closeButton(nullptr), m_position(nullptr)
+           const Button &open, const Button &close)
+           : m_openButton(nullptr), m_closeButton(nullptr), m_position(nullptr)
 {
     m_position = new Rectangle(position);
     assert(m_position != nullptr);
@@ -184,25 +185,3 @@ Menu::~Menu()
     delete m_openButton;
     delete m_closeButton;
 }
-
-
-//void Menu::display(SDL_Renderer *renderer)
-//{
-//    if(m_isLoad)
-//    {
-//        if(m_isOpen)
-//        {
-//            m_background.display(renderer);
-//            for(unsigned int i = 0; i < m_nbChoices; i++)
-//            {
-//                m_choices[i].display(renderer);
-//            }
-//            m_closeButton.display(renderer);
-//        }
-//        else
-//        {
-//            m_openButton.display(renderer);
-//        }
-//    }
-//}
-
