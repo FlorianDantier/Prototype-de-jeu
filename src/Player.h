@@ -77,5 +77,6 @@ class Player : public Character
     time_t getTimer() const;
     //retourne le temps de la dernière attaque
     Player& operator=(const Player &copie);
+    void setHealth(const unsigned int health);
 };
 #endif

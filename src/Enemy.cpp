@@ -25,7 +25,8 @@ Enemy::Enemy()
 
 Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
              /*Object loot, Object Chest,*/
-             const unsigned int health, const unsigned int level, RoamingDirection direction, bool hasLoot) :
+             const unsigned int health, const unsigned int level,
+             RoamingDirection direction, bool hasLoot) :
     Character(pos,health,level)
 {
     m_type = type;
@@ -59,8 +60,10 @@ Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &pos,
     m_direction = direction;
     delete m_posOrigin;
     m_posOrigin = new Vec2<int>(pos.m_position.x,pos.m_position.y);
-    std::cout<<"position enemy :"<<pos.m_position.x<<","<<pos.m_position.y<<std::endl;
-    std::cout<<"position enemy :"<<m_posOrigin->x<<","<<m_posOrigin->y<<std::endl;
+    std::cout<<"position enemy :"<<pos.m_position.x<<","
+            <<pos.m_position.y<<std::endl;
+    std::cout<<"position enemy :"<<m_posOrigin->x<<","
+            <<m_posOrigin->y<<std::endl;
     m_isXpGiven = true;
     m_waitingBeforeAttacking = 0;
 }
@@ -151,7 +154,8 @@ void Enemy::enemyPattern(Player & p)
         {
             m_status = roaming;
             delete m_posOrigin;
-            m_posOrigin = new Vec2<int>(m_position->m_position.x,m_position->m_position.y);
+            m_posOrigin = new Vec2<int>(m_position->m_position.x,
+                                        m_position->m_position.y);
         }
         if(p.getPos().in(*(m_range)))
         {

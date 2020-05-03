@@ -11,7 +11,9 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
     ptrOnLauchGame = &Game::launchGame;
     ptrOnHeal = &Game::heal;
     Button notLoad(Rectangle(-1 ,-1, -1, -1), false);
-    m_home = new Menu(1, Rectangle(0, 0, windowSize.x, windowSize.y), true, true, notLoad, notLoad); // Le menu "home" est une exception dans le sens où il n'y aura pas de bouton pour ouvir ou fermer ce menu
+    m_home = new Menu(1, Rectangle(0, 0, windowSize.x, windowSize.y),
+                      true, true, notLoad, notLoad);
+    // Le menu "home" est une exception dans le sens où il n'y aura pas de bouton pour ouvir ou fermer ce menu
     m_home->setChoice(Button (Rectangle  (50, 100, 550, 100), true), 0);
 
     m_ml = map_1;
@@ -33,14 +35,19 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
 
     // =========Ajout des Objets dans les maps=========
     //pour la map1
-    m_tabObjectMap1[0] = new Object("Health Potion",other,500,Rectangle(217,663,20,20),50,false,true);
-    m_tabObjectMap1[1] = new Object("Hell's Sword",weapon,500,Rectangle(600,574,20,20),50,false,true);
-    m_tabObjectMap1[2] = new Object("Hell's Armor",armor,500,Rectangle(475,310,20,20),20,false,true);
+    m_tabObjectMap1[0] = new Object("Health Potion",other,500,
+                                    Rectangle(217,663,20,20),50,false,true);
+    m_tabObjectMap1[1] = new Object("Hell's Sword",weapon,500,
+                                    Rectangle(600,574,20,20),50,false,true);
+    m_tabObjectMap1[2] = new Object("Hell's Armor",armor,500,
+                                    Rectangle(475,310,20,20),20,false,true);
     //Fin pour la map1
 
     //pour la map2
-    m_tabObjectMap2[0] = new Object("Health Potion",other,500,Rectangle(570,50,20,20),50,false,true);
-    m_tabObjectMap2[1] = new Object("Health Potion",other,500,Rectangle(700,650,20,20),50,false,true);
+    m_tabObjectMap2[0] = new Object("Health Potion",other,500,
+                                    Rectangle(570,50,20,20),50,false,true);
+    m_tabObjectMap2[1] = new Object("Health Potion",other,500,
+                                    Rectangle(700,650,20,20),50,false,true);
     //Fin pour la map2
 
     // =========Fin Ajout des objets dans les maps=========
@@ -183,14 +190,16 @@ direction::Type Game::isAtTheEdge(const Rectangle &rect)
 
 void Game::changeMapManager()
 {
-   if(isAtTheEdge(m_warrior->getPos()) == direction::right && m_ml == map_1)
+   if(isAtTheEdge(m_warrior->getPos()) == direction::right
+           && m_ml == map_1)
    {
         m_ml = map_2;
         Rectangle r = m_warrior->getPos();
         r.m_position.x = -15;
         m_warrior->setPos(r);
    }
-   else if(isAtTheEdge(m_warrior->getPos()) == direction::left && m_ml == map_2)
+   else if(isAtTheEdge(m_warrior->getPos()) == direction::left
+           && m_ml == map_2)
    {
         m_ml = map_1;
         Rectangle r = m_warrior->getPos();
@@ -215,14 +224,16 @@ MapLoad Game::getMapLoad() const
 
 void Game::loadNewZone()
 {
-    if(m_map[map_1]->isInOutZone(m_warrior->getPos(), 0) && m_ml == map_1)
+    if(m_map[map_1]->isInOutZone(m_warrior->getPos(), 0)
+            && m_ml == map_1)
     {
         m_ml = instance1;
         Rectangle r = m_warrior->getPos();
         r.m_position = Vec2<int>(389, 684);
         m_warrior->setPos(r);
     }
-    if(m_map[instance1]->isInOutZone(m_warrior->getPos(), 0) && m_ml == instance1)
+    if(m_map[instance1]->isInOutZone(m_warrior->getPos(), 0)
+            && m_ml == instance1)
     {
         m_ml = map_1;
         Rectangle r = m_warrior->getPos();
@@ -322,7 +333,9 @@ Map &Game::getMap1(unsigned int indice) const
 }
 
 
-bool Game::collisionManager(Rectangle & posToModif, const Rectangle* tabPosobstacle, const unsigned int sizeTab, const direction::Type d)
+bool Game::collisionManager(Rectangle & posToModif,
+           const Rectangle* tabPosobstacle, const unsigned int sizeTab,
+           const direction::Type d)
 {
     bool isNotInDecor = true;
     unsigned int indice = 0;
@@ -475,33 +488,41 @@ Enemy *Game::getAllEnemy(MapLoad ml) const
 
 void Game::touchZ()
 {
-    if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::top))
+    if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(),
+                        m_map[m_ml]->getNbDecor() ,direction::top))
     {
         m_warrior->move(top);
     }
-    collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::top);
+    collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(),
+                     m_map[m_ml]->getNbDecor() ,direction::top);
     m_warrior->updateRangeTop();
     changeMapManager();
 }
 
 void Game::touchQ()
 {
-    if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::left)) // On test une avant de bouger si ok alors on bouge
+    if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(),
+                        m_map[m_ml]->getNbDecor() ,direction::left))
+        // On test une avant de bouger si ok alors on bouge
     {
         m_warrior->move(left);
     }
-    collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::left); // Puis on restest après avoir bouger, car il est possible d'être dans le décor après le déplacement
+    collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(),
+                     m_map[m_ml]->getNbDecor() ,direction::left);
+    // Puis on restest après avoir bouger, car il est possible d'être dans le décor après le déplacement
     m_warrior->updateRangeLeft();
     changeMapManager();
 }
 
 void Game::touchS()
 {
-    if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::bottom))
+    if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(),
+                        m_map[m_ml]->getNbDecor() ,direction::bottom))
     {
         m_warrior->move(bottom);
     }
-    collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::bottom);
+    collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(),
+                     m_map[m_ml]->getNbDecor() ,direction::bottom);
     m_warrior->updateRangeBottom();
     changeMapManager();
 }
@@ -509,11 +530,13 @@ void Game::touchS()
 void Game::touchD()
 {
 
-    if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::right))
+    if(collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(),
+                        m_map[m_ml]->getNbDecor() ,direction::right))
     {
         m_warrior->move(right);
     }
-    collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(), m_map[m_ml]->getNbDecor() ,direction::right);
+    collisionManager(m_warrior->getPos(), m_map[m_ml]->getAllDecor(),
+                     m_map[m_ml]->getNbDecor() ,direction::right);
     m_warrior->updateRangeRight();
     changeMapManager();
 }

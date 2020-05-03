@@ -19,7 +19,8 @@ public:
     SDL_Game();
     ~SDL_Game();
 
-    bool init(std::string title, unsigned int xPos, unsigned int yPos, unsigned int width, unsigned int height);
+    bool init(std::string title, unsigned int xPos, unsigned int yPos,
+              unsigned int width, unsigned int height);
 
     void render();
     void handleEvents();

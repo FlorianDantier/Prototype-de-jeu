@@ -10,7 +10,13 @@ class Player;
 enum EnemyType {sbire,elite,boss};
 enum EnemyRace {beast,element,humanoid};
 enum EnemyStatus {roaming,comingToPlayer,attacking,dead};
-enum RoamingDirection {verticalTop,verticalBottom,horizontalRight,horizontalLeft};
+enum RoamingDirection
+{
+    verticalTop,
+    verticalBottom,
+    horizontalRight,
+    horizontalLeft
+};
 
 
 class Enemy : public Character
@@ -45,7 +51,8 @@ public:
     void moveBottom();
     // va en bas
     void enemyPattern(Player &p);
-    //implantation de l'IA des monstres (rudimentaire) //roaming,attacking,comingToPlayer
+    //implantation de l'IA des monstres (rudimentaire)
+    //roaming,attacking,comingToPlayer
     void giveXp(Player & p);
     //mort de l'ennemi = donner l'expérience au joueur et faire tomber le loot s'ily en a
     std::string getEnemyRace() const;

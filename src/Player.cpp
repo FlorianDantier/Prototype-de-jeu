@@ -13,25 +13,31 @@ Player::Player()
     }
     m_armor.m_defense = 10;
     m_defense += m_armor.m_defense;
-    m_tabEquipped[0] = Object("beginner weapon",weapon,0,getPos(),20,true,false);
-    m_tabEquipped[1] = Object("beginner armor",armor,1,getPos(),10,true,false);
+    m_tabEquipped[0] = Object("beginner weapon",weapon,0,
+                              getPos(),20,true,false);
+    m_tabEquipped[1] = Object("beginner armor",armor,1,
+                              getPos(),10,true,false);
     m_inventory.m_numEmptySlot = 0;
     m_timer=time(NULL);
 }
 
-Player::Player(const std::string & name,PlayerClass Class, const Rectangle & pos,
-               const unsigned int health, const unsigned int level) :
+Player::Player(const std::string & name,PlayerClass Class,
+               const Rectangle & pos, const unsigned int health,
+               const unsigned int level) :
            Character(pos,health,level)
 {
     m_xpCurrent = 0;
     m_xpMax = 100;
     for(unsigned int i=0;i<16;i++)
     {
-        m_inventory.m_tabEquip[i] = Object("no object",other,500,getPos(),0,true,false);
+        m_inventory.m_tabEquip[i] = Object("no object",other,500,
+                                           getPos(),0,true,false);
     }
     m_armor.m_defense = 10;
-    m_tabEquipped[0] = Object("beginner weapon",weapon,0,getPos(),20,true,false);
-    m_tabEquipped[1] = Object("beginner armor",armor,1,getPos(),10,true,false);
+    m_tabEquipped[0] = Object("beginner weapon",weapon,0,getPos(),
+                              20,true,false);
+    m_tabEquipped[1] = Object("beginner armor",armor,1,getPos(),
+                              10,true,false);
     m_inventory.m_numEmptySlot = 0;
     m_name = name;
     m_class = Class;
@@ -96,9 +102,12 @@ void Player::Loot(Object tabObject[],unsigned int sizeTab)
                     tabObject[i].setLooted(true);
                     tabObject[i].setDropped(false);
                     tabObject[i].setDestroyed(false);
-                    m_inventory.m_tabEquip[m_inventory.m_numEmptySlot]=tabObject[i];
-                    std::cout<<"Objet "<<tabObject[i].getNameObject()<<" obtenu !"<<std::endl;
-                    m_inventory.m_tabEquip[m_inventory.m_numEmptySlot].setIndex(m_inventory.m_numEmptySlot);
+                    m_inventory.m_tabEquip[m_inventory.m_numEmptySlot]
+                            =tabObject[i];
+                    std::cout<<"Objet "<<tabObject[i].getNameObject()
+                            <<" obtenu !"<<std::endl;
+                    m_inventory.m_tabEquip[m_inventory.m_numEmptySlot]
+                            .setIndex(m_inventory.m_numEmptySlot);
                     m_inventory.m_numEmptySlot++;
                 }
                 else
@@ -124,7 +133,8 @@ void Player::Equip(Object & equipment)
                 temp=m_tabEquipped[0];
                 m_tabEquipped[0]=equipment;
                 m_weapon.m_damage = equipment.getValue();
-                std::cout<<"Objet "<<equipment.getNameObject()<<" équipé !"<<std::endl;
+                std::cout<<"Objet "<<equipment.getNameObject()
+                        <<" équipé !"<<std::endl;
                 m_inventory.m_tabEquip[temp.getIndex()]=temp;
             }
             else if(equipment.getType()==armor)
@@ -135,7 +145,8 @@ void Player::Equip(Object & equipment)
                 m_defense -= m_armor.m_defense;
                 m_armor.m_defense = equipment.getValue();
                 m_defense += m_armor.m_defense;
-                std::cout<<"Objet "<<equipment.getNameObject()<<" équipé !"<<std::endl;
+                std::cout<<"Objet "<<equipment.getNameObject()
+                        <<" équipé !"<<std::endl;
                 m_inventory.m_tabEquip[temp.getIndex()]=temp;
             }
             else
@@ -163,11 +174,13 @@ void Player::Use(Object &consumable)
                 {
                     m_health += healAmount;
                 }
-                std::cout<<"Objet "<<consumable.getNameObject()<<" utilisé !"<<std::endl;
+                std::cout<<"Objet "<<consumable.getNameObject()
+                        <<" utilisé !"<<std::endl;
                 std::cout<<"Vous avez "<<m_health<<" hp"<<std::endl;
                 consumable.setDestroyed(true);
                 deleteObject(consumable.getIndex());
-                std::cout<<"Objet "<<consumable.getNameObject()<<" détruit !"<<std::endl;
+                std::cout<<"Objet "<<consumable.getNameObject()
+                        <<" détruit !"<<std::endl;
             }
             else
             {
@@ -186,7 +199,8 @@ void Player::deleteObject(unsigned int index)
     for (unsigned int i=index;i<15;i++)
     {
             m_inventory.m_tabEquip[i]=m_inventory.m_tabEquip[i+1];
-            m_inventory.m_tabEquip[i].setIndex(m_inventory.m_tabEquip[i].getIndex()-1);
+            m_inventory.m_tabEquip[i].setIndex(m_inventory.m_tabEquip[i]
+                                               .getIndex()-1);
     }
      m_inventory.m_tabEquip[15].setNameObject("no object");
      m_inventory.m_tabEquip[15].setDestroyed(true);
@@ -234,8 +248,10 @@ void Player::getPlayerStats() const
     std::cout<<"Nom : "<<getName()<<std::endl;
     std::cout<<"Classe : "<<getNameClass()<<std::endl;
     std::cout<<"Level : "<<getLevel()<<std::endl;
-    std::cout<<"Expérience actuelle : "<<getXpCurrent()<<"/"<<getXpMax()<<std::endl;
-    std::cout<<"Expérience avant le prochain niveau : "<<getXpMax()-getXpCurrent()<<std::endl;
+    std::cout<<"Expérience actuelle : "<<getXpCurrent()
+            <<"/"<<getXpMax()<<std::endl;
+    std::cout<<"Expérience avant le prochain niveau : "
+            <<getXpMax()-getXpCurrent()<<std::endl;
     std::cout<<"Vie : "<<getHealth()<<"/"<<getMaxHealth()<<" HP"<<std::endl;
     std::cout<<"Force : "<<getStrengh()<<std::endl;
     std::cout<<"Défense : "<<getDefense()<<std::endl<<std::endl;
@@ -247,14 +263,15 @@ void Player::attack(Enemy & enemy)
     {
         if (getRange().in(enemy.getPos()))
         {
-            if((time(NULL)-m_timer)>1)
+            if(((time(NULL)-m_timer)+0.7)>1)
             {
             std::cout<<getNameClass()<<" "<<getName()<<" attaque !"<<std::endl;
             dealDamage(enemy);
             std::cout<<enemy.getEnemyRace()<<" "<<enemy.getEnemyType()<<
                     " touché ! Il perd de la vie ..."<<std::endl;
-            std::cout<<"Vie du "<<enemy.getEnemyRace()<<" "<<enemy.getEnemyType()<<
-                       " restante : "<<enemy.getHealth()<<" HP"<<std::endl;
+            std::cout<<"Vie du "<<enemy.getEnemyRace()<<" "
+                    <<enemy.getEnemyType()<<" restante : "
+                   <<enemy.getHealth()<<" HP"<<std::endl;
             m_timer=time(NULL);
             }
         }
@@ -301,4 +318,20 @@ Player &Player::operator=(const Player &copie)
         m_timer=copie.m_timer;
     }
     return *this;
+}
+
+void Player::setHealth(const unsigned int health)
+{
+    if((health>m_maxHealth)&&(m_health<m_maxHealth))
+    {
+        m_health = m_maxHealth;
+    }
+    else if ((health>m_maxHealth)&&(m_health==m_maxHealth))
+    {
+        std::cout<<"Vous avez déjà tout vos HP !"<<std::endl;
+    }
+    else
+    {
+        m_health = health;
+    }
 }

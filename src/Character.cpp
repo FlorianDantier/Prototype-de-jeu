@@ -158,28 +158,32 @@ void Character::setRange(Rectangle * range)
     m_range = range;
 }
 
-void Character::updatePlayerMoveRight(Character tabCharacter[],unsigned int sizeTab)
+void Character::updatePlayerMoveRight(Character tabCharacter[],
+                                      unsigned int sizeTab)
 {
         crashWithEnemyOnRight(tabCharacter,sizeTab);
         updateRangeRight();
         //std::cout<<"touche d appuyée : le joueur va a droite"<<std::endl;
 }
 
-void Character::updatePlayerMoveLeft(Character tabCharacter[],unsigned int sizeTab)
+void Character::updatePlayerMoveLeft(Character tabCharacter[],
+                                     unsigned int sizeTab)
 {
         crashWithEnemyOnLeft(tabCharacter,sizeTab);
         updateRangeLeft();
         //std::cout<<"touche q appuyée : le joueur va a gauche"<<std::endl;
 }
 
-void Character::updatePlayerMoveTop(Character tabCharacter[],unsigned int sizeTab)
+void Character::updatePlayerMoveTop(Character tabCharacter[],
+                                    unsigned int sizeTab)
 {
         crashWithEnemyOnTop(tabCharacter,sizeTab);
         updateRangeTop();
         //std::cout<<"touche z appuyée : le joueur monte"<<std::endl;
 }
 
-void Character::updatePlayerMoveBottom(Character tabCharacter[],unsigned int sizeTab)
+void Character::updatePlayerMoveBottom(Character tabCharacter[],
+                                       unsigned int sizeTab)
 {
         crashWithEnemyOnBottom(tabCharacter,sizeTab);
         updateRangeBottom();
@@ -261,44 +265,54 @@ void Character::attack(Character & enemy)
             dealDamage(enemy);
             std::cout<<"Un ennemi attaque !"<<std::endl;
             std::cout<<"joueur touche ! il perd de la vie ..."<<std::endl;
-            std::cout<<"Vie du joueur restante : "<<enemy.getHealth()<<" HP"<<std::endl;
+            std::cout<<"Vie du joueur restante : "<<enemy.getHealth()
+                    <<" HP"<<std::endl;
         }
     }
 }
 
 void Character::updateRangeRight()
 {
-    m_range->m_position.x = m_position->m_position.x + m_position->m_dimension.x;
-    m_range->m_position.y = m_position->m_position.y + (m_position->m_dimension.y / 4);
+    m_range->m_position.x = m_position->m_position.x +
+            m_position->m_dimension.x;
+    m_range->m_position.y = m_position->m_position.y +
+            (m_position->m_dimension.y / 4);
     m_range->m_dimension.x = m_position->m_dimension.x / 2;
     m_range->m_dimension.y = m_position->m_dimension.y / 2;
 }
 
 void Character::updateRangeLeft()
 {
-    m_range->m_position.x = m_position->m_position.x - m_range->m_dimension.x;
-    m_range->m_position.y = m_position->m_position.y + (m_position->m_dimension.y / 4);
+    m_range->m_position.x = m_position->m_position.x -
+            m_range->m_dimension.x;
+    m_range->m_position.y = m_position->m_position.y +
+            (m_position->m_dimension.y / 4);
     m_range->m_dimension.x = m_position->m_dimension.x / 2;
     m_range->m_dimension.y = m_position->m_dimension.y / 2;
 }
 
 void Character::updateRangeTop()
 {
-    m_range->m_position.x = m_position->m_position.x + (m_position->m_dimension.x/4);
-    m_range->m_position.y = m_position->m_position.y - m_range->m_dimension.y;
+    m_range->m_position.x = m_position->m_position.x +
+            (m_position->m_dimension.x/4);
+    m_range->m_position.y = m_position->m_position.y -
+            m_range->m_dimension.y;
     m_range->m_dimension.x = m_position->m_dimension.x / 2;
     m_range->m_dimension.y = m_position->m_dimension.y / 2;
 }
 
 void Character::updateRangeBottom()
 {
-    m_range->m_position.x = m_position->m_position.x + (m_position->m_dimension.x/4);
-    m_range->m_position.y = m_position->m_position.y + m_position->m_dimension.y;
+    m_range->m_position.x = m_position->m_position.x +
+            (m_position->m_dimension.x/4);
+    m_range->m_position.y = m_position->m_position.y +
+            m_position->m_dimension.y;
     m_range->m_dimension.x = m_position->m_dimension.x / 2;
     m_range->m_dimension.y = m_position->m_dimension.y / 2;
 }
 
-void Character::crashWithEnemyOnRight(Character tabCharacter[],unsigned int sizeTab)
+void Character::crashWithEnemyOnRight(Character tabCharacter[],
+                                      unsigned int sizeTab)
 {
     for (unsigned int i=0;i<sizeTab;i++)
     {
@@ -308,14 +322,16 @@ void Character::crashWithEnemyOnRight(Character tabCharacter[],unsigned int size
             {
                 tabCharacter[i].dealDamage(*this);
                 std::cout<<"warrior touche ! il perd de la vie ..."<<std::endl;
-                std::cout<<"Vie de warrior restante : "<<getHealth()<<" HP"<<std::endl;
+                std::cout<<"Vie de warrior restante : "<<getHealth()
+                        <<" HP"<<std::endl;
                 knockBackLeft();
             }
         }
     }
 }
 
-void Character::crashWithEnemyOnLeft(Character tabCharacter[],unsigned int sizeTab)
+void Character::crashWithEnemyOnLeft(Character tabCharacter[],
+                                     unsigned int sizeTab)
 {
     for (unsigned int i=0;i<sizeTab;i++)
     {
@@ -325,14 +341,16 @@ void Character::crashWithEnemyOnLeft(Character tabCharacter[],unsigned int sizeT
             {
                 tabCharacter[i].dealDamage(*this);
                 std::cout<<"warrior touche ! il perd de la vie ..."<<std::endl;
-                std::cout<<"Vie de warrior restante : "<<getHealth()<<" HP"<<std::endl;
+                std::cout<<"Vie de warrior restante : "<<getHealth()
+                        <<" HP"<<std::endl;
                 knockBackRight();
             }
         }
     }
 }
 
-void Character::crashWithEnemyOnBottom(Character tabCharacter[],unsigned int sizeTab)
+void Character::crashWithEnemyOnBottom(Character tabCharacter[],
+                                       unsigned int sizeTab)
 {
     for (unsigned int i=0;i<sizeTab;i++)
     {
@@ -342,14 +360,16 @@ void Character::crashWithEnemyOnBottom(Character tabCharacter[],unsigned int siz
             {
                 tabCharacter[i].dealDamage(*this);
                 std::cout<<"warrior touche ! il perd de la vie ..."<<std::endl;
-                std::cout<<"Vie de warrior restante : "<<getHealth()<<" HP"<<std::endl;
+                std::cout<<"Vie de warrior restante : "<<getHealth()
+                        <<" HP"<<std::endl;
                 knockBackTop();
             }
         }
     }
 }
 
-void Character::crashWithEnemyOnTop(Character tabCharacter[],unsigned int sizeTab)
+void Character::crashWithEnemyOnTop(Character tabCharacter[],
+                                    unsigned int sizeTab)
 {
     for (unsigned int i=0;i<sizeTab;i++)
     {
@@ -359,7 +379,8 @@ void Character::crashWithEnemyOnTop(Character tabCharacter[],unsigned int sizeTa
             {
                 tabCharacter[i].dealDamage(*this);
                 std::cout<<"warrior touche ! il perd de la vie ..."<<std::endl;
-                std::cout<<"Vie de warrior restante : "<<getHealth()<<" HP"<<std::endl;
+                std::cout<<"Vie de warrior restante : "<<getHealth()
+                        <<" HP"<<std::endl;
                 knockBackBottom();
             }
         }

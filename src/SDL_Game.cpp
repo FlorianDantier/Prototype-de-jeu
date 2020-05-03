@@ -69,12 +69,14 @@ SDL_Game::~SDL_Game()
 
 }
 
-bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos, unsigned int width, unsigned int height)
+bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos,
+                    unsigned int width, unsigned int height)
 {
     if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
     {
         std::cout<<"SDL init success\n";
-        m_pWindow = SDL_CreateWindow(title.c_str(), xPos, yPos, width, height, SDL_WINDOW_SHOWN);
+        m_pWindow = SDL_CreateWindow(title.c_str(), xPos, yPos, width, height,
+                                     SDL_WINDOW_SHOWN);
 
         if(m_pWindow != NULL)
         {
@@ -83,7 +85,8 @@ bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos, uns
             if(m_pRenderer != NULL)
             {
                 std::cout << "renderer creation success\n";
-                if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) //Initialisation de l'API Mixer
+                if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT,
+                                 MIX_DEFAULT_CHANNELS, 1024) == -1) //Initialisation de l'API Mixer
                                    {
                                       printf("%s", Mix_GetError());
                                    }
@@ -92,7 +95,8 @@ bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos, uns
                                     std::cout<<"SDL Mixer opened"<<std::endl;
                                     m_whichMusic = cool;
                                     Mix_AllocateChannels(3);// création canneaux pour les sons
-                                    std::cout<<"Channels creation success"<<std::endl;
+                                    std::cout<<"Channels creation success"
+                                            <<std::endl;
 
                                 }
             }
@@ -133,59 +137,122 @@ bool SDL_Game::init(std::string title, unsigned int xPos, unsigned int yPos, uns
 // Toutes les images seront chargé dynamiquement ci-dessous, donc n'oubliez pas le DELETE DANS LE DESTRUCTEUR.
 void SDL_Game::loadAllImage()
 {
-    m_mainHomeBtn = new Image("../data/button.png", &g.getHome().getChoice(0).getPosition(), windowSize, m_pRenderer);
+    m_mainHomeBtn = new Image("../data/button.png", &g.getHome().getChoice(0)
+                              .getPosition(), windowSize, m_pRenderer);
     static Rectangle r(0, 0, windowSize.x, windowSize.y);
-    m_mainBackground = new Image("../data/background.png", &r, windowSize, m_pRenderer);
+    m_mainBackground = new Image("../data/background.png", &r,
+                                 windowSize, m_pRenderer);
     //=========Image joueur warrior=========
-    m_warrior[Orientation::south] = new Image("../data/player/link.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
-    m_warrior[Orientation::north] = new Image("../data/player/linkDos.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
-    m_warrior[Orientation::east] = new Image("../data/player/linkDroit.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
-    m_warrior[Orientation::west] = new Image("../data/player/linkGauche.png",&g.getPlayer().getPos(),windowSize,m_pRenderer);
+    m_warrior[Orientation::south] = new Image("../data/player/link.png",
+                                              &g.getPlayer().getPos(),
+                                              windowSize,m_pRenderer);
+    m_warrior[Orientation::north] = new Image("../data/player/linkDos.png",
+                                              &g.getPlayer().getPos(),
+                                              windowSize,m_pRenderer);
+    m_warrior[Orientation::east] = new Image("../data/player/linkDroit.png",
+                                             &g.getPlayer().getPos(),
+                                             windowSize,m_pRenderer);
+    m_warrior[Orientation::west] = new Image("../data/player/linkGauche.png",
+                                             &g.getPlayer().getPos(),
+                                             windowSize,m_pRenderer);
     //=========Fin image warrior============
     //=========Image épée===========
-    m_sword[Orientation::south] = new Image("../data/sword/swordBottom.png",&g.getPlayer().getRange(),windowSize,m_pRenderer);
-    m_sword[Orientation::north] = new Image("../data/sword/swordTop.png",&g.getPlayer().getRange(),windowSize,m_pRenderer);
-    m_sword[Orientation::east] = new Image("../data/sword/swordRight.png",&g.getPlayer().getRange(),windowSize,m_pRenderer);
-    m_sword[Orientation::west] = new Image("../data/sword/swordLeft.png",&g.getPlayer().getRange(),windowSize,m_pRenderer);
+    m_sword[Orientation::south] = new Image("../data/sword/swordBottom.png",
+                                            &g.getPlayer().getRange(),
+                                            windowSize,m_pRenderer);
+    m_sword[Orientation::north] = new Image("../data/sword/swordTop.png",
+                                            &g.getPlayer().getRange(),
+                                            windowSize,m_pRenderer);
+    m_sword[Orientation::east] = new Image("../data/sword/swordRight.png",
+                                           &g.getPlayer().getRange(),
+                                           windowSize,m_pRenderer);
+    m_sword[Orientation::west] = new Image("../data/sword/swordLeft.png",
+                                           &g.getPlayer().getRange(),
+                                           windowSize,m_pRenderer);
     //=========Fin image épée=======
-    m_imageMap[map_1] = new Image("../data/map/map1.png", &r, windowSize ,m_pRenderer);
-    m_imageMap[map_2] = new Image("../data/map/map2.png", &r, windowSize ,m_pRenderer);
-    m_imageMap[instance1] = new Image("../data/map/instance.png", &r, windowSize, m_pRenderer);
+    m_imageMap[map_1] = new Image("../data/map/map1.png", &r,
+                                  windowSize ,m_pRenderer);
+    m_imageMap[map_2] = new Image("../data/map/map2.png", &r,
+                                  windowSize ,m_pRenderer);
+    m_imageMap[instance1] = new Image("../data/map/instance.png", &r,
+                                      windowSize, m_pRenderer);
     //=========Image pour map1==========
     //pour object map1
-    m_objectMap1[0] = new Image("../data/healthpotion.png",&g.getObject(0,map_1).getPos(),windowSize,m_pRenderer);
-    m_objectMap1[1] = new Image("../data/hell's sword.png",&g.getObject(1,map_1).getPos(),windowSize,m_pRenderer);
-    m_objectMap1[2] = new Image("../data/hell's armor.png",&g.getObject(2,map_1).getPos(),windowSize,m_pRenderer);
+    m_objectMap1[0] = new Image("../data/healthpotion.png",
+                                &g.getObject(0,map_1).getPos(),
+                                windowSize,m_pRenderer);
+    m_objectMap1[1] = new Image("../data/hell's sword.png",
+                                &g.getObject(1,map_1).getPos(),
+                                windowSize,m_pRenderer);
+    m_objectMap1[2] = new Image("../data/hell's armor.png",
+                                &g.getObject(2,map_1).getPos(),
+                                windowSize,m_pRenderer);
     //pour enemy Map1
-    m_enemyMap1[0] = new Image("../data/knight.png",&g.getEnemy(0,map_1).getPos(),windowSize,m_pRenderer);
-    m_enemyMap1[1] = new Image("../data/knight.png",&g.getEnemy(1,map_1).getPos(),windowSize,m_pRenderer);
-    m_enemyMap1[2] = new Image("../data/eliteKnight.png",&g.getEnemy(2,map_1).getPos(),windowSize,m_pRenderer);
-    m_enemyMap1[3] = new Image("../data/knight.png",&g.getEnemy(3,map_1).getPos(),windowSize,m_pRenderer);
+    m_enemyMap1[0] = new Image("../data/knight.png",
+                               &g.getEnemy(0,map_1).getPos(),
+                               windowSize,m_pRenderer);
+    m_enemyMap1[1] = new Image("../data/knight.png",
+                               &g.getEnemy(1,map_1).getPos(),
+                               windowSize,m_pRenderer);
+    m_enemyMap1[2] = new Image("../data/eliteKnight.png",
+                               &g.getEnemy(2,map_1).getPos(),
+                               windowSize,m_pRenderer);
+    m_enemyMap1[3] = new Image("../data/knight.png",
+                               &g.getEnemy(3,map_1).getPos(),
+                               windowSize,m_pRenderer);
     //=========Fin Image map1=========
 
     //=========Image pour map2=========
     //pour object map2
-    m_objectMap2[0] = new Image("../data/healthpotion.png",&g.getObject(0,map_2).getPos(),windowSize,m_pRenderer);
-    m_objectMap2[1] = new Image("../data/healthpotion.png",&g.getObject(1,map_2).getPos(),windowSize,m_pRenderer);
+    m_objectMap2[0] = new Image("../data/healthpotion.png",
+                                &g.getObject(0,map_2).getPos(),
+                                windowSize,m_pRenderer);
+    m_objectMap2[1] = new Image("../data/healthpotion.png",
+                                &g.getObject(1,map_2).getPos(),
+                                windowSize,m_pRenderer);
     //pour enemy map2
-    m_enemyMap2[0] = new Image("../data/eliteKnight.png",&g.getEnemy(0,map_2).getPos(),windowSize,m_pRenderer);
-    m_enemyMap2[1] = new Image("../data/eliteKnight.png",&g.getEnemy(1,map_2).getPos(),windowSize,m_pRenderer);
-    m_enemyMap2[2] = new Image("../data/skeletonJedi.png",&g.getEnemy(2,map_2).getPos(),windowSize,m_pRenderer);
-    m_enemyMap2[3] = new Image("../data/knight.png",&g.getEnemy(3,map_2).getPos(),windowSize,m_pRenderer);
+    m_enemyMap2[0] = new Image("../data/eliteKnight.png",
+                               &g.getEnemy(0,map_2).getPos(),
+                               windowSize,m_pRenderer);
+    m_enemyMap2[1] = new Image("../data/eliteKnight.png",
+                               &g.getEnemy(1,map_2).getPos(),
+                               windowSize,m_pRenderer);
+    m_enemyMap2[2] = new Image("../data/skeletonJedi.png",
+                               &g.getEnemy(2,map_2).getPos(),
+                               windowSize,m_pRenderer);
+    m_enemyMap2[3] = new Image("../data/knight.png",
+                               &g.getEnemy(3,map_2).getPos(),
+                               windowSize,m_pRenderer);
     //=========Fin Image map2=========
 
     //=========Image pour Instance1=======
-    m_enemyInstance[0] = new Image("../data/dragon.png",&g.getEnemy(0,instance1).getPos(),windowSize,m_pRenderer);
-    m_enemyInstance[1] = new Image("../data/cyclop.png",&g.getEnemy(1,instance1).getPos(),windowSize,m_pRenderer);
-    m_enemyInstance[2] = new Image("../data/cyclop.png",&g.getEnemy(2,instance1).getPos(),windowSize,m_pRenderer);
-    m_enemyInstance[3] = new Image("../data/cyclop.png",&g.getEnemy(3,instance1).getPos(),windowSize,m_pRenderer);
+    m_enemyInstance[0] = new Image("../data/dragon.png",
+                                   &g.getEnemy(0,instance1).getPos(),
+                                   windowSize,m_pRenderer);
+    m_enemyInstance[1] = new Image("../data/cyclop.png",
+                                   &g.getEnemy(1,instance1).getPos(),
+                                   windowSize,m_pRenderer);
+    m_enemyInstance[2] = new Image("../data/cyclop.png",
+                                   &g.getEnemy(2,instance1).getPos(),
+                                   windowSize,m_pRenderer);
+    m_enemyInstance[3] = new Image("../data/cyclop.png",
+                                   &g.getEnemy(3,instance1).getPos(),
+                                   windowSize,m_pRenderer);
     //=========Fin image pour instance1===
 
     Rectangle r5(200, 200, 100, 100);
-    m_imInventory = new Image("../data/inventaire.png", &g.getInventory().getPosition(), windowSize, m_pRenderer);
-    m_openInv = new Image("../data/open.png", &g.getInventory().getOpenButton().getPosition(), windowSize, m_pRenderer);
-    m_closeInv = new Image("../data/close.png", &g.getInventory().getCloseButton().getPosition(), windowSize, m_pRenderer);
-    m_healButton = new Image("../data/healthpotion.png", &g.getInventory().getChoice(0).getPosition(), windowSize, m_pRenderer);
+    m_imInventory = new Image("../data/inventaire.png",
+                              &g.getInventory().getPosition(),
+                              windowSize, m_pRenderer);
+    m_openInv = new Image("../data/open.png",
+                          &g.getInventory().getOpenButton().getPosition(),
+                          windowSize, m_pRenderer);
+    m_closeInv = new Image("../data/close.png",
+                           &g.getInventory().getCloseButton().getPosition(),
+                           windowSize, m_pRenderer);
+    m_healButton = new Image("../data/healthpotion.png",
+                             &g.getInventory().getChoice(0).getPosition(),
+                             windowSize, m_pRenderer);
 
 }
 
@@ -201,7 +268,8 @@ void SDL_Game::render()
         m_mainBackground->display(m_pRenderer);
         m_mainHomeBtn->display(m_pRenderer);
     }
-    else if(g.getStatus() == GameStatus::run || g.getStatus() == GameStatus::standBy)
+    else if(g.getStatus() == GameStatus::run
+            || g.getStatus() == GameStatus::standBy)
     {
         m_imageMap[g.getMapLoad()]->display(m_pRenderer);
         if (g.getPlayer().isAlive())
@@ -266,7 +334,8 @@ void SDL_Game::render()
                m_imInventory->display(m_pRenderer);
                m_closeInv->display(m_pRenderer);
                m_healButton->display(m_pRenderer);
-               SDL_SetRenderDrawColor(m_pRenderer, 50, 200, 20, SDL_ALPHA_OPAQUE);
+               SDL_SetRenderDrawColor(m_pRenderer, 50, 200, 20,
+                                      SDL_ALPHA_OPAQUE);
            }
            else
            {
@@ -348,7 +417,8 @@ void SDL_Game::handleEvents()
                         break;
 
                     case SDLK_SPACE:
-                        m_sword[g.getPlayer().getOrientation()]->display(m_pRenderer);
+                        m_sword[g.getPlayer().getOrientation()]
+                                ->display(m_pRenderer);
                         g.eventTouch(' ');
                         Mix_PlayChannel(1,m_attackSound,0);
                         break;
@@ -440,7 +510,10 @@ void SDL_Game::handleEvents()
         //=======Fin musiques============================
 
     //=======ici les monstres bougent et tapent : IA========
-    g.ennemyManager();
+    if(g.getStatus() == GameStatus::run)
+    {
+        g.ennemyManager();
+    }
     //=====Fin IA=====
     //=========Le joueur lvl up=========
     if(g.getPlayer().getXpCurrent()>=g.getPlayer().getXpMax())
