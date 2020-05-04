@@ -14,7 +14,7 @@ OBJ_FILES	=	./obj/main.o 		\
 
 EXEC_NAME	=	./bin/game
 
-CFLAGS	=	-Wall -ggdb
+CFLAGS	=	-Wall
 
 CC	=	g++
 
