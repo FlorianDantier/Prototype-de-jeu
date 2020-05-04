@@ -37,7 +37,6 @@ private:
     void loadAllMusics();
 
     void renderEnnemysAndObjects();
-    void renderMap();
     void renderInventory();
 
     // Membre SDL

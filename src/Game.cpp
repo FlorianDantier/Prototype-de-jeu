@@ -14,7 +14,7 @@ Game::Game() : m_home(nullptr), m_status(GameStatus::home)
     m_home = new Menu(1, Rectangle(0, 0, windowSize.x, windowSize.y),
                       true, true, notLoad, notLoad);
     // Le menu "home" est une exception dans le sens où il n'y aura pas de bouton pour ouvir ou fermer ce menu
-    m_home->setChoice(Button (Rectangle  (50, 100, 550, 100), true), 0);
+    m_home->setChoice(Button (Rectangle  (151, 135, 503, 134), true), 0);
 
     m_ml = map_1;
     //=============== Création des maps==================
