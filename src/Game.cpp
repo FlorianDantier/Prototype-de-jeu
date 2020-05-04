@@ -195,7 +195,7 @@ void Game::changeMapManager()
    {
         m_ml = map_2;
         Rectangle r = m_warrior->getPos();
-        r.m_position.x = -15;
+        r.m_position.x = -5;
         m_warrior->setPos(r);
    }
    else if(isAtTheEdge(m_warrior->getPos()) == direction::left
@@ -203,7 +203,7 @@ void Game::changeMapManager()
    {
         m_ml = map_1;
         Rectangle r = m_warrior->getPos();
-        r.m_position.x = 790;
+        r.m_position.x = 785;
         m_warrior->setPos(r);
    }
    else
