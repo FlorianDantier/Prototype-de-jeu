@@ -4,18 +4,76 @@
 #include <math.h>
 
 template <typename T>
+/**
+ * @brief      This class describes a two dimensions vector.
+ */
 class Vec2
 {
 public:
     T x;
     T y;
+    /**
+     * @brief      Constructs a new instance.
+     */
     Vec2();
+    /**
+     * @brief      Constructs a new instance.
+     *
+     * @param[in]  x     the vector x-coordinate
+     * @param[in]  y     the vector y-coordinate
+     */
     Vec2(T x, T y);
+
+    /**
+     * @brief      Constructs a new instance.
+     *
+     * @param[in]  v     the 2D vector to be copied
+     */
     Vec2(const Vec2<T> & v);
+
+    /**
+     * @brief      Gives the distance between the (x, y) point and the the point (v.x, v.y)
+     *
+     * @param[in]  v     the second point
+     *
+     * @return     a decimal value of the distance
+     */
     float distance(const Vec2<T> & v);
+
+    /**
+     * @brief      Addition assignment operator.
+     *
+     * @param[in]  add   The second vector
+     *
+     * @return     The result of the addition assignment
+     */
     Vec2<T> &operator+=(const Vec2<T> & add);
+
+    /**
+     * @brief      Subtraction assignment operator.
+     *
+     * @param[in]  add   The second vector
+     *
+     * @return     The result of the subtraction assignment
+     */
     Vec2<T> &operator-=(const Vec2<T> & add);
+
+    /**
+     * @brief      Multiplication assignment operator.
+     *
+     * @param[in]  scalar  The scalar
+     *
+     * @return     The result of the multiplication assignment
+     */
     Vec2<T> &operator*=(const T scalar);
+
+    /**
+     * @brief      Division assignment operator.
+     *
+     * @param[in]  scalar  The scalar
+     *
+     * @return     The result of the division assignment
+     */
     Vec2<T> &operator/=(const T scalar);
 };
 

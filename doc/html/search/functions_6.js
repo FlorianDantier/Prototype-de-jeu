@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['open_98',['open',['../classMenu.html#ac38d5bf0a24f7bfa8895333c8699fe15',1,'Menu']]],
-  ['operator_3d_99',['operator=',['../classMenu.html#a490489182b9dfe4f83e9df25c58d6fbb',1,'Menu::operator=()'],['../classButton.html#a41b7a834bb8b346fb44e7f76b4e2625b',1,'Button::operator=()']]]
+  ['handleevents_315',['handleEvents',['../classSDL__Game.html#ab67189af840935bce0a7ce46b5307e18',1,'SDL_Game']]],
+  ['heal_316',['heal',['../classGame.html#a47e30068e2e548b5f43d4977630edb81',1,'Game']]]
 ];

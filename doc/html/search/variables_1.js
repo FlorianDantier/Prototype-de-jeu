@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['r1_121',['r1',['../structDoubleRect.html#acdd83a3e140f85f15f184de1b3ee8bd9',1,'DoubleRect']]],
-  ['r2_122',['r2',['../structDoubleRect.html#a5aaab48dc2b9d05eaede34342366301c',1,'DoubleRect']]]
+  ['ptronheal_424',['ptrOnHeal',['../classGame.html#ac7744a20314aeca41bbe81e10b9ac1a9',1,'Game']]],
+  ['ptronlauchgame_425',['ptrOnLauchGame',['../classGame.html#a373bfb021ac8f6bc73fef3f27429cee6',1,'Game']]]
 ];

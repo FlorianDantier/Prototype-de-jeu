@@ -1,23 +1,9 @@
 var searchData=
 [
-  ['getalldecor_6',['getAllDecor',['../classMap.html#abc36953687761454dd15f0c957d05681',1,'Map']]],
-  ['getbas_7',['getBas',['../classRectangle.html#a05db9d10815652d37610ad8e583c300c',1,'Rectangle']]],
-  ['getchoice_8',['getChoice',['../classMenu.html#a25b110bd7e4048e6effafcffd7acd549',1,'Menu']]],
-  ['getclosebutton_9',['getCloseButton',['../classMenu.html#a2a25cbbb6913d275ec9f176ce8a86eb4',1,'Menu']]],
-  ['getdecor_10',['getDecor',['../classMap.html#ac7c6c2291908e1808fbe1f0a75d1617d',1,'Map']]],
-  ['getdroit_11',['getDroit',['../classRectangle.html#ab7be8089df5e9fbf75dfd0dba28e6494',1,'Rectangle']]],
-  ['getgauche_12',['getGauche',['../classRectangle.html#ab4cbbf19447e329c0629490384c32262',1,'Rectangle']]],
-  ['gethaut_13',['getHaut',['../classRectangle.html#a8d1f49ba40b096fcce1dcec76cf3de55',1,'Rectangle']]],
-  ['getisload_14',['getIsLoad',['../classMenu.html#adac5629abb7ec4ea09df52206a074981',1,'Menu::getIsLoad()'],['../classButton.html#a90eff4f3314ec74b1fea1ddb16315b2f',1,'Button::getIsLoad()']]],
-  ['getisopen_15',['getIsOpen',['../classMenu.html#a5dd02aec62c23cddf68aac28025b0bac',1,'Menu']]],
-  ['getnbdecor_16',['getNbDecor',['../classMap.html#a1895293e8f4d3ae03e9cc3bcb45fcea8',1,'Map']]],
-  ['getopenbutton_17',['getOpenButton',['../classMenu.html#a35a60bd41a76b8d46ec1197ee9e7f6d8',1,'Menu']]],
-  ['getoutzone_18',['getOutZone',['../classMap.html#add6fafad34ea4bc140a42fb0e6192bf4',1,'Map']]],
-  ['getpointmax_19',['getPointMax',['../classRectangle.html#ae4201fd03d594ac358fd0e843490b607',1,'Rectangle']]],
-  ['getpointmin_20',['getPointMin',['../classRectangle.html#a0294c7d1ec920584d3944a270c058f47',1,'Rectangle']]],
-  ['getposition_21',['getPosition',['../classButton.html#aadc390868d072aa788f125b8324916ef',1,'Button']]],
-  ['getxmax_22',['getXmax',['../classRectangle.html#a0ac89bea35682195b3b376fd6177eab6',1,'Rectangle']]],
-  ['getxmin_23',['getXmin',['../classRectangle.html#a54b4ad645fe848c80b5db5e4f77f3014',1,'Rectangle']]],
-  ['getymax_24',['getYmax',['../classRectangle.html#a4967b84debad79ec7e7c6a91080437da',1,'Rectangle']]],
-  ['getymin_25',['getYmin',['../classRectangle.html#a77cc622048f087f2f017c4cc47960e61',1,'Rectangle']]]
+  ['enemy_26',['Enemy',['../classEnemy.html',1,'Enemy'],['../classEnemy.html#a94f30d348b6d2840fd71675472ba38dd',1,'Enemy::Enemy()'],['../classEnemy.html#abe24344553c3f8a13c4b5af3ee672faf',1,'Enemy::Enemy(EnemyType type, EnemyRace race, const Rectangle &amp;pos, const unsigned int health, const unsigned int level, RoamingDirection direction, bool hasLoot)']]],
+  ['enemypattern_27',['enemyPattern',['../classEnemy.html#a7374db0fe22f983e01daccb5ac2fda8f',1,'Enemy']]],
+  ['ennemymanager_28',['ennemyManager',['../classGame.html#ab410eb7badfb16b935422d916f02afaf',1,'Game']]],
+  ['equip_29',['Equip',['../classPlayer.html#abf0723463b6f38848624bcf46e715b37',1,'Player']]],
+  ['eventmanagers_30',['eventManagers',['../classGame.html#a9f6d2dc7fa309ae1703a469961559d9f',1,'Game']]],
+  ['eventtouch_31',['eventTouch',['../classGame.html#a3cf816efe8a0f75ced3a6a4416c91a57',1,'Game']]]
 ];

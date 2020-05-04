@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['image_62',['Image',['../classImage.html',1,'']]]
+  ['doublerect_211',['DoubleRect',['../structDoubleRect.html',1,'']]]
 ];

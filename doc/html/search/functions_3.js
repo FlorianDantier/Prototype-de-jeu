@@ -1,23 +1,8 @@
 var searchData=
 [
-  ['getalldecor_70',['getAllDecor',['../classMap.html#abc36953687761454dd15f0c957d05681',1,'Map']]],
-  ['getbas_71',['getBas',['../classRectangle.html#a05db9d10815652d37610ad8e583c300c',1,'Rectangle']]],
-  ['getchoice_72',['getChoice',['../classMenu.html#a25b110bd7e4048e6effafcffd7acd549',1,'Menu']]],
-  ['getclosebutton_73',['getCloseButton',['../classMenu.html#a2a25cbbb6913d275ec9f176ce8a86eb4',1,'Menu']]],
-  ['getdecor_74',['getDecor',['../classMap.html#ac7c6c2291908e1808fbe1f0a75d1617d',1,'Map']]],
-  ['getdroit_75',['getDroit',['../classRectangle.html#ab7be8089df5e9fbf75dfd0dba28e6494',1,'Rectangle']]],
-  ['getgauche_76',['getGauche',['../classRectangle.html#ab4cbbf19447e329c0629490384c32262',1,'Rectangle']]],
-  ['gethaut_77',['getHaut',['../classRectangle.html#a8d1f49ba40b096fcce1dcec76cf3de55',1,'Rectangle']]],
-  ['getisload_78',['getIsLoad',['../classMenu.html#adac5629abb7ec4ea09df52206a074981',1,'Menu::getIsLoad()'],['../classButton.html#a90eff4f3314ec74b1fea1ddb16315b2f',1,'Button::getIsLoad()']]],
-  ['getisopen_79',['getIsOpen',['../classMenu.html#a5dd02aec62c23cddf68aac28025b0bac',1,'Menu']]],
-  ['getnbdecor_80',['getNbDecor',['../classMap.html#a1895293e8f4d3ae03e9cc3bcb45fcea8',1,'Map']]],
-  ['getopenbutton_81',['getOpenButton',['../classMenu.html#a35a60bd41a76b8d46ec1197ee9e7f6d8',1,'Menu']]],
-  ['getoutzone_82',['getOutZone',['../classMap.html#add6fafad34ea4bc140a42fb0e6192bf4',1,'Map']]],
-  ['getpointmax_83',['getPointMax',['../classRectangle.html#ae4201fd03d594ac358fd0e843490b607',1,'Rectangle']]],
-  ['getpointmin_84',['getPointMin',['../classRectangle.html#a0294c7d1ec920584d3944a270c058f47',1,'Rectangle']]],
-  ['getposition_85',['getPosition',['../classButton.html#aadc390868d072aa788f125b8324916ef',1,'Button']]],
-  ['getxmax_86',['getXmax',['../classRectangle.html#a0ac89bea35682195b3b376fd6177eab6',1,'Rectangle']]],
-  ['getxmin_87',['getXmin',['../classRectangle.html#a54b4ad645fe848c80b5db5e4f77f3014',1,'Rectangle']]],
-  ['getymax_88',['getYmax',['../classRectangle.html#a4967b84debad79ec7e7c6a91080437da',1,'Rectangle']]],
-  ['getymin_89',['getYmin',['../classRectangle.html#a77cc622048f087f2f017c4cc47960e61',1,'Rectangle']]]
+  ['dealdamage_245',['dealDamage',['../classPlayer.html#ae2fe2ce4d35d865b8a7cc66db143e474',1,'Player::dealDamage()'],['../classCharacter.html#ab5115e83a4caf74e27ab2f2881218c17',1,'Character::dealDamage()']]],
+  ['die_246',['die',['../classEnemy.html#af55f26e610f05c14e631b25f83b4ee2d',1,'Enemy::die()'],['../classCharacter.html#a112ffb75592be9e1e9cf78b1428ffedf',1,'Character::die()']]],
+  ['display_247',['display',['../classImage.html#ab2afb395b7cbb1042e70c13415e258ef',1,'Image::display()'],['../classCharacter.html#ad50c5f468d3b57d232070b2c2bd2a7c8',1,'Character::display()']]],
+  ['distance_248',['distance',['../classVec2.html#aa5c0ae9d7594aacd70c742388036213a',1,'Vec2']]],
+  ['droploot_249',['dropLoot',['../classEnemy.html#a09f26dd7d92c4f4db812d97ee1a35156',1,'Enemy']]]
 ];

@@ -1,0 +1,1043 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <help_text>// Uncomment the following line to change the fontsize and font:
+fontsize=10
+// fontfamily=SansSerif //possible: SansSerif,Serif,Monospaced
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// Welcome to UMLet!
+//
+// Double-click on elements to add them to the diagram, or to copy them
+// Edit elements by modifying the text in this panel
+// Hold Ctrl to select multiple elements
+// Use Ctrl+mouse to select via lasso
+//
+// Use +/- or Ctrl+mouse wheel to zoom
+// Drag a whole relation at its central square icon
+//
+// Press Ctrl+C to copy the whole diagram to the system clipboard (then just paste it to, eg, Word)
+// Edit the files in the "palettes" directory to create your own element palettes
+//
+// Select "Custom Elements &gt; New..." to create new element types
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// This text will be stored with each diagram;  use it for notes.</help_text>
+  <zoom_level>6</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>462</x>
+      <y>1044</y>
+      <w>300</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>Vec2 : Class Template &lt;T&gt;
+--
++ x : T
++ y : T
+--
++ Vec2() : constructeur par défaut
++ Vec2(IN T, IN T)
++ Vec2(IN Vec2) : constructeur par copie
++ distance(IN Vec2) -&gt; Décimal
++ operator+=(IN Vec2) -&gt; Vec2
++ operator-=(IN Vec2) -&gt; Vec2
++ operator*=(IN T) -&gt; Vec2
++ operator/=(IN T) -&gt; Vec2
++ operator+(IN Vec2, IN Vec2) -&gt; Vec2
++ operator-(IN Vec2, IN Vec2) -&gt; Vec2
++ operator*(IN Vec2, IN T) -&gt; Vec2
++ operator*(IN T, IN Vec2) -&gt; Vec2
++ operator/(IN Vec2, IN T) -&gt; Vec2
++ operator/(IN T, IN Vec2) -&gt; Vec2
++ operator==(IN Vec2, IN Vec2) -&gt; boolean
+--
+operator+(IN Vec2, IN Vec2) -&gt; Vec2
+operator-(IN Vec2, IN Vec2) -&gt; Vec2
+bg=magenta</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>258</x>
+      <y>1410</y>
+      <w>306</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>Image
+--
+- m_psurface : Lien vers SDL_Surface
+- m_pTexture : Lien vers SDL_Texture
+- m_source : Rectangle
+- m_destination : Rectangle
+- m_destination: lien vers Rectangle
+- m_image: std::string
+--
+-testInOut(IN Vec2)
+-loadImage(IN string, Lien vers SDL_Renderer)
++ Image() : Constructeur par défaut
++ Image(IN référence vers std::string, IN lien vers Rectangle, 
+IN référence vers Vec2&lt;unsigned int&gt;, IN Lien vers SDL_Renderer)
++ Image(IN référence vers std::string, IN référence vers Rectangle,
+IN lien vers Rectangle, IN référence vers Vec2&lt;unsigned int&gt;, IN lien vers SDL_Renderer)
++ ~Game()
++ procédure display(IN lien vers SDL_Renderer)
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>942</y>
+      <w>336</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>_Rectangle_
+--
+
+
+
+
+
+
+
+
+
+--
++ m_positon: Vec2&lt;int&gt;
++ m_dimension: Vec2&lt;int&gt;
++ Rectangle() : constructeur par défaut
++ Rectangle(IN Entier, IN Entier, IN Entier, IN Entier)
++ Rectangle(IN référence vers Vec2&lt;Entier&gt;, IN référence vers Vec2&lt;Entier&gt;)
++ in(IN référence vers Vec2&lt;Entier&gt;) -&gt; boolean
++ in(IN référence vers Rectangle) -&gt; boolean
++ collision(IN tableau de Rectangle, IN entier non signé) -&gt; entier
++ centre() -&gt; Vec2&lt;int&gt;
++ procédure setCentre(IN référence vers Vec2&lt;int&gt;)
++ procédure setPointMin(IN référence vers Vec2&lt;int&gt;)
++ procédure setPointMax(IN référence vers Vec2&lt;int&gt;)
++ getPointMin() -&gt; Vec2&lt;int&gt;
++ getPointMax() -&gt; Vec2&lt;int&gt;
++ getXmin() -&gt; entier
++ getYmin() -&gt; entier
++ getXmax() -&gt; entier
++ getYmax() -&gt; entier
++ procédure setXmin(IN entier)
++ procédure setYmin(IN entier)
++ procédure setXmax(IN entier)
++ procédure setYmax(IN entier)
++ getDroit() -&gt; Rectangle
++ getGauche() -&gt; Rectangle
++ getHaut() -&gt; Rectangle
++ getBas() -&gt; Rectangle
++ cutTwo() -&gt; DoubleRect
++ cutFour() -&gt; FourRect
++ cutHeight() -&gt; lien vers Rectangle
++ cutTwoBis() -&gt; DoubleRect
++ cutFourBis() -&gt; FourRect
++ cutHeightBis() -&gt; lien vers Rectangle
+
+bg=cyan</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>798</x>
+      <y>798</y>
+      <w>462</w>
+      <h>312</h>
+    </coordinates>
+    <panel_attributes>_Enemy_
+--
+
+
+
+--
+- m_hasLoot: booléen
+- m_hasChest: booléen
+- m_type: EnemyTYpe
+- m_race: EnelyRace
+- m_xpGiving: entier non signé
+- m_status: EnemyStaus
+- m_direction: RoamingDirection
+- m_posOrigin: lien vers Vec2&lt;int&gt;
+- m_waitingBeforeAttacking: time_t
+--
++ Enemy()
++ Enemy(type: EnemyType, race: EnemyRace, pos: reference Rectangle,
+health: entier non signé const, level: entier non signé const,
+direction: RoamingDirection, hasLooot: booleen)
+
++ procédure moveRight()
++ procédure moveLeft()
++ procédure moveTop()
++ procédure moveBottom()
++ procédure enemyPattern(OUT référence vers Player)
++ procédure giveXp(OUT référence vers Player)
++ getEnemyRace() -&gt; std::string
++ getEnemyType() -&gt; std::string
++ procédure dropLoot()
++ procédure takeDamage(IN entier non signé, OUT reference vers Player)
++ procédure die(OUT reference vers Player)
++ getLoot() -&gt; Object
++ getChest() -&gt; Object
++ getTimer() -&gt; time_t
++ operator=(IN reference vers Enemy) -&gt; reference vers Enemy
+
+
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>798</x>
+      <y>810</y>
+      <w>60</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Enum EnemyType
+sbire, elite, boss</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>858</x>
+      <y>810</y>
+      <w>84</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Enum EnemyRace
+beast, element, humanoid</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>942</x>
+      <y>810</y>
+      <w>132</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Enum EnemyStatus
+roaming, comingToPlayer, attacking, dead
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1074</x>
+      <y>810</y>
+      <w>186</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Enum RoamingDirection
+verticalTop, verticalBottom, horizontalRight, horizontalLeft</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1320</x>
+      <y>798</y>
+      <w>288</w>
+      <h>312</h>
+    </coordinates>
+    <panel_attributes>_Player_
+--
+
+
+
+
+
+
+
+
+--
+- m_name: std::string
+- m_tabEquipped : tableau de Objet de taille 2
+- m_armor: Armor
+- m_class: PlayerClass
+- m_xpCurrent: entier non signé
+- m_xpMax: entier non signé
+- m_timer: time_t
++ m_inventory: Inventory
+
+--
+
+- procédure deleteObject(IN entier non signé)
++ Player()
++ Player(IN reference vers std::string, IN PlayerClass, 
+IN reference vers Rectangle, IN entier non signé, IN entier non signé)
++ getXpCurrent() -&gt; entier non signé
++ getXpMax() -&gt; entier non signé
++ procédure increaseXp(IN entier non signé)
++ procédure levelUp()
++ procédure Loot(OUT tableau d'Object, IN entier non signé)
++ procédure Equip(OUT référence vers Object)
++ procédure Use(OUT: référence vers Object)
++ procédure openInventory() const;
++ getName() const -&gt; std::string
++ getNameClasse() const -&gt; std::string
++ procédure getPlayerStats() const
++ procédure attack(OUT référence vers Enemy)
++ procédure dealDamage(OUT référence vers Enemy)
++ procédure kill(OUT référence vers Enemy)
++ getTimer() -&gt; time_t
++ operator=(IN référence vers Player) -&gt; reference vers Player
+
+
+
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1320</x>
+      <y>810</y>
+      <w>156</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>struct Inventory
+	m_tabEquip: tableau statique d'objects taille 16
+	m_numEmptySlot</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1476</x>
+      <y>810</y>
+      <w>132</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>struct Armor
+	m_defense: entier non signé</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1320</x>
+      <y>840</y>
+      <w>288</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Enum PlayerClass
+warrior, archer, mage</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1086</x>
+      <y>0</y>
+      <w>384</w>
+      <h>558</h>
+    </coordinates>
+    <panel_attributes>_Character_
+--
+
+
+
+
+
+
+
+
+
+
+
+--
+- m_heath: entier non signé
+- m_maxHealth: entier non signé
+- m_defense: entier non signé
+- m_level: entier non signé
+- m_strengh: entier non signé
+- m_alive : boolean
+- m_position: lien vers Rectangle
+- m_range: lien vers Rectangle
+- m_isLoaded: boolean
+- m_isXpGiven: boolean
+- m_orient: Orientation
++ m_weapon: Weapon
+--
++ Character()
++ Character(pos: référence constante vers Rectangle, health; entier non signé, 
+level: entier non signé)
++ ~Character()
++ procédure move(direction: référence constante vers Vec2&lt;int&gt;)
++ getPos() -&gt; référence vers Rectangle
++ procédure setPos(rec: référence constante vers Rectangle)
++ procédure takeDammage(damageToDeal: entier non signé, enemy: référence vers Enemy)
++ procédure dealDamage(c_enemi: référence vers Enemy)
++ getHealth() const -&gt; entier non signé
++ getMaxHealth() const -&gt; entier non signé
++ getLevel() const -&gt; entier non signé
++ getDefense() const -&gt; entier non signé
++ getStrengh() const -&gt; entier non signé
++ getRange() const -&gt; référence vers Rectangle
++ procédure setHealth(health: entier non signé const)
++ procédure setMaxHealth(maxHealth: entier non signé const)
++ procédure setLevel(level: entier non signé const)
++ procédure setDefense(defense: entier non signé const)
++ procédure setStrengh(strengh: entier non signé const)
++ procédure setRange(range: lien vers Rectangle)
++ procédure updatePlayerMoveRight(tabCharacter: tableau de Character, sizeTab: entier non signé)
++ procédure updatePlayerMoveLeft(tabCharacter: tableau de Character, sizeTab: entier non signé)
++ procédure updatePlayerMoveTop(tabCharacter: tableau de Character, sizeTab: entier non signé)
++ procédure updatePlayerMoveBottom(tabCharacter: tableau de Character, sizeTab: entier non signé) 
++ procédure display()
++ getVecPos() -&gt; Vec2&lt;int&gt;
++ procédure die()
++ isAlive() -&gt; bool const
++ procédure knockBackRight()
++ procédure knockBackLeft()
++ procédure knockBackTop()
++ procédure knockBackBottom()
++ procédure kill(enemy: référence vers Character)
++ procédure attack(enemy: référence vers Character)
++ procédure updateRangeRight()
++ procédure updateRangeLeft()
++ procédure updateRangeTop()
++ procédure updateRangeBottom()
++ procédure crashWithEnemyOnRight(tabcharacter: tableau de Character, sizeTab: entier non signé)
++ procédure crashWithEnemyOnLeft(tabcharacter: tableau de Character, sizeTab: entier non signé)
++ procédure crashWithEnemyOnTop(tabcharacter: tableau de Character, sizeTab: entier non signé)
++ procédure crashWithEnemyOnBottom(tabcharacter: tableau de Character, sizeTab: entier non signé)
++ procédure setLoad(load: boolean)
++ isLoad() -&gt; boolean
++ testInOut() -&gt; boolean
++ procédure setOrientation(orient: Orientation const)
++ getOrientation() const -&gt; Orientation
++ operator=(copie: référence constante vers Character) -&gt; référence vers Caracter
+
+
+
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1038</x>
+      <y>552</y>
+      <w>468</w>
+      <h>258</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+bg=blue
+fg=blue</panel_attributes>
+    <additional_attributes>420.0;10.0;420.0;180.0;760.0;180.0;760.0;410.0;760.0;180.0;10.0;180.0;10.0;410.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>642</x>
+      <y>1608</y>
+      <w>396</w>
+      <h>342</h>
+    </coordinates>
+    <panel_attributes>_SDL_Game_
+--
+
+
+
+--
+- m_pWindow: lien vers SDL_Window
+- m_pRenderer: lien vers SDL_Renderer
+- m_running : boolean
+- g: Game
+- framelimit: entier non signé
+- m_whichMusic: Music
+- m_cool_music: lien vers Mix_Music
+- m_techno_music: lien vers Mix_Music
+- m_attackSound: lien vers Mix_Chunk
+- m_levelupSound: lien vers Mix_Chunk
+- m_menuClicSound: lien vers Mix_Chunk
+
+- m_mainBackGround: lien vers Image
+- m_mainHomeBtn: lien vers Image
+- m_imageMap: tableau d'Image
+- m_imInventory: lien vers Imae
+- m_closeInv: lien vers Image
+- m_openInv: lien vers Image
+- m_healButton: lien vers Image
+- m_warrior: tableau de taille 4 d'Image 
+- m_sword; tableau de taille 4 d'Image
+- m_objectMap1: tableau de taille 3 d'Image
+- m_enemyMap1: tableau de taille 4 d'Image
+- m_objectMap2: tableau de taille 2 d'Image
+- m_enemyMap2: tableau de taille 4 d'Image
+- m_enemyInstance: tableau de taille 4 d'Image
+--
++ SDL_Game()
++ ~SDL_Game()
++ init(IN std::string, IN entier non signé, IN entier non signé,
+IN entier non signé, IN entier non signé) -&gt; boolean
++ procédure render()
++ procédure handleEvents()
++ getRunning() -&gt; boolean
++ procédure limitFPS(IN entier non signé)
+
+- procédure loadAllImage()
+- procédure clean()
+- procédure loadAllSounds()
+- procédure loadAllMusics()
+
+
+
+
+
+
+
+
+
+
+
+
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>738</x>
+      <y>1620</y>
+      <w>210</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Enum Music
+	cool
+	techno</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1278</x>
+      <y>1602</y>
+      <w>420</w>
+      <h>480</h>
+    </coordinates>
+    <panel_attributes>_Game_
+--
+
+
+
+
+
+
+
+
+
+
+
+
+--
+- m_home: lien vers Menu
+- m_map: tableau de taille 3 de lien vers Map
+- m_nbMap: entier non signé
+- m_status: GameStatus
+- m_ml: MapLoad
+- m_inventory: lien vers Menu
+- m_warrior: lien vers Player
+- m_tabEnemyMap1: tableau de taille 4 de liens vers Enemy
+- m_tabEnemyMap2: tableau de taille 4 de liens vers Enemy
+- m_tabObjectMap1: tableau de taille 3 de liens vers Objects
+- m_tabObjectMap2: tableau de taille 2 de liens vers Object
+- m_tabEnemyInstance: tableau de taille 4 de liens Enemy
+- m_tabPosEnemy: lien vers Rectangle
+--
++ Game()
++ ~Game()
++ getHome() const -&gt; référence vers Menu
++ getStatus() const -&gt; GameStatus
++ procédure setStaus(IN GameStatus)
++ procédure controlePos()
++ getMap1(IN entier non signé) -&gt; référence vers Map
++ procédure eventManagers(IN characterère)
++ collisionManager(OUT Rectangle&amp;, IN tableau de Rectangle,
+IN entier non signé, IN direction::Type) -&gt; boolean
++ procédure launchGame(IN GameStatus)
++ isAtTheEdge(IN référence vers Rectangle) -&gt; direction::Type
++ procédure changeMapManager()
++ procédure setMapLoad(IN MapLoad)
++ getMapLoad() -&gt; MapLoad
++ procédure loadNewZone()
++ procédure eventTouch(IN charactère)
++ procédure ennemyManager()
++ getNbMap() -&gt; entier non signé
++ getInventory() -&gt; référence vers Menu
++ procédure heal()
++ getPlayer() -&gt; référence vers Player
++ getObject(IN entier non signé, IN MapLoad) -&gt; référence vers Object
++ getEnemy(IN entier non signé, IN MapLoad) -&gt; référence vers Enemy 
++ getAllEnemyPos(IN tableau d'Enemy, IN entier non signé) -&gt; référence vers Rectangle
++ getAllEnely(IN MapLoad) -&gt; tableau d'Enemy
++ procédure touchZ()
++ procédure touchQ()
++ procédure touchS()
++ procédure touchD()
++ procédure touchF()
++ procédure touchC()
++ procédure touchSpace()
++ procédure moveLeftClick(IN référence const vers Vec2&lt;int&gt;)
+
+
+
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1290</x>
+      <y>1620</y>
+      <w>126</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>_Namespace Diretcion_
+--
+_enum Type_
+
+top,
+lft,
+bottom,
+right,
+noValue
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1476</x>
+      <y>1632</y>
+      <w>132</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>_enum MapLoad_
+
+map_1,
+map_2,
+instance1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1032</x>
+      <y>1764</y>
+      <w>258</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>410.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>780</x>
+      <y>1452</y>
+      <w>108</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>SDL 2
+
+sdl2-image, sfl2-mixer, sfl2-ttf
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>828</x>
+      <y>1488</y>
+      <w>18</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>204</x>
+      <y>1266</y>
+      <w>180</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0;280.0;100.0;280.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>18</x>
+      <y>966</y>
+      <w>84</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>struct DoubleRect
+	r1: Rectangle
+	r2: Rectangle
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>150</x>
+      <y>960</y>
+      <w>114</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>struct FourRect
+	r1: Rectangle
+	r2: Rectangle
+	r3: Rectangle
+	r4: Rectangle</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>432</x>
+      <y>1206</y>
+      <w>192</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>300.0;10.0;300.0;200.0;10.0;200.0;10.0;340.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>1104</y>
+      <w>144</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>220.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>1548</y>
+      <w>276</w>
+      <h>228</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;360.0;440.0;360.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>810</x>
+      <y>2232</y>
+      <w>342</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>_Menu_
+--
+- m_nbChoice: entier non signé
+- m_positon: lien vers Rectangle
+- m_choices: lien vers Button
+- m_isLoad: boolean
+- m_isOpen: boolean
+- m_openButton: lien vers Button
+- m_closeButton: lien vers Button
+--
+- procédure isLoadButton()
++ Menu() constructeur par défault
++ Menu(IN entier non signé, IN référence vers Rectangle, IN boolean,
+IN boolean, IN référence vers Button, IN référence vers Button)
++ ~Menu() destructeur
++ operator=(IN référence vers Menu) -&gt; référence vers Menu
++ getIsLoad() -&gt; boolean
++ procédure setIsLoad(IN boolean) -&gt; boolean
++ getPosition() -&gt; référence vers Rectangle
++ getChoice(IN entier non signé) -&gt; référence vers Button
++ procédure setChoice(IN référence vers Button, IN entier non signé)
++ getOpenButton() -&gt; référence vers Button
++ procédure setOpenButton(IN référence vers Button)
++ getCloseButton() -&gt; référence vers Button
++ procédure setCloseButton(IN référence vers Button)
++ getIsOpen() -&gt; boolean
++ procédure setIsOpen(IN boolean)
++ procédure mouseLeftClick(IN référence vers Vec2&lt;int&gt;)
++ procédure open(IN référence vers Vec2&lt;int&gt;, OUT GameStatus)
++ procédure close(IN référence vers Vec2&lt;int&gt;, OUT GameStatus)
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>834</x>
+      <y>2586</y>
+      <w>198</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>_Button_
+--
+- m_position: lien vers Rectangle
+- m_isLoad: boolean
+--
++ Button() constructeur par défault
++ Button(IN référence vers Rectangle, IN boolean)
++ Button(IN référence vers Button) constructeur par copie
++ ~Button() destructeur
++ operator=(IN référence vers Button) -&gt; référence vers Button
++ getPosition() -&gt; référence vers Rectangle
++ procédure setIsLoad(IN boolean)
++ getIsLoad() -&gt; boolean
++ isPressed(IN référence vers Vec2&lt;int&gt;) -&gt; boolean
+
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>972</x>
+      <y>2058</y>
+      <w>318</w>
+      <h>186</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;290.0;10.0;10.0;510.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>930</x>
+      <y>2460</y>
+      <w>18</w>
+      <h>138</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;210.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>102</x>
+      <y>1266</y>
+      <w>744</w>
+      <h>1410</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>20.0;10.0;10.0;2330.0;1220.0;2330.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>966</x>
+      <y>1104</y>
+      <w>468</w>
+      <h>510</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;420.0;760.0;420.0;760.0;830.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1524</x>
+      <y>1104</y>
+      <w>18</w>
+      <h>510</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;830.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>162</x>
+      <y>324</y>
+      <w>936</w>
+      <h>630</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;1030.0;10.0;10.0;1540.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1122</x>
+      <y>30</y>
+      <w>78</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>_enum Orientation_
+north,
+west,
+south,
+east</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1266</x>
+      <y>24</y>
+      <w>90</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>_struct Weapon_
+	m_dammage: entier</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>438</x>
+      <y>2226</y>
+      <w>306</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>_Map_
+--
+
+
+
+
+
+
+
+
+
+--
+- m_decorTab: tableau de Rectangle
+- m_nbDecor: entier non signé
+- m_tabOutZones: tableau de Rectangle
+- m_nbOutZone: entier non signé
+--
+- procédure initMap1()
+- procédure initMap2()
+- procédure initInstance1()
++ Map()
++ Map(IN entier non signé, IN entier non signé, IN entier non signé)
++ ~Map()
++ procédure setDecor(IN entier non signé, IN référence vers Rectangle)
++ procédure setDecorDiago(IN entier non signé, IN référence vers Rectangle, 
+IN référence vers Decal)
++ getDecor(IN entier non signé) -&gt; référence vers Rectangle
++ getAllDecor() -&gt; tableau de Rectangle
++ procédure setOutZone(IN entier non signé, IN référence vers Rectangle)
++ getOutZone(IN entier non signé) -&gt; référence vers Rectangle
++ isInOutZone(IN référence vers Rectangle, IN entier non signé) -&gt; boolean
++ getNbDecor() -&gt; entier non signé
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>534</x>
+      <y>2250</y>
+      <w>120</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>_enum Decal_
+TopRight,
+TopLeft,
+BottomRight,
+BottomLeft</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>582</x>
+      <y>1998</y>
+      <w>708</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;380.0;10.0;10.0;1160.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>150</x>
+      <y>1266</y>
+      <w>408</w>
+      <h>972</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;960.0;660.0;960.0;660.0;1600.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1056</x>
+      <y>1386</y>
+      <w>204</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>_Common_
+--
+
+
+
+
+
+
+
+
+
+--
+windowSize: Vec2&lt;unsigned int&gt;
+impact: entier const
+top: Vec2&lt;int&gt; const
+bottom: Vec2&lt;int&gt; const
+left: Vec2&lt;int&gt; const
+right: Vec2&lt;int&gt; const
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1116</x>
+      <y>1404</y>
+      <w>90</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>_enum GameStatus_
+run,
+standBy,
+home,
+noValue
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1200</x>
+      <y>1422</y>
+      <w>186</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;290.0;10.0;290.0;300.0</additional_attributes>
+  </element>
+</diagram>
