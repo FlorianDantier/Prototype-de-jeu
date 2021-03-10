@@ -7,14 +7,6 @@ Joris Rossi 11810160
 Identifiant de projet : 13336
 url du projet : https://forge.univ-lyon1.fr/p1710759/projet_lifap4.git
 
-===================
-Description du Jeu
-===================
-
-Brain-Dead est le nouveau RPG en solo disponible sur linux.
-Vous intégrer Link dans sa quête épique au sud du monde d'hyrule explorants les mystère du monde de Zelda.
-Faîtes face aux ennemis du monde qui se trouvent sur votre chemin tels que des sbires aux allures de 
-cyclopes et des dragons aussi intelligent que terrifiants.
 
 ====================================
 Compilation et Exécution du jeu
@@ -38,7 +30,7 @@ S Déplacement vers le bas
 Q Déplacement vers la gauche
 D Déplacement vers la droite
 
-C Affiche les statistiques actuelles du joueur:
+C Affiche les statistiques actuelles du joueur (en console):
 	
 	- Nom
 	- Classe
